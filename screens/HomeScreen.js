@@ -8,6 +8,7 @@ export default class HomeScreen extends React.Component {
         const { email, displayName } = Firebase.auth().currentUser;
 
         this.setState({ email, displayName });
+        console.log(displayName )
     }
 
    
@@ -17,6 +18,7 @@ export default class HomeScreen extends React.Component {
 
         return (
             <View style={styles.container}>
+                
                 <Text>Hi {this.state.displayName}!</Text>
 
             </View>

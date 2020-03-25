@@ -6,7 +6,7 @@ export default class RegisterScreen extends React.Component {
     static navigationOptions = {
         headerShown: false
     };
-    state = { name: "", email: "", phone: "", password: "", errorMessage: null }
+    state = { name: "", email: "", password: "", errorMessage: null }
     handleSignUp = () => {
         Firebase
             .auth()
@@ -74,7 +74,7 @@ export default class RegisterScreen extends React.Component {
 
                 <TouchableOpacity 
                     style={styles.button} 
-                    onPress={this.handleLogin}>
+                    onPress={this.handleSignUp}>
                     <Text style={{ color: "#FFF", fontWeight: "500" }}>Sign up</Text>
                 </TouchableOpacity>
 
