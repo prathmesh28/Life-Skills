@@ -20,6 +20,7 @@
     "expo-permissions": "8.0.0",
     "firebase": "^7.6.2",
     "galio-framework": "^0.6.3",
+    "prop-types": "^15.7.2",
     "react": "16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.1.tar.gz",
     "react-native-app-intro-slider": "^3.0.0",

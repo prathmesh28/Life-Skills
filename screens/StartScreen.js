@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+//import { Block, Text, Button as GaButton, theme } from "galio-framework";
 
 export default class StartScreen extends React.Component {
     static navigationOptions = {
