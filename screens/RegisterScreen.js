@@ -15,15 +15,14 @@ import {
   const { width, height } = Dimensions.get("screen");
 
 
-import { Ionicons } from "@expo/vector-icons";
 import Firebase from '../firebase';
 export default class RegisterScreen extends React.Component {
     static navigationOptions = {
         headerShown: false
     };
-    state = { name: "", email: "", password: "", policy: false, errorMessage: null }
+    state = { name: "", email: "", password: "", check: false, errorMessage: null }
     handleSignUp = () => {
-        console.log(this.state.policy)
+        console.log(this.state.check)
         Firebase
             .auth()
             .createUserWithEmailAndPassword(this.state.email, this.state.password)
@@ -53,13 +52,13 @@ export default class RegisterScreen extends React.Component {
                   <Button style={{ ...styles.socialButtons, marginRight: 30 }}>
                     <Block row>
                       <Icon
-                        name="logo-github"
+                        name="logo-facebook"
                         family="Ionicon"
                         size={14}
                         color={"black"}
                         style={{ marginTop: 2, marginRight: 5 }}
                       />
-                      <Text style={styles.socialTextButtons}>GITHUB</Text>
+                      <Text style={styles.socialTextButtons}>FACEBOOK</Text>
                     </Block>
                   </Button>
                   <Button style={styles.socialButtons}>
@@ -153,10 +152,13 @@ export default class RegisterScreen extends React.Component {
                     </Block>
                     <Block row width={width * 0.75}>
                       <Checkbox
-                        checked={this.state.policy}
-                        onPress={() => this.setState(prevState => ({
-                            policy: !prevState.policy
-                               }))}
+                        //checked={this.state.check}
+                        //onPress={() => this.setState({checked: !this.state.check})}
+                        //onPress={() => this.setState(prevState => ({
+                         //   check: !prevState.ckeck
+                           //    }))}
+                           
+                        onChange={ () => this.setState({check: !this.state.check}) }
                         checkboxStyle={{
                           borderWidth: 3
                         }}
@@ -179,7 +181,9 @@ export default class RegisterScreen extends React.Component {
                       <Button 
                         color="primary" 
                         style={styles.createButton}
-                        onPress={this.handleSignUp}>
+                        onPress={this.handleSignUp}
+                        disabled={this.state.check}>
+                            
                         <Text bold size={14} color={argonTheme.COLORS.WHITE}>
                           CREATE ACCOUNT
                         </Text>
@@ -205,7 +209,7 @@ const styles = StyleSheet.create({
       shadowColor: argonTheme.COLORS.BLACK,
       shadowOffset: {
         width: 0,
-        height: 4
+        height: 5
       },
       shadowRadius: 8,
       shadowOpacity: 0.1,

@@ -1,15 +1,19 @@
-import React from 'react';
+import React from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  Image,
-  StatusBar,
-  LayoutAnimation,
- 
-} from 'react-native';
+    StyleSheet,
+    ImageBackground,
+    Dimensions,
+    StatusBar,
+    KeyboardAvoidingView, ScrollView, TextInput, View, TouchableOpacity, Image ,LayoutAnimation
+  } from "react-native";
+  import { Block, Checkbox, Text, theme } from "galio-framework";
+  
+  import Button from '../components/Button';
+  import Icon from "../components/Icon";
+  import Input from "../components/Input";
+  import { Images, argonTheme } from "../constants";
+  const { width, height } = Dimensions.get("screen");
+
 
 import Firebase from '../firebase';
 
@@ -37,104 +41,169 @@ export default class LoginScreen extends React.Component {
     LayoutAnimation.easeInEaseOut();
 
     return (
-      <View style={styles.container}>
-        <StatusBar barStyle="light-content" />
-        
-        <Text style={styles.greeting}>{`\n\nWelcome!`}</Text>
-
-        <View style={styles.errorMessage}>
-          {this.state.errorMessage && (
-            <Text style={styles.error}>{this.state.errorMessage}</Text>
-          )}
-        </View>
-
-        <View style={styles.form}>
-          <View>
-            <Text style={styles.inputTitle}>Email Address</Text>
-            <TextInput
-              style={styles.input}
-              autoCapitalize="none"
-              onChangeText={email => this.setState({ email })}
-              value={this.state.email}
-            />
-          </View>
-
-          <View style={{ marginTop: 28 }}>
-            <Text style={styles.inputTitle}>Password</Text>
-            <TextInput
-              style={styles.input}
-              secureTextEntry
-              autoCapitalize="none"
-              onChangeText={password => this.setState({ password })}
-              value={this.state.password}
-            />
-          </View>
-        </View>
-
-        <TouchableOpacity style={styles.button} onPress={this.handleLogin}>
-          <Text style={{ color: '#FFF', fontWeight: '500' }}>Sign in</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={{ alignSelf: 'center', marginTop: 28 }}
-          onPress={() => this.props.navigation.navigate('Register')}>
-          <Text style={{ color: '#414959', fontSize: 17 }}>
-            New here?{' '}
-            <Text style={{ fontWeight: '700', color: '#00b33c' }}>Register</Text>
-          </Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }
+      <Block flex middle>
+        <StatusBar hidden />
+        <ImageBackground
+          source={Images.RegisterBackground}
+          style={{ width, height, zIndex: 1 }}
+        >
+          <Block flex middle>
+            <Block style={styles.registerContainer}>
+              <Block flex={0.35} middle style={styles.socialConnect}>
+                <Text color="#8898AA" size={12}>
+                  Sign up with
+                </Text>
+                <Block row style={{ marginTop: theme.SIZES.BASE }}>
+                  <Button style={{ ...styles.socialButtons, marginRight: 30 }}>
+                    <Block row>
+                      <Icon
+                        name="logo-facebook"
+                        family="Ionicon"
+                        size={14}
+                        color={"black"}
+                        style={{ marginTop: 2, marginRight: 5 }}
+                      />
+                      <Text style={styles.socialTextButtons}>FACEBOOK</Text>
+                    </Block>
+                  </Button>
+                  <Button style={styles.socialButtons}>
+                    <Block row>
+                      <Icon
+                        name="logo-google"
+                        family="Ionicon"
+                        size={14}
+                        color={"black"}
+                        style={{ marginTop: 2, marginRight: 5 }}
+                      />
+                      <Text style={styles.socialTextButtons}>GOOGLE</Text>
+                    </Block>
+                  </Button>
+                </Block>
+              </Block>
+              <Block flex>
+                <Block flex={0.27} middle>
+                  <Text color="#8898AA" size={12}>
+                    Or sign up the classic way
+                  </Text>
+                </Block>
+                <Block flex center>
+                  <KeyboardAvoidingView
+                    style={{ flex: 1 }}
+                    behavior="padding"
+                    enabled
+                  >
+                    
+                    <Block width={width * 0.8} style={{ marginBottom: 15 }}>
+                      <Input
+                        borderless
+                        placeholder="Email"
+                        onChangeText={email => this.setState({ email })}
+                        value={this.state.email}
+                        iconContent={
+                          <Icon
+                            size={16}
+                            color={argonTheme.COLORS.ICON}
+                            name="ic_mail_24px"
+                            family="ArgonExtra"
+                            style={styles.inputIcons}
+                          />
+                        }
+                      />
+                    </Block>
+                    <Block width={width * 0.8}>
+                      <Input
+                        password
+                        borderless
+                        secureTextEntry
+                        autoCapitalize="none"
+                        placeholder="Password"
+                        onChangeText={password => this.setState({ password })}
+                        value={this.state.password}
+                        iconContent={
+                          <Icon
+                            size={16}
+                            color={argonTheme.COLORS.ICON}
+                            name="padlock-unlocked"
+                            family="ArgonExtra"
+                            style={styles.inputIcons}
+                          />
+                        }
+                      />
+                      
+                    </Block>
+                
+                    <Block middle>
+                      <Button 
+                        color="primary" 
+                        style={styles.createButton}
+                        onPress={this.handleLogin}
+                        disabled={this.state.check}>
+                            
+                        <Text bold size={14} color={argonTheme.COLORS.WHITE}>
+                          CREATE ACCOUNT
+                        </Text>
+                      </Button>
+                    </Block>
+                  </KeyboardAvoidingView>
+                </Block>
+              </Block>
+            </Block>
+          </Block>
+        </ImageBackground>
+      </Block>
+        );   
+    }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    
-    marginTop:100,
-    flex: 1,
-  },
-  greeting: {
-    // marginTop: -32,
-    fontSize: 18,
-    fontWeight: '400',
-    textAlign: 'center',
-  },
-  form: {
-    
-    marginBottom: 48,
-    marginHorizontal: 30,
-  },
-  inputTitle: {
-    color: '#8A8F9E',
-    fontSize: 10,
-    textTransform: 'uppercase',
-  },
-  input: {
-    borderBottomColor: '#8A8F9E',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    height: 40,
-    fontSize: 15,
-    color: '#161F3D',
-  },
-  button: {
-    marginHorizontal: 30,
-    backgroundColor: '#005ce6',
-    borderRadius: 4,
-    height: 52,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  errorMessage: {
-    height: 72,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginHorizontal: 30,
-  },
-  error: {
-    color: '#E9446A',
-    fontSize: 13,
-    fontWeight: '600',
-    textAlign: 'center',
-  },
-});
+    registerContainer: {
+      width: width * 0.9,
+      height: height * 0.6,
+      backgroundColor: "#F4F5F7",
+      borderRadius: 4,
+      shadowColor: argonTheme.COLORS.BLACK,
+      shadowOffset: {
+        width: 0,
+        height: 5
+      },
+      shadowRadius: 8,
+      shadowOpacity: 0.1,
+      elevation: 1,
+      overflow: "hidden"
+    },
+    socialConnect: {
+      backgroundColor: argonTheme.COLORS.WHITE,
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      borderColor: "#8898AA"
+    },
+    socialButtons: {
+      width: 120,
+      height: 40,
+      backgroundColor: "#fff",
+      shadowColor: argonTheme.COLORS.BLACK,
+      shadowOffset: {
+        width: 0,
+        height: 4
+      },
+      shadowRadius: 8,
+      shadowOpacity: 0.1,
+      elevation: 1
+    },
+    socialTextButtons: {
+      color: argonTheme.COLORS.PRIMARY,
+      fontWeight: "800",
+      fontSize: 14
+    },
+    inputIcons: {
+      marginRight: 12
+    },
+    passwordCheck: {
+      paddingLeft: 15,
+      paddingTop: 13,
+      paddingBottom: 30
+    },
+    createButton: {
+      width: width * 0.5,
+      marginTop: 25
+    }
+  });
