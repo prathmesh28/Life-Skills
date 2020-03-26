@@ -15,7 +15,6 @@ import {
   const { width, height } = Dimensions.get("screen");
 
 
-import { Ionicons } from "@expo/vector-icons";
 import Firebase from '../firebase';
 export default class RegisterScreen extends React.Component {
     static navigationOptions = {
@@ -210,7 +209,7 @@ const styles = StyleSheet.create({
       shadowColor: argonTheme.COLORS.BLACK,
       shadowOffset: {
         width: 0,
-        height: 4
+        height: 5
       },
       shadowRadius: 8,
       shadowOpacity: 0.1,
