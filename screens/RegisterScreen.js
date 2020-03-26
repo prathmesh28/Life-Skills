@@ -76,10 +76,16 @@ export default class RegisterScreen extends React.Component {
                 </Block>
               </Block>
               <Block flex>
-                <Block flex={0.17} middle>
+              <Block flex={0.17} middle>
                   <Text color="#8898AA" size={12}>
                     Or sign up the classic way
                   </Text>
+                  <Block flex={0.27} row style={styles.errorMessage}>
+                  {this.state.errorMessage && (
+                  <Text style={styles.error}>{this.state.errorMessage}</Text>
+                  )}
+                
+                </Block>
                 </Block>
                 <Block flex center>
                   <KeyboardAvoidingView
@@ -250,6 +256,17 @@ const styles = StyleSheet.create({
     createButton: {
       width: width * 0.5,
       marginTop: 25
+    },
+    errorMessage: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginHorizontal: 30,
+    },
+    error: {
+      color: '#E9446A',
+      fontSize: 13,
+      fontWeight: '600',
+      textAlign: 'center',
     }
   });
   

@@ -53,6 +53,7 @@ export default class LoginScreen extends React.Component {
                 <Text color="#8898AA" size={12}>
                   Sign up with
                 </Text>
+                
                 <Block row style={{ marginTop: theme.SIZES.BASE }}>
                   <Button style={{ ...styles.socialButtons, marginRight: 30 }}>
                     <Block row>
@@ -81,10 +82,17 @@ export default class LoginScreen extends React.Component {
                 </Block>
               </Block>
               <Block flex>
-                <Block flex={0.27} middle>
+                <Block flex={0.37} middle>
                   <Text color="#8898AA" size={12}>
                     Or sign up the classic way
                   </Text>
+                  <Block row flex={0.27} style={styles.errorMessage}>
+                
+                  {this.state.errorMessage && (
+                  <Text style={styles.error}>{this.state.errorMessage}</Text>
+                  )}
+                
+                </Block>
                 </Block>
                 <Block flex center>
                   <KeyboardAvoidingView
@@ -205,5 +213,17 @@ const styles = StyleSheet.create({
     createButton: {
       width: width * 0.5,
       marginTop: 25
+    },
+    errorMessage: {
+      height: 20,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginHorizontal: 30,
+    },
+    error: {
+      color: '#E9446A',
+      fontSize: 13,
+      fontWeight: '600',
+      textAlign: 'center',
     }
   });
