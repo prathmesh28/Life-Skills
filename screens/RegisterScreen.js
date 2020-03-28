@@ -4,7 +4,7 @@ import {
     ImageBackground,
     Dimensions,
     StatusBar,
-    KeyboardAvoidingView, ScrollView, TextInput, View, TouchableOpacity, Image
+    KeyboardAvoidingView 
   } from "react-native";
   import { Block, Checkbox, Text, theme } from "galio-framework";
   
@@ -14,8 +14,14 @@ import {
   import { Images, argonTheme } from "../constants";
   const { width, height } = Dimensions.get("screen");
 
-
+  import PassMeter from "react-native-passmeter";
 import Firebase from '../firebase';
+
+
+const MAX_LEN = 15,
+MIN_LEN = 6,
+PASS_LABELS = ["Too Short", "Weak", "Normal", "Strong", "Secure"];
+
 export default class RegisterScreen extends React.Component {
     static navigationOptions = {
         headerShown: false
@@ -34,6 +40,7 @@ export default class RegisterScreen extends React.Component {
             .catch(error => this.setState({ errorMessage: error.message }));
     };
 
+    
     render() {
         return (
             <Block flex middle>
@@ -93,6 +100,7 @@ export default class RegisterScreen extends React.Component {
                     behavior="padding"
                     enabled
                   >
+
                     <Block width={width * 0.8} style={{ marginBottom: 15 }}>
                       <Input
                         borderless
@@ -146,24 +154,18 @@ export default class RegisterScreen extends React.Component {
                           />
                         }
                       />
-                      <Block row style={styles.passwordCheck}>
-                        <Text size={12} color={argonTheme.COLORS.MUTED}>
-                          password strength:
-                        </Text>
-                        <Text bold size={12} color={argonTheme.COLORS.SUCCESS}>
-                          {" "}
-                          strong
-                        </Text>
-                      </Block>
-                    </Block>
+                      <PassMeter 
+                                  showLabels
+                                  password={this.state.password}
+                                  maxLength={MAX_LEN}
+                                  minLength={MIN_LEN}
+                                  labels={PASS_LABELS}
+                                />
+                         </Block>
+                   
                     <Block row width={width * 0.75}>
                       <Checkbox
-                        //checked={this.state.check}
-                        //onPress={() => this.setState({checked: !this.state.check})}
-                        //onPress={() => this.setState(prevState => ({
-                         //   check: !prevState.ckeck
-                           //    }))}
-                           
+                         
                         onChange={ () => this.setState({check: !this.state.check}) }
                         checkboxStyle={{
                           borderWidth: 3
@@ -195,6 +197,8 @@ export default class RegisterScreen extends React.Component {
                         </Text>
                       </Button>
                     </Block>
+
+
                   </KeyboardAvoidingView>
                 </Block>
               </Block>
@@ -249,9 +253,7 @@ const styles = StyleSheet.create({
       marginRight: 12
     },
     passwordCheck: {
-      paddingLeft: 15,
-      paddingTop: 13,
-      paddingBottom: 30
+      flex: 0.5, justifyContent: "center"
     },
     createButton: {
       width: width * 0.5,
