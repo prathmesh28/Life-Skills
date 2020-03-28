@@ -8,6 +8,7 @@ import {
   } from "react-native";
   import { Block, Checkbox, Text, theme } from "galio-framework";
   
+  
   import Button from '../components/Button';
   import Icon from "../components/Icon";
   import Input from "../components/Input";
