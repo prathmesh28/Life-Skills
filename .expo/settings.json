@@ -1,12 +1,8 @@
 {
-<<<<<<< HEAD
-  "urlRandomness": "kf-itg",
-=======
-  "urlRandomness": "d5-u7g",
->>>>>>> upstream/master
-  "hostType": "lan",
-  "lanType": "ip",
   "dev": true,
   "minify": false,
+  "hostType": "lan",
+  "lanType": "ip",
+  "urlRandomness": "qm-zpa",
   "https": false
 }
