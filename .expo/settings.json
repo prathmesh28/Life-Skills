@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "urlRandomness": "kf-itg",
+=======
+  "urlRandomness": "d5-u7g",
+>>>>>>> upstream/master
   "hostType": "lan",
   "lanType": "ip",
   "dev": true,

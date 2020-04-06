@@ -1,9 +1,7 @@
 import React from "react";
-import { StyleSheet, ImageBackground, Dimensions, StatusBar, KeyboardAvoidingView, LayoutAnimation } from "react-native";
+import { StyleSheet, ImageBackground, Dimensions, StatusBar, KeyboardAvoidingView, LayoutAnimation, AsyncStorage } from "react-native";
 import { Block, Text, theme } from "galio-framework";
-import Button from '../components/Button';
-import Icon from "../components/Icon";
-import Input from "../components/Input";
+import { Button, Icon, Input } from '../components';
 import { Images, argonTheme } from "../constants";
 import Firebase from '../firebase';
 
@@ -19,6 +17,7 @@ export default class LoginScreen extends React.Component {
     password: '',
     errorMessage: null,
   };
+  componentDidMount = () => AsyncStorage.getItem('email').then((value) => this.setState({ 'email': value }))
 
   handleLogin = () => {
     const { email, password } = this.state;
@@ -27,6 +26,7 @@ export default class LoginScreen extends React.Component {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .catch(error => this.setState({ errorMessage: error.message }));
+    AsyncStorage.setItem('email', email);
   };
 
   render() {
@@ -36,7 +36,7 @@ export default class LoginScreen extends React.Component {
       <Block flex middle>
         <StatusBar hidden />
         <ImageBackground
-          source={Images.RegisterBackground}
+          source={Images.Onboarding}
           style={{ width, height, zIndex: 1 }}>
           <Block flex middle>
             <Block style={styles.registerContainer}>

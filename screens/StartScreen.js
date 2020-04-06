@@ -1,6 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Dimensions, ImageBackground, Image } from "react-native";
-import AppIntroSlider from 'react-native-app-intro-slider';
+import { StyleSheet, Dimensions, ImageBackground, StatusBar, Image } from "react-native";
 import { Block, Text} from "galio-framework";
 import Button from '../components/Button';
 import { Images, argonTheme } from "../constants";
@@ -12,45 +11,13 @@ export default class StartScreen extends React.Component {
   static navigationOptions = {
     headerShown: false
   };
-  
-  constructor(props) {
-    super(props);
-    this.state = {
-      showRealApp: false,
-    };
-  }
-
-  _onDone = () => {
-    this.setState({ showRealApp: true });
-  };
-
-  _onSkip = () => {
-    this.setState({ showRealApp: true });
-  };
-
-  _renderItem = ({ item }) => {
-    return (
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: item.backgroundColor,
-          alignItems: 'center',
-          justifyContent: 'space-around',
-          paddingBottom: 100
-        }}>
-        <Text style={styles.title}>{item.title}</Text>
-        <Image style={styles.image} source={item.image} />
-        <Text style={styles.text}>{item.text}</Text>
-      </View>
-    );
-  };
 
   render() {
-    if (this.state.showRealApp) {
       return (
         <Block flex middle>
+          <StatusBar hidden />
           <ImageBackground
-            source={Images.RegisterBackground}
+            source={Images.Onboarding}
             style={{ width, height, zIndex: 1 }}>
             <Block flex middle>
               <Block style={styles.registerContainer} middle>
@@ -87,18 +54,6 @@ export default class StartScreen extends React.Component {
           </ImageBackground>
         </Block>
       );
-    } 
-    else {
-      return (
-        <AppIntroSlider
-          slides={slides}
-          renderItem={this._renderItem}
-          onDone={this._onDone}
-          showSkipButton={true}
-          onSkip={this._onSkip}
-        />
-      );
-    }
   }
 }
 const styles = StyleSheet.create({
@@ -130,86 +85,9 @@ const styles = StyleSheet.create({
       fontSize: 14,
       width: width * 0.5,
     },
-  image: {
-    width: 200,
-    height: 200,
-  },
   logoimg:{
     marginBottom: 100,
     width: 300,
     height: 150,
   },
-  text: {
-    fontSize: 18,
-    color: 'white',
-    textAlign: 'center',
-    paddingVertical: 30,
-  },
-  title: {
-    fontSize: 25,
-    color: 'white',
-    textAlign: 'center',
-    marginBottom: 16,
-  },
 });
-
-const slides = [
-  {
-    key: 's1',
-    text: 'Best Recharge offers',
-    title: 'Mobile Recharge',
-    image: {
-      uri:
-        'https://raw.githubusercontent.com/AboutReact/sampleresource/master/intro_mobile_recharge.png',
-    },
-    backgroundColor: '#20d2bb',
-  },
-  {
-    key: 's2',
-    title: 'Flight Booking',
-    text: 'Upto 25% off on Domestic Flights',
-    image: {
-      uri:
-        'https://raw.githubusercontent.com/AboutReact/sampleresource/master/intro_flight_ticket_booking.png',
-    },
-    backgroundColor: '#febe29',
-  },
-  {
-    key: 's3',
-    title: 'Great Offers',
-    text: 'Enjoy Great offers on our all services',
-    image: {
-      uri: 'https://raw.githubusercontent.com/AboutReact/sampleresource/master/intro_discount.png',
-    },
-    backgroundColor: '#22bcb5',
-  },
-  {
-    key: 's4',
-    title: 'Best Deals',
-    text: ' Best Deals on all our services',
-    image: {
-      uri: 'https://raw.githubusercontent.com/AboutReact/sampleresource/master/intro_best_deals.png',
-    },
-    backgroundColor: '#3395ff',
-  },
-  {
-    key: 's5',
-    title: 'Bus Booking',
-    text: 'Enjoy Travelling on Bus with flat 100% off',
-    image: {
-      uri:
-        'https://raw.githubusercontent.com/AboutReact/sampleresource/master/intro_bus_ticket_booking.png',
-    },
-    backgroundColor: '#f6437b',
-  },
-  {
-    key: 's6',
-    title: 'Train Booking',
-    text: ' 10% off on first Train booking',
-    image: {
-      uri:
-        'https://raw.githubusercontent.com/AboutReact/sampleresource/master/intro_train_ticket_booking.png',
-    },
-    backgroundColor: '#febe29',
-  },
-];

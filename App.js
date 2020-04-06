@@ -10,7 +10,7 @@ import RegisterScreen from "./screens/RegisterScreen";
 import HomeScreen from "./screens/HomeScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import StartScreen from "./screens/StartScreen";
-
+import IntroScreen from "./screens/IntroScreen"
 
 const AppTabNavigator = createBottomTabNavigator(
     {
@@ -42,16 +42,17 @@ const AuthStack = createStackNavigator({
     Login: LoginScreen,
     Register: RegisterScreen
 });
-
-
+const IntroPages = createStackNavigator({
+    Guide: IntroScreen,
+});
 export default createAppContainer(
 
     createSwitchNavigator(
         {
+            Intro: IntroPages,
             Loading: LoadingScreen,
             Auth: AuthStack,
             App: AppTabNavigator, 
-            
         },
         {
             initialRouteName: "Loading"
