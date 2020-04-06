@@ -1,9 +1,7 @@
 import React from "react";
-import { StyleSheet, ImageBackground, Dimensions, StatusBar, KeyboardAvoidingView } from "react-native";
+import { StyleSheet, ImageBackground, Dimensions, StatusBar, KeyboardAvoidingView, AsyncStorage } from "react-native";
 import { Block, Checkbox, Text, theme } from "galio-framework";
-import Button from '../components/Button';
-import Icon from "../components/Icon";
-import Input from "../components/Input";
+import { Button, Icon, Input } from '../components';
 import { Images, argonTheme } from "../constants";
 import PassMeter from "react-native-passmeter";
 import Firebase from '../firebase';
@@ -20,9 +18,10 @@ export default class RegisterScreen extends React.Component {
   };
 
   state = { name: "", email: "", password: "", check: false, errorMessage: null }
+ 
 
   handleSignUp = () => {
-      console.log(this.state.check)
+      
       Firebase
           .auth()
           .createUserWithEmailAndPassword(this.state.email, this.state.password)
@@ -32,6 +31,7 @@ export default class RegisterScreen extends React.Component {
               });
           })
           .catch(error => this.setState({ errorMessage: error.message }));
+          AsyncStorage.setItem('email', this.state.email);
   };
 
   render() {
@@ -39,10 +39,11 @@ export default class RegisterScreen extends React.Component {
       <Block flex middle>
         <StatusBar hidden />
         <ImageBackground
-          source={Images.RegisterBackground}
+          source={Images.Onboarding}
           style={{ width, height, zIndex: 1 }}>
           <Block flex middle>
             <Block style={styles.registerContainer}>
+              
               <Block flex={0.25} middle style={styles.socialConnect}>
                 <Text color="#8898AA" size={12}>
                   Sign up with
@@ -135,12 +136,18 @@ export default class RegisterScreen extends React.Component {
                           family="ArgonExtra"
                           style={styles.inputIcons}/>
                       }/>
-                    <PassMeter 
-                      showLabels
-                      password={this.state.password}
-                      maxLength={MAX_LEN}
-                      minLength={MIN_LEN}
-                      labels={PASS_LABELS}/>
+                    
+                  
+
+                    <Block style={styles.pass}>
+
+                      <PassMeter 
+                        showLabels
+                        password={this.state.password}
+                        maxLength={MAX_LEN}
+                        minLength={MIN_LEN}
+                        labels={PASS_LABELS}/>
+                    </Block>
                   </Block>
                   
                   <Block row width={width * 0.75}>
@@ -201,6 +208,9 @@ const styles = StyleSheet.create({
     backgroundColor: argonTheme.COLORS.WHITE,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderColor: "#8898AA"
+  },
+  pass: {
+    
   },
   socialButtons: {
     width: 120,
