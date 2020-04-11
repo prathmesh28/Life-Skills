@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0,
     fontWeight: "800",
     marginTop: 60,
-    fontSize: 14
+    fontSize: 18
   },
   logo: {
     width: 320,

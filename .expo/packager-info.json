@@ -2,9 +2,9 @@
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 4212,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "packagerPid": 10664,
+  "expoServerNgrokUrl": "https://6f-r5s.anonymous.life-skills.exp.direct",
+  "packagerNgrokUrl": "https://packager.6f-r5s.anonymous.life-skills.exp.direct",
+  "ngrokPid": 10436,
   "webpackServerPort": null
 }

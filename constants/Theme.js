@@ -28,6 +28,7 @@ export default {
     BORDER: '#CAD1D7',
     WHITE: '#FFFFFF',
     BLACK: '#000000',
-    INTRO: '#00BDAA'
+    //INTRO: '#1D9C30'
+    INTRO: '#2CA804'
   }
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React  from "react";
 import { StyleSheet, ImageBackground, Dimensions, StatusBar, KeyboardAvoidingView, AsyncStorage } from "react-native";
 import { Block, Checkbox, Text, theme } from "galio-framework";
 import { Button, Icon, Input } from '../components';
