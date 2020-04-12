@@ -5,7 +5,11 @@ export default class ProfileScreen extends React.Component {
  
   state = { email: null}
 
-  componentDidMount = () => AsyncStorage.getItem('email').then((value) => this.setState({ 'email': value }))
+  componentDidMount = () => {
+   
+     AsyncStorage.removeItem('name')
+    AsyncStorage.getItem('email').then((value) => this.setState({ 'email': value }))
+  }
 
   render() {
     return (

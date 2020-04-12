@@ -7,7 +7,7 @@ import { BottomNavigation, Text } from 'react-native-paper';
 
 export default class MyComponent extends React.Component {
   state = {
-    index: 2,
+    index: 0,
     routes: [
       { key: 'home', title: 'Home', icon: 'home', color: '#607D8B' },
       { key: 'heart', title: 'heart', icon: 'heart', color: '#009688' },

@@ -13,7 +13,6 @@ import { Button } from "../../components";
 import { Images } from "../../constants";
 const { width, height } = Dimensions.get("screen");
 import Catlist from "./components/Catlist"
-const thumbMeasure = (width - 48 - 32) / 3;
 
 export default class ProfileScreen extends React.Component {
   state = { email: "", displayName: "" };
@@ -48,10 +47,7 @@ export default class ProfileScreen extends React.Component {
                         marginLeft: -6}}>logout</Text>
               </Button>
             
-            <ScrollView
-              showsVerticalScrollIndicator={false}
-              style={{ width, marginTop: '5%' }}
-            >
+            
               
               <Block flex style={styles.profileCard}>
                 
@@ -68,21 +64,20 @@ export default class ProfileScreen extends React.Component {
                     <Text bold size={28} color="#32325D">
                     {this.state.displayName}
                     </Text>
-                    <Text size={16} color="#32325D" style={{ marginTop: 10 }}>
-                      San Francisco, USA
-                    </Text>
+                    
                   </Block>
                   <Block middle style={{ marginTop: 30, marginBottom: 16 }}>
                     <Block style={styles.divider} />
                   </Block>
-                 
-               
+                  <Text size={16} color="#32325D" style={{ marginTop: 10 }}>
+                      Categories
+                    </Text>
                   {/* <Text>multiselect cards and random image generator(profile)</Text> */}
                   <Catlist/>
                   
                 </Block>
               </Block>
-            </ScrollView>
+            
           </ImageBackground>
         </Block>
        
@@ -109,10 +104,10 @@ const styles = StyleSheet.create({
   },
   profileCard: {
      //position: "relative",
-    // height:height,
+    //height:height*0.4,
     padding: theme.SIZES.BASE,
     marginHorizontal: theme.SIZES.BASE,
-    marginTop: 85,
+    marginTop: height*0.15,
     borderTopLeftRadius: 6,
     borderTopRightRadius: 6,
     backgroundColor: theme.COLORS.WHITE,
@@ -144,13 +139,6 @@ const styles = StyleSheet.create({
     width: "90%",
     borderWidth: 1,
     borderColor: "#E9ECEF"
-  },
-  thumb: {
-    borderRadius: 4,
-    marginVertical: 4,
-    alignSelf: "center",
-    width: thumbMeasure,
-    height: thumbMeasure
   },
   socialButtons: {
     position:"absolute",

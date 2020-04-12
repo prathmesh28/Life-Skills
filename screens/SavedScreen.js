@@ -6,10 +6,11 @@ export default class SavedScreen extends React.Component {
 
     render() {
         return (
-            <View style={styles.container}>
-                <Text>Saved posts </Text>
-                
-            </View>
+          
+        <View style={styles.container}>
+          <Text>hi</Text>
+        </View>
+  
         );
     }
 }
@@ -20,3 +21,4 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     }
 });
+

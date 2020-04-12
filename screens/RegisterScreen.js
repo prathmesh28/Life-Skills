@@ -31,7 +31,17 @@ export default class RegisterScreen extends React.Component {
               });
           })
           .catch(error => this.setState({ errorMessage: error.message }));
-          AsyncStorage.setItem('email', this.state.email);
+          //AsyncStorage.setItem('email', this.state.email);
+          //AsyncStorage.setItem('name', this.state.name);
+
+          
+          AsyncStorage.setItem('email', this.state.email, () => {
+            AsyncStorage.setItem('name', this.state.name, () => {
+              // AsyncStorage.getItem('name', (err, name) => {
+              //   console.log(name)
+              // });
+            });
+          });
   };
 
   render() {
