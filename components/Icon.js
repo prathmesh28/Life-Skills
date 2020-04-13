@@ -1,6 +1,5 @@
 import React from 'react';
-import * as Font from 'expo-font';
-import { createIconSetFromIcoMoon } from '@expo/vector-icons';
+import { Font } from 'expo';import { createIconSetFromIcoMoon } from '@expo/vector-icons';
 import { Icon } from 'galio-framework';
 
 import argonConfig from '../assets/font/argon.json';
@@ -13,10 +12,9 @@ class IconExtra extends React.Component {
   }
 
   async componentDidMount() {
-    await Font.loadAsync({ ArgonExtra: ArgonExtra });
-    this.setState({ fontLoaded: true });
+    await Font.loadAsync({ArgonExtra: ArgonExtra })
+    this.setState({ fontLoaded: false })
   }
-
   render() {
     const { name, family, ...rest } = this.props;
     

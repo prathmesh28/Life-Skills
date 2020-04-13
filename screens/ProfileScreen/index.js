@@ -5,7 +5,8 @@ import {
   ScrollView,
   Image,
   ImageBackground,
-  StatusBar
+  StatusBar,
+  AsyncStorage
 } from "react-native";
 import { Block, Text, theme } from "galio-framework";
 import Firebase from '../../firebase';
@@ -18,7 +19,15 @@ export default class ProfileScreen extends React.Component {
   state = { email: "", displayName: "" };
   signOutUser = () => {
     Firebase.auth().signOut();
-};
+    AsyncStorage.removeItem('name')
+
+
+        AsyncStorage.getItem('name', (err, name) => {
+          AsyncStorage.removeItem('name')
+          console.log(name)
+        });
+     
+  };
     componentDidMount() {
         const { email, displayName } = Firebase.auth().currentUser;
 
@@ -53,7 +62,7 @@ export default class ProfileScreen extends React.Component {
                 
                 <Block middle style={styles.avatarContainer}>
                   <Image
-                    source={{ uri: "http://lorempixel.com/400/200" }}
+                    source={{ uri: "https://api.adorable.io/avatars/124/"+this.state.displayName+".png" }}
                     style={styles.avatar}
                     
                   />

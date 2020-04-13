@@ -8,7 +8,7 @@ export default class SavedScreen extends React.Component {
         return (
           
         <View style={styles.container}>
-          <Text>hi</Text>
+          <Text>hi https://github.com/react-native-community/react-native-modal</Text>
         </View>
   
         );

@@ -41,6 +41,7 @@
     "react-native-safe-area-context": "^0.6.0",
     "react-native-screens": "^2.0.0-alpha.20",
     "react-native-shared-element": "^0.6.1",
+    "react-native-url-preview": "^1.1.4",
     "react-native-webview": "^9.1.1",
     "react-navigation": "^4.0.7",
     "react-navigation-hooks": "^1.1.0",

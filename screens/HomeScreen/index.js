@@ -1,29 +1,56 @@
 import React from "react";
-import { View, StyleSheet, Text, AsyncStorage } from "react-native";
+import { StyleSheet,Dimensions, AsyncStorage, StatusBar } from "react-native";
+import Home from "./components/index"
+import RNUrlPreview from 'react-native-url-preview';
+import { Block, Checkbox, theme } from "galio-framework";
+import { Button, Input } from '../../components';
+import { Images, argonTheme } from "../../constants";
+import { Font } from "expo";
+import { Searchbar } from 'react-native-paper';
 
-export default class ProfileScreen extends React.Component {
- 
-  state = { email: null}
+const { width, height } = Dimensions.get("screen");
 
-  componentDidMount = () => {
-   
-     AsyncStorage.removeItem('name')
-    AsyncStorage.getItem('email').then((value) => this.setState({ 'email': value }))
-  }
+export default class HomeScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+          searchQuery: '',
+        };
+      }
+        
+       _onChangeSearch = query => this.setState({ searchQuery: query });
 
   render() {
+    const { searchQuery } = this.state;
+    
     return (
-      <View style={styles.container}>
-        <Text>
-          hi {this.state.email}
-        </Text>  
-    </View>
+      <Block flex >
+        <StatusBar hidden />
+        <Searchbar
+        style={styles.search}
+        placeholder="Search"
+        onChangeText={this._onChangeSearch}
+        value={searchQuery}
+      />
+        <Block middle>
+        
+          <Block style={styles.cards}>
+          <Home />
+          </Block>
+        </Block>
+    </Block>
   )}
 }
 const styles = StyleSheet.create({
   container: {
       flex: 1,
-      alignItems: "center",
-      justifyContent: "center"
+  },
+  search: {
+    marginTop:width*0.1,
+    marginBottom:width*0.1,
+    borderRadius: 50,
+  },
+  cards: {
+    width:width*0.9
   }
 });

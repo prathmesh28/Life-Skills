@@ -2,9 +2,9 @@
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 11380,
-  "expoServerNgrokUrl": "https://qu-zuj.anonymous.life-skills.exp.direct",
-  "packagerNgrokUrl": "https://packager.qu-zuj.anonymous.life-skills.exp.direct",
-  "ngrokPid": 9620,
+  "packagerPid": 12668,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "webpackServerPort": null
 }
