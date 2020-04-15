@@ -104,14 +104,14 @@ const styles = StyleSheet.create({
   },
     login: {
       color: argonTheme.COLORS.PRIMARY,
-      fontWeight: "800",
+      //fontWeight: "800",
       fontSize: 14,
       width: width * 0.5,
     },
     register: {
       marginTop: 25,
       color: argonTheme.COLORS.PRIMARY,
-      fontWeight: "800",
+      //fontWeight: "800",
       fontSize: 14,
       width: width * 0.5,
     },
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: 'white',
     textAlign: 'center',
-    fontWeight: 'bold',
+    //fontWeight: 'bold',
     marginTop: 50,
   },
   container: {
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     height: theme.SIZES.BASE * 3,
     shadowRadius: 0,
     shadowOpacity: 0,
-    fontWeight: "800",
+    //fontWeight: "800",
     marginTop: 60,
     fontSize: 18
   },

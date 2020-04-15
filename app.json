@@ -2,7 +2,7 @@
   "expo": {
     "name": "Life Skills",
     "description": "No description",
-    "slug": "snack-7509cc4b-30e8-436f-91a2-26a076f27ef4",
+    "slug": "life-skills",
     "privacy": "unlisted",
     "sdkVersion": "36.0.0",
     "version": "1.0.0",
@@ -21,8 +21,12 @@
         "xml"
       ]
     },
+    "android": {
+      "package": "com.prthmsh18.lifeskills"
+  },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.prthmsh18.lifeskils"
     }
   }
 }

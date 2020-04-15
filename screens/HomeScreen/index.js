@@ -5,7 +5,6 @@ import RNUrlPreview from 'react-native-url-preview';
 import { Block, Checkbox, theme } from "galio-framework";
 import { Button, Input } from '../../components';
 import { Images, argonTheme } from "../../constants";
-import { Font } from "expo";
 import { Searchbar } from 'react-native-paper';
 
 const { width, height } = Dimensions.get("screen");
@@ -16,6 +15,13 @@ export default class HomeScreen extends React.Component {
     this.state = {
           searchQuery: '',
         };
+      }
+
+      componentDidMount () {
+        AsyncStorage.getItem('name', (err, name) => {
+          AsyncStorage.removeItem('name')
+    
+            });
       }
         
        _onChangeSearch = query => this.setState({ searchQuery: query });

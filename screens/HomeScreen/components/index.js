@@ -2,7 +2,6 @@ import React from "react";
 import { View, StyleSheet, Text, AsyncStorage, ScrollView, Dimensions } from "react-native";
 import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
 import RNUrlPreview from 'react-native-url-preview';
-//const LeftContent = props => <Avatar.Icon {...props} icon="folder" />
 const { width, height } = Dimensions.get("screen");
 import data from "./data"
 
@@ -19,7 +18,7 @@ export default class Home extends React.Component {
         <Card  style={styles.card}>
         <RNUrlPreview  
           text={element.link} 
-          titleStyle={ element.title}
+          //titleStyle={ element.title}
           //containerStyle
           //imageStyle
           //faviconStyle

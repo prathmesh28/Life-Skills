@@ -5,7 +5,7 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import GridList from 'react-native-grid-list';
+
 import { Block, Text, theme } from "galio-framework";
 import { Card, Title } from 'react-native-paper';
 const { width, height } = Dimensions.get("screen");

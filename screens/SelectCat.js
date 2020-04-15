@@ -3,37 +3,17 @@ import {
   StyleSheet,
   Dimensions,
   ImageBackground,
-  AsyncStorage,
   StatusBar
 } from "react-native";
-import GridList from 'react-native-grid-list';
-import { Block, Text, theme, Button } from "galio-framework";
+import { Block, Text, Button } from "galio-framework";
 import { Images, argonTheme } from "../constants";
-
-import { Card, Title } from 'react-native-paper';
 const { width, height } = Dimensions.get("screen");
 import Catlist from "./ProfileScreen/components/Catlist"
-import Firebase from '../firebase';
-let Name, Email
 export default class SelectCat extends React.Component{
   static navigationOptions = {
     headerShown: false
   };
-  componentDidMount() {
 
-    // AsyncStorage.getItem('email').then((value) => this.setState({ 'email': value }))
-    // AsyncStorage.getItem('name').then((value) => this.setState({ 'name': value }))
-  
-    AsyncStorage.getItem('name', (err, name) => {
-          AsyncStorage.getItem('email', (err, email) => {
-            Name=name
-            Email=email
-            console.log(email)
-            console.log(name)
-
-            });
-        });
-      }
   render(){
     
     return(

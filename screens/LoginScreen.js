@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
   },
   socialTextButtons: {
     color: argonTheme.COLORS.PRIMARY,
-    fontWeight: "800",
+    //fontWeight: "800",
     fontSize: 14
   },
   inputIcons: {
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
   error: {
     color: '#E9446A',
     fontSize: 13,
-    fontWeight: '600',
+    //fontWeight: '600',
     textAlign: 'center',
   }
 });

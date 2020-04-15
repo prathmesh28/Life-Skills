@@ -5,7 +5,7 @@ import { Button, Icon, Input } from '../components';
 import { Images, argonTheme } from "../constants";
 import PassMeter from "react-native-passmeter";
 import Firebase from '../firebase';
-
+import Cat from "./SelectCat"
 const { width, height } = Dimensions.get("screen");
 
 const MAX_LEN = 15,
@@ -19,7 +19,7 @@ export default class RegisterScreen extends React.Component {
 
   state = { name: "", email: "", password: "", check: false, errorMessage: null }
  
-
+  
   handleSignUp = () => {
       
       Firebase
@@ -33,7 +33,6 @@ export default class RegisterScreen extends React.Component {
           .catch(error => this.setState({ errorMessage: error.message }));
           //AsyncStorage.setItem('email', this.state.email);
           //AsyncStorage.setItem('name', this.state.name);
-
           
           AsyncStorage.setItem('email', this.state.email, () => {
             AsyncStorage.setItem('name', this.state.name, () => {
@@ -194,7 +193,8 @@ export default class RegisterScreen extends React.Component {
         </Block>
       </ImageBackground>
     </Block>
-    );   
+    ); 
+    
   }
 }
 
@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
   },
   socialTextButtons: {
     color: argonTheme.COLORS.PRIMARY,
-    fontWeight: "800",
+    //fontWeight: "800",
     fontSize: 14
   },
   inputIcons: {
@@ -258,7 +258,11 @@ const styles = StyleSheet.create({
   error: {
     color: '#E9446A',
     fontSize: 13,
-    fontWeight: '600',
+    //fontWeight: '600',
     textAlign: 'center',
+  },
+  subButton: {
+    position:"absolute",
+    marginTop:height*0.49   //change this
   }
 });

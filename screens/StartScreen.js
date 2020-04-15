@@ -74,14 +74,14 @@ const styles = StyleSheet.create({
   },
     login: {
       color: argonTheme.COLORS.PRIMARY,
-      fontWeight: "800",
+      //fontWeight: "800",
       fontSize: 14,
       width: width * 0.5,
     },
     register: {
       marginTop: 25,
       color: argonTheme.COLORS.PRIMARY,
-      fontWeight: "800",
+      //fontWeight: "800",
       fontSize: 14,
       width: width * 0.5,
     },

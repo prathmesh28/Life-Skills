@@ -2,11 +2,10 @@ import React from "react";
 import {
   StyleSheet,
   Dimensions,
-  ScrollView,
   Image,
   ImageBackground,
-  StatusBar,
-  AsyncStorage
+  StatusBar
+  
 } from "react-native";
 import { Block, Text, theme } from "galio-framework";
 import Firebase from '../../firebase';
@@ -19,13 +18,7 @@ export default class ProfileScreen extends React.Component {
   state = { email: "", displayName: "" };
   signOutUser = () => {
     Firebase.auth().signOut();
-    AsyncStorage.removeItem('name')
-
-
-        AsyncStorage.getItem('name', (err, name) => {
-          AsyncStorage.removeItem('name')
-          console.log(name)
-        });
+    
      
   };
     componentDidMount() {
@@ -81,7 +74,6 @@ export default class ProfileScreen extends React.Component {
                   <Text size={16} color="#32325D" style={{ marginTop: 10 }}>
                       Categories
                     </Text>
-                  {/* <Text>multiselect cards and random image generator(profile)</Text> */}
                   <Catlist/>
                   
                 </Block>
