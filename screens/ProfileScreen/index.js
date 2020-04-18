@@ -4,7 +4,8 @@ import {
   Dimensions,
   Image,
   ImageBackground,
-  StatusBar
+  StatusBar,
+  AsyncStorage
   
 } from "react-native";
 import { Block, Text, theme } from "galio-framework";
@@ -18,7 +19,11 @@ export default class ProfileScreen extends React.Component {
   state = { email: "", displayName: "" };
   signOutUser = () => {
     Firebase.auth().signOut();
-    
+//removed this coz when user logs in this dosent update
+//     AsyncStorage.getItem('topickey', (err, topickey) => {
+//       AsyncStorage.removeItem('topickey')
+// //dont remove this
+//         });
      
   };
     componentDidMount() {

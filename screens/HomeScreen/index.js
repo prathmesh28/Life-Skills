@@ -20,7 +20,7 @@ export default class HomeScreen extends React.Component {
       componentDidMount () {
         AsyncStorage.getItem('name', (err, name) => {
           AsyncStorage.removeItem('name')
-    
+    //dont remove this
             });
       }
         

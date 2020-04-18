@@ -124,7 +124,7 @@ export default class LoginScreen extends React.Component {
                         onPress={this.handleLogin}
                         disabled={this.state.check}> 
                         <Text bold size={14} color={argonTheme.COLORS.WHITE}>
-                          CREATE ACCOUNT
+                           LOG IN
                         </Text>
                       </Button>
                     </Block>

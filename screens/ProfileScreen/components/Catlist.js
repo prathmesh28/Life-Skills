@@ -4,70 +4,55 @@ import {
   Dimensions,
   FlatList,
   TouchableOpacity,
+  AsyncStorage
 } from "react-native";
 
 import { Block, Text, theme } from "galio-framework";
 import { Card, Title } from 'react-native-paper';
 const { width, height } = Dimensions.get("screen");
-
-
-const Data = [
-  {
-    id: 1,
-    name: 'Knowledge',
-    img: require("../../../assets/cat/book.png"),
-    selected: false
-  },
-  {
-    id: 2,
-    name: 'Emotions',
-    img: require("../../../assets/cat/emotions.png"),
-    selected: false
-  },
-  {
-    id: 3,
-    name: 'Leadership',
-    img: require("../../../assets/cat/leadership.png"),
-    selected: false
-  },
-  {
-    id: 4,
-    name: 'Communication',
-    img: require("../../../assets/cat/conversation.png"),
-    selected: false
-  },
-  {
-    id: 5,
-    name: 'Love',
-    img: require("../../../assets/cat/empathy.png"),
-    selected: false
-  },
-  {
-    id: 6,
-    name: 'Travel',
-    img: require("../../../assets/cat/goal.png"),
-    selected: false
-  },
-];
+import Topics from "../../Topics"
 
 export default class Cattist extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
       selectedItem: null,
-      renderData:Data
-    };
-  } 
+      renderData:Topics,
+      
+    }
+  }
+  async componentWillUnmount() {
 
+      try {
+        await AsyncStorage.setItem('topickey', JSON.stringify(this.state.renderData));
+      } catch (error) {
+        // checking
+      }
+
+      // try {
+      //       const myArray = await AsyncStorage.getItem('topickey');
+      //       if (myArray !== null) {
+      //         // We have data!!
+      //         console.log(JSON.parse(myArray));
+      //       }
+      //     } catch (error) {
+      //       // Error retrieving data
+      //     }
+      
+  }
+  
   onPressHandler(id) {
     let renderData=[...this.state.renderData];
     for(let data of renderData){
       if(data.id==id){
         data.selected=(data.selected==false)?true:!data.selected;
+
         break;
       }
     }
+    
     this.setState({renderData});
+    //console.log(this.state.renderData)
   }
 render(){
         return(

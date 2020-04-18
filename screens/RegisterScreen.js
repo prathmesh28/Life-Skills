@@ -34,6 +34,7 @@ export default class RegisterScreen extends React.Component {
           //AsyncStorage.setItem('email', this.state.email);
           //AsyncStorage.setItem('name', this.state.name);
           
+          //try multiSet() 
           AsyncStorage.setItem('email', this.state.email, () => {
             AsyncStorage.setItem('name', this.state.name, () => {
               // AsyncStorage.getItem('name', (err, name) => {
@@ -182,7 +183,7 @@ export default class RegisterScreen extends React.Component {
                       onPress={this.handleSignUp}
                       disabled={this.state.check}>
                       <Text bold size={14} color={argonTheme.COLORS.WHITE}>
-                        CREATE ACCOUNT
+                      CREATE ACCOUNT 
                       </Text>
                     </Button>
                   </Block>
