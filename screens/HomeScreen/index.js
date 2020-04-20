@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet,Dimensions, AsyncStorage, StatusBar } from "react-native";
+import { StyleSheet,Dimensions, AsyncStorage, StatusBar, ImageBackground } from "react-native";
 import Home from "./components/index"
 import RNUrlPreview from 'react-native-url-preview';
 import { Block, Checkbox, theme } from "galio-framework";
@@ -30,8 +30,15 @@ export default class HomeScreen extends React.Component {
     const { searchQuery } = this.state;
     
     return (
-      <Block flex >
+      <Block flex center>
         <StatusBar hidden />
+        
+        <ImageBackground
+            source={Images.Onboarding}
+            style={styles.profileContainer}
+            imageStyle={styles.profileBackground}
+          >
+             <Block middle>
         <Searchbar
         style={styles.search}
         placeholder="Search"
@@ -44,6 +51,9 @@ export default class HomeScreen extends React.Component {
           <Home />
           </Block>
         </Block>
+        </Block>
+        </ImageBackground>
+        
     </Block>
   )}
 }
@@ -53,10 +63,22 @@ const styles = StyleSheet.create({
   },
   search: {
     marginTop:width*0.1,
-    marginBottom:width*0.1,
+    marginBottom:width*0.07,
     borderRadius: 50,
+    width:width*0.9
   },
   cards: {
-    width:width*0.9
-  }
+    width:width*0.9,
+    height:height*0.79
+  },
+  profileContainer: {
+    width: width,
+    height: height,
+    padding: 0,
+    zIndex: 1
+  },
+  profileBackground: {
+    width: width,
+    height: height
+  },
 });

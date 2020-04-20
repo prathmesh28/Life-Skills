@@ -14,7 +14,7 @@ import { Button } from "../../components";
 import { Images } from "../../constants";
 const { width, height } = Dimensions.get("screen");
 import Catlist from "./components/Catlist"
-
+import Model from "./components/model"
 export default class ProfileScreen extends React.Component {
   state = { email: "", displayName: "" };
   signOutUser = () => {
@@ -65,7 +65,7 @@ export default class ProfileScreen extends React.Component {
                     
                   />
                 </Block>
-                
+                 
                 <Block flex>
                   <Block middle style={styles.nameInfo}>
                     <Text bold size={28} color="#32325D">
@@ -76,10 +76,11 @@ export default class ProfileScreen extends React.Component {
                   <Block middle style={{ marginTop: 30, marginBottom: 16 }}>
                     <Block style={styles.divider} />
                   </Block>
-                  <Text size={16} color="#32325D" style={{ marginTop: 10 }}>
-                      Categories
-                    </Text>
+                  <Block middle style={{marginBottom:100}}>
+                  <Model/>
+                  </Block>
                   <Catlist/>
+                 
                   
                 </Block>
               </Block>

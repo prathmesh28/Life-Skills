@@ -1,11 +1,12 @@
 import React from "react";
 import { View, StyleSheet, Text, AsyncStorage, ScrollView, Dimensions } from "react-native";
-import { Avatar, Button, Card, Title, Paragraph, IconButton ,Image } from 'react-native-paper';
+import { Avatar, Button, Card, Title, Paragraph, IconButton ,Image, Colors, ToggleButton  } from 'react-native-paper';
 import RNUrlPreview from 'react-native-url-preview';
 const { width, height } = Dimensions.get("screen");
 import data from "../../data"
 //let arraynews = [];
 const ary = []
+const savedlist = []
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -15,62 +16,22 @@ export default class Home extends React.Component {
   };
 }
 
+
+
+
+
  async componentDidMount(){
   
       const myArray = await AsyncStorage.getItem('topickey');
-      // console.log(JSON.parse(myArray));
       const arraynews = JSON.parse(myArray)
-      // console.log(arraynews);
       
       const arraylist = arraynews.filter(element => {
-        
           ary.push(element.selected?element.name:null)
-         
-          
-          //return ary
-        
-          
-      
       })
       this.setState({arraylist:ary})
-     //console.log(this.state.arraylist)
-      //this.setState({arraylist})
-   }
-//use asyncdata for categories
-
-//   list = () => {
-//  //   {console.log(arraynews)}
-//     return this.state.News.map(element => {
-//     return arraynews.map(item => {
-
-    //  let temp = arraynews.find(item=> item.name === element.topic)
-    //  if(temp.arraynews) {
-    //   e.address = temp.address;
-    // }
-
-    //  let op = people.map((e,i)=>{
-    //   let temp = address.find(element=> element.id === e.id)
-    //   if(temp.address) {
-    //     e.address = temp.address;
-    //   }
-    //   return e;
-    // })
-    // console.log(op);
-    
-  //   if(item.name===element.topic)
-     //  if(element.topic===item.name)
-
+}
      list = () => { 
-      // console.log(this.state.arraylist)
      return this.state.News.map(element => {
-         //     console.log(this.state.arraylist)
-         // let temp = this.state.arraylist.find(item=> item.name === element.topic)
-        //   console.log(arraynews)
-      //     if(temp.this.state.arraynews) {
-
-     //   return this.state.arraylist.map(item => {
-     // console.log(this.state.arraylist)
-    // console.log(ary)
         if(ary.indexOf(element.topic) !== -1){
           return (
             <Card  style={styles.card}>
@@ -78,29 +39,64 @@ export default class Home extends React.Component {
               key={element.id}
               title={element.topic}
               titleStyle={styles.titlecard}
-              right={(props) => <IconButton {...props} icon="heart" onPress={() => { }} />}
+              right={(props) => 
+                <ToggleButton
+                    icon="heart"
+                    //value={element.Saved}
+                    color={Colors.pink300}
+                    status={element.Saved}
+                    onPress={ () => {  
+                    if(element.Saved)
+                    {
+                            element.Saved=false
+                            if(savedlist.indexOf(element.id) !== -1){
+                            
+                              var index = savedlist.indexOf(element.id);
+                              if (index !== -1) savedlist.splice(index, 1);
+                            // console.log(savedlist)
+                  
+                            } 
+                    }
+                    else{
+                      element.Saved=true
+                      if(savedlist.indexOf(element.id) !== -1){} 
+                      else{
+                          savedlist.push(element.id)
+                         // console.log(savedlist)
+                          }
+                     }
+                  
+             //         console.log(savedlist)
+                      AsyncStorage.setItem('save', JSON.stringify(savedlist));
+                      
+                   }
+                  }
+                  ></ToggleButton>
+              }
               rightStyle={styles.righticon}
               style={styles.cardsty}
             />
           <RNUrlPreview  
             text={element.link} 
+            titleStyle={styles.linktitle}
+            containerStyle={styles.linkcontainer}
+            titleNumberOfLines={2}
+            imageStyle={styles.linkimage}
           />
           </Card>
           )
         }
-          
-   //     });
-        // if(temp){
-        //   return tepm
-        // }
+    //    console.log(savedlist)
      });
     
   };
+
+ 
   render() {
     return (
       <ScrollView
         showsVerticalScrollIndicator={false}
-        //style={{ width, marginTop: '5%' }}
+       // style={{ marginBottom:50 }}
       >
         
           {this.list()}
@@ -116,9 +112,12 @@ const styles = StyleSheet.create({
   },
   card: {
     margin:10,
+    paddingLeft:10,
+    paddingRight:10
   },
   titlecard: {
-    fontSize:12
+    fontSize:12,
+   
   },
   button: {
     elevation:0,
@@ -130,8 +129,25 @@ const styles = StyleSheet.create({
   },
   cardsty: {
     marginTop: -16,
-    marginBottom: -16
-
-  }
+    marginBottom: -16,
+    
+  },
+  linktitle: {
+   // backgroundColor: '#fff'
+   fontWeight:"bold",
+   alignItems:"flex-start",
+   
+  },
+  linkcontainer: {
+    backgroundColor: '#fff',
+    flex: 2, 
+    flexDirection: 'row', 
+    flexWrap: 'wrap'
+  },
+  // linkimage: {
+  //   //alignItems: 'flex-end' ,
+  //  // flexDirection: 'row',
+  //  //  justifyContent: 'flex-start' ,
+  // }
 
 });

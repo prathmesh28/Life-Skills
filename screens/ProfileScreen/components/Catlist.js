@@ -21,6 +21,14 @@ export default class Cattist extends React.Component{
       
     }
   }
+  async componentDidMount(){
+  //to update topics from phone data
+    const myArray = await AsyncStorage.getItem('topickey');
+    const renderData = JSON.parse(myArray)
+  //  this.setState({renderData})
+    renderData? this.setState({renderData}):null
+  // console.log(renderData)
+ }
   async componentWillUnmount() {
 
       try {
@@ -28,16 +36,6 @@ export default class Cattist extends React.Component{
       } catch (error) {
         // checking
       }
-
-      // try {
-      //       const myArray = await AsyncStorage.getItem('topickey');
-      //       if (myArray !== null) {
-      //         // We have data!!
-      //         console.log(JSON.parse(myArray));
-      //       }
-      //     } catch (error) {
-      //       // Error retrieving data
-      //     }
       
   }
   
@@ -52,6 +50,7 @@ export default class Cattist extends React.Component{
     }
     
     this.setState({renderData});
+    AsyncStorage.setItem('topickey', JSON.stringify(this.state.renderData));
     //console.log(this.state.renderData)
   }
 render(){
