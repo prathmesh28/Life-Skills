@@ -27,8 +27,10 @@ export default class StartScreen extends React.Component {
                       source={require('../assets/skills.png')} /> 
                 </Block>
                 <Block middle width={width * 0.8} style={{position:"relative" ,top:-60}}>
-                  <Text style={{fontSize:22, fontWeight:"bold", textAlign: 'justify', lineHeight: 50,}}>Welcome to Life Skills</Text>
-                  <Text center style={{fontSize:17, }}>A platform that provides you with a variety of topics to learn from and life hacks to make your lifestyle more productive and organized.
+                  <Text style={{fontSize:22, fontWeight:"bold", textAlign: 'justify', lineHeight: 50,}}>
+                    Welcome to Life Skills</Text>
+                  <Text center style={{fontSize:17, }}>
+                    A platform that provides you with a variety of topics to learn from and life hacks to make your lifestyle more productive and organized.
                   </Text>
                 </Block>
                 <Block row width={width * 0.8} style={{ marginBottom: 15 }} middle>

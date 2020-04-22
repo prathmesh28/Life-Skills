@@ -41,7 +41,7 @@ export default class LoginScreen extends React.Component {
           <Block flex middle>
             <Block style={styles.registerContainer}>
               <Block middle>
-                <Text style={styles.titletxt}>Register</Text>
+                <Text style={styles.titletxt}>Login</Text>
               </Block>
               <Block flex>
                 <Block flex={0.17} middle>

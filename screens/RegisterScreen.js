@@ -4,8 +4,11 @@ import { Block, Checkbox, Text, theme } from "galio-framework";
 import { Button, Icon, Input } from '../components';
 import { Images, argonTheme } from "../constants";
 import Firebase from '../firebase';
-import TextPasswordStrengthDisplay from 'react-native-password-strength-meter';
+
+import RNPasswordStrengthMeter, { TextPasswordStrengthDisplay } from 'react-native-password-strength-meter';
+
 const { width, height } = Dimensions.get("screen");
+
 
 export default class RegisterScreen extends React.Component {
   static navigationOptions = {
@@ -29,7 +32,7 @@ export default class RegisterScreen extends React.Component {
          
           AsyncStorage.setItem('email', this.state.email, () => {
             AsyncStorage.setItem('name', this.state.name, () => {
-           
+          
             });
           });
   };
@@ -46,12 +49,12 @@ export default class RegisterScreen extends React.Component {
               <Block middle>
                 <Text style={styles.titletxt}>Register</Text>
               </Block>
-            <Block flex>
-              <Block flex={0.17} middle>
-                <Block flex={0.27} row style={styles.errorMessage}>
-                  {this.state.errorMessage && (<Text style={styles.error}>{this.state.errorMessage}</Text>)}
+              <Block flex>
+                <Block flex={0.17} middle>
+                  <Block flex={0.27} row style={styles.errorMessage}>
+                    {this.state.errorMessage && (<Text style={styles.error}>{this.state.errorMessage}</Text>)}
+                  </Block>
                 </Block>
-              </Block>
               <Block flex center>
                 <KeyboardAvoidingView
                   style={{ flex: 1 }}
@@ -110,21 +113,24 @@ export default class RegisterScreen extends React.Component {
                      
                        <Block row style={styles.passwordCheck}>
                         <Block >
-                          <Text  size={12} color={argonTheme.COLORS.MUTED}>
-                            password strength:
-                          </Text>
+                        <Text  size={12} color={argonTheme.COLORS.MUTED}>
+                          password strength:
+                        </Text>
+                       
                         </Block>
                         <Block flex>
-                          <TextPasswordStrengthDisplay
-                            password={this.state.password}
-                            wrapperStyle={{
-                              marginTop:-9
-                            }}
-                            labelStyle={{fontWeight:"bold"}}
-                          />
-                        </Block>
+                        <TextPasswordStrengthDisplay
+                       
+                        password={this.state.password}
+                        wrapperStyle={{
+                          marginTop:-9, 
+                        }}
+                        labelStyle={{fontWeight:"bold"}}
+                      />
                       </Block>
+                    </Block>
                   </Block>
+                  
                   <Block row width={width * 0.75}>
                     <Checkbox  
                       onChange={ () => this.setState({check: !this.state.check}) }
@@ -213,7 +219,5 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
     flex: 0.5, 
     justifyContent: "space-evenly",
-
-   
   },
 });
