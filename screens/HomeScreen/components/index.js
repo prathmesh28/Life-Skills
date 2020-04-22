@@ -1,7 +1,8 @@
 import React from "react";
-import { View, StyleSheet, Text, AsyncStorage, ScrollView, Dimensions } from "react-native";
+import { View, StyleSheet, Text, AsyncStorage, ScrollView, Dimensions, TouchableOpacity, ToastAndroid } from "react-native";
 import { Avatar, Button, Card, Title, Paragraph, IconButton ,Image, Colors, ToggleButton  } from 'react-native-paper';
 import RNUrlPreview from 'react-native-url-preview';
+import { WebView } from 'react-native-webview';
 const { width, height } = Dimensions.get("screen");
 import data from "../../data"
 //let arraynews = [];
@@ -49,6 +50,7 @@ export default class Home extends React.Component {
                     if(element.Saved)
                     {
                             element.Saved=false
+                            ToastAndroid.show("Removed from Saved", ToastAndroid.SHORT);
                             if(savedlist.indexOf(element.id) !== -1){
                             
                               var index = savedlist.indexOf(element.id);
@@ -59,6 +61,7 @@ export default class Home extends React.Component {
                     }
                     else{
                       element.Saved=true
+                      ToastAndroid.show("Added to Saved list", ToastAndroid.SHORT);
                       if(savedlist.indexOf(element.id) !== -1){} 
                       else{
                           savedlist.push(element.id)
@@ -76,13 +79,16 @@ export default class Home extends React.Component {
               rightStyle={styles.righticon}
               style={styles.cardsty}
             />
+            {/* <TouchableOpacity onPress={() => {this.props.navigation.navigate('WebS')}}> */}
           <RNUrlPreview  
             text={element.link} 
             titleStyle={styles.linktitle}
             containerStyle={styles.linkcontainer}
             titleNumberOfLines={2}
             imageStyle={styles.linkimage}
+            disable
           />
+          {/* </TouchableOpacity> */}
           </Card>
           )
         }

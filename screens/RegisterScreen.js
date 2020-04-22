@@ -3,14 +3,9 @@ import { StyleSheet, ImageBackground, Dimensions, StatusBar, KeyboardAvoidingVie
 import { Block, Checkbox, Text, theme } from "galio-framework";
 import { Button, Icon, Input } from '../components';
 import { Images, argonTheme } from "../constants";
-import PassMeter from "react-native-passmeter";
 import Firebase from '../firebase';
-import Cat from "./SelectCat"
+import TextPasswordStrengthDisplay from 'react-native-password-strength-meter';
 const { width, height } = Dimensions.get("screen");
-
-const MAX_LEN = 15,
-MIN_LEN = 6,
-PASS_LABELS = ["Too Short", "Weak", "Normal", "Strong", "Secure"];
 
 export default class RegisterScreen extends React.Component {
   static navigationOptions = {
@@ -31,15 +26,10 @@ export default class RegisterScreen extends React.Component {
               });
           })
           .catch(error => this.setState({ errorMessage: error.message }));
-          //AsyncStorage.setItem('email', this.state.email);
-          //AsyncStorage.setItem('name', this.state.name);
-          
-          //try multiSet() 
+         
           AsyncStorage.setItem('email', this.state.email, () => {
             AsyncStorage.setItem('name', this.state.name, () => {
-              // AsyncStorage.getItem('name', (err, name) => {
-              //   console.log(name)
-              // });
+           
             });
           });
   };
@@ -53,41 +43,11 @@ export default class RegisterScreen extends React.Component {
           style={{ width, height, zIndex: 1 }}>
           <Block flex middle>
             <Block style={styles.registerContainer}>
-              
-              <Block flex={0.25} middle style={styles.socialConnect}>
-                <Text color="#8898AA" size={12}>
-                  Sign up with
-                </Text>
-                <Block row style={{ marginTop: theme.SIZES.BASE }}>
-                  <Button style={{ ...styles.socialButtons, marginRight: 30 }}>
-                    <Block row>
-                      <Icon
-                        name="logo-facebook"
-                        family="Ionicon"
-                        size={14}
-                        color={"black"}
-                        style={{ marginTop: 2, marginRight: 5 }}/>
-                      <Text style={styles.socialTextButtons}>FACEBOOK</Text>
-                    </Block>
-                  </Button>
-                  <Button style={styles.socialButtons}>
-                    <Block row>
-                      <Icon
-                        name="logo-google"
-                        family="Ionicon"
-                        size={14}
-                        color={"black"}
-                        style={{ marginTop: 2, marginRight: 5 }}/>
-                      <Text style={styles.socialTextButtons}>GOOGLE</Text>
-                    </Block>
-                  </Button>
-                </Block>
+              <Block middle>
+                <Text style={styles.titletxt}>Register</Text>
               </Block>
             <Block flex>
               <Block flex={0.17} middle>
-                <Text color="#8898AA" size={12}>
-                  Or sign up the classic way
-                </Text>
                 <Block flex={0.27} row style={styles.errorMessage}>
                   {this.state.errorMessage && (<Text style={styles.error}>{this.state.errorMessage}</Text>)}
                 </Block>
@@ -145,21 +105,26 @@ export default class RegisterScreen extends React.Component {
                           name="padlock-unlocked"
                           family="ArgonExtra"
                           style={styles.inputIcons}/>
-                      }/>
-                    
-                  
-
-                    <Block style={styles.pass}>
-
-                      <PassMeter 
-                        showLabels
-                        password={this.state.password}
-                        maxLength={MAX_LEN}
-                        minLength={MIN_LEN}
-                        labels={PASS_LABELS}/>
-                    </Block>
+                      }>
+                     </Input>
+                     
+                       <Block row style={styles.passwordCheck}>
+                        <Block >
+                          <Text  size={12} color={argonTheme.COLORS.MUTED}>
+                            password strength:
+                          </Text>
+                        </Block>
+                        <Block flex>
+                          <TextPasswordStrengthDisplay
+                            password={this.state.password}
+                            wrapperStyle={{
+                              marginTop:-9
+                            }}
+                            labelStyle={{fontWeight:"bold"}}
+                          />
+                        </Block>
+                      </Block>
                   </Block>
-                  
                   <Block row width={width * 0.75}>
                     <Checkbox  
                       onChange={ () => this.setState({check: !this.state.check}) }
@@ -189,6 +154,7 @@ export default class RegisterScreen extends React.Component {
                   </Block>
                 </KeyboardAvoidingView>
               </Block>
+              
             </Block>
           </Block>
         </Block>
@@ -202,7 +168,7 @@ export default class RegisterScreen extends React.Component {
 const styles = StyleSheet.create({
   registerContainer: {
     width: width * 0.9,
-    height: height * 0.78,
+    height: height * 0.8,
     backgroundColor: "#F4F5F7",
     borderRadius: 4,
     shadowColor: argonTheme.COLORS.BLACK,
@@ -215,38 +181,16 @@ const styles = StyleSheet.create({
     elevation: 1,
     overflow: "hidden"
   },
-  socialConnect: {
-    backgroundColor: argonTheme.COLORS.WHITE,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderColor: "#8898AA"
-  },
-  pass: {
+  titletxt: {
+    marginTop:60,
+    fontSize: 45,
+    fontWeight: "600"
     
-  },
-  socialButtons: {
-    width: 120,
-    height: 40,
-    backgroundColor: "#fff",
-    shadowColor: argonTheme.COLORS.BLACK,
-    shadowOffset: {
-      width: 0,
-      height: 4
-    },
-    shadowRadius: 8,
-    shadowOpacity: 0.1,
-    elevation: 1
-  },
-  socialTextButtons: {
-    color: argonTheme.COLORS.PRIMARY,
-    //fontWeight: "800",
-    fontSize: 14
   },
   inputIcons: {
     marginRight: 12
   },
-  passwordCheck: {
-    flex: 0.5, justifyContent: "center"
-  },
+
   createButton: {
     width: width * 0.5,
     marginTop: 25
@@ -259,11 +203,17 @@ const styles = StyleSheet.create({
   error: {
     color: '#E9446A',
     fontSize: 13,
-    //fontWeight: '600',
+    fontWeight: '600',
     textAlign: 'center',
   },
-  subButton: {
-    position:"absolute",
-    marginTop:height*0.49   //change this
-  }
+ 
+  passwordCheck: {
+    paddingLeft: 15,
+    paddingTop: 13,
+    paddingBottom: 30,
+    flex: 0.5, 
+    justifyContent: "space-evenly",
+
+   
+  },
 });

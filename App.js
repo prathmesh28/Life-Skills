@@ -10,6 +10,7 @@ import IntroScreen from "./screens/IntroScreen"
 import Bottomnav from "./Bottomnav"
 import SelectCat from "./screens/SelectCat"
 import Loadcat from "./screens/lodcat"
+import WebPage from "./screens/HomeScreen/components/WebPage"
 const AuthStack = createStackNavigator({
     Start:StartScreen,
     Login: LoginScreen,
@@ -19,6 +20,7 @@ const AuthStack = createStackNavigator({
 const IntroPages = createStackNavigator({
     Guide: IntroScreen,
 });
+
 export default createAppContainer(
 
     createSwitchNavigator(
@@ -29,6 +31,7 @@ export default createAppContainer(
             Lcat:Loadcat,
             Cat:SelectCat,
             App: Bottomnav, 
+            WebS:WebPage,
         },
         {
             initialRouteName: "Loading"

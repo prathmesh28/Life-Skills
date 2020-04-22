@@ -1,13 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { WebView } from 'react-native-webview';
-import data from "./data"
+// import data from "./data"
 
-const myHtmlFile = require("https://medium.com/the-mission/why-there-is-no-such-thing-as-time-management-4d514a21060a");
+//const myHtmlFile = require("https://medium.com/the-mission/why-there-is-no-such-thing-as-time-management-4d514a21060a");
 
-class WebPage extends Component {
+export default class WebPage extends React.Component {
   render() {
     return (
-      <WebView source={myHtmlFile} />
+      <View>
+        <Text>hi</Text>
+      </View>
+      // <WebView source={myHtmlFile} />
     );
   }
 }

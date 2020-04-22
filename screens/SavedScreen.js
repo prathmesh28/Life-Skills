@@ -8,7 +8,7 @@ import { Avatar, Card, Title, Paragraph, IconButton ,Image, Colors, ToggleButton
 import Home from './HomeScreen/components/index'
 import data from "./data"
 const { width, height } = Dimensions.get("screen");
-
+const savedlist = []
 export default class SavedScreen extends React.Component {
   constructor(props) {
     super(props);

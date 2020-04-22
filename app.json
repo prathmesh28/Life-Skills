@@ -23,7 +23,7 @@
     },
     "android": {
       "package": "com.prthmsh18.lifeskills"
-  },
+    },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.prthmsh18.lifeskils"

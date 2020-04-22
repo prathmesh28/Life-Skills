@@ -40,42 +40,12 @@ export default class LoginScreen extends React.Component {
           style={{ width, height, zIndex: 1 }}>
           <Block flex middle>
             <Block style={styles.registerContainer}>
-              <Block flex={0.35} middle style={styles.socialConnect}>
-                <Text color="#8898AA" size={12}>
-                  Sign up with
-                </Text>
-                <Block row style={{ marginTop: theme.SIZES.BASE }}>
-                  <Button style={{ ...styles.socialButtons, marginRight: 30 }}>
-                    <Block row>
-                      <Icon
-                        name="logo-facebook"
-                        family="Ionicon"
-                        size={14}
-                        color={"black"}
-                        style={{ marginTop: 2, marginRight: 5 }}/>
-                      <Text style={styles.socialTextButtons}>FACEBOOK</Text>
-                    </Block>
-                  </Button>
-                  <Button style={styles.socialButtons}>
-                    <Block row>
-                      <Icon
-                        name="logo-google"
-                        family="Ionicon"
-                        size={14}
-                        color={"black"}
-                        style={{ marginTop: 2, marginRight: 5 }}/>
-                      <Text style={styles.socialTextButtons}>GOOGLE</Text>
-                    </Block>
-                  </Button>
-                </Block>
+              <Block middle>
+                <Text style={styles.titletxt}>Register</Text>
               </Block>
-
               <Block flex>
-                <Block flex={0.37} middle>
-                  <Text color="#8898AA" size={12}>
-                    Or sign up the classic way
-                  </Text>
-                  <Block row flex={0.27} style={styles.errorMessage}>
+                <Block flex={0.17} middle>
+                  <Block flex={0.27} row style={styles.errorMessage}>
                     {this.state.errorMessage && (<Text style={styles.error}>{this.state.errorMessage}</Text>)}
                   </Block>
                 </Block>
@@ -155,36 +125,14 @@ const styles = StyleSheet.create({
     elevation: 1,
     overflow: "hidden"
   },
-  socialConnect: {
-    backgroundColor: argonTheme.COLORS.WHITE,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderColor: "#8898AA"
-  },
-  socialButtons: {
-    width: 120,
-    height: 40,
-    backgroundColor: "#fff",
-    shadowColor: argonTheme.COLORS.BLACK,
-    shadowOffset: {
-      width: 0,
-      height: 4
-    },
-    shadowRadius: 8,
-    shadowOpacity: 0.1,
-    elevation: 1
-  },
-  socialTextButtons: {
-    color: argonTheme.COLORS.PRIMARY,
-    //fontWeight: "800",
-    fontSize: 14
+  titletxt: {
+    marginTop:60,
+    fontSize: 45,
+    fontWeight: "600"
+    
   },
   inputIcons: {
     marginRight: 12
-  },
-  passwordCheck: {
-    paddingLeft: 15,
-    paddingTop: 13,
-    paddingBottom: 30
   },
   createButton: {
     width: width * 0.5,
@@ -199,7 +147,7 @@ const styles = StyleSheet.create({
   error: {
     color: '#E9446A',
     fontSize: 13,
-    //fontWeight: '600',
+    fontWeight: '600',
     textAlign: 'center',
   }
 });

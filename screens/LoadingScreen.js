@@ -11,7 +11,7 @@ export default class LoadingScreen extends React.Component {
         this.state = {email: null, name: null};
     }
     componentDidMount() {
-        AsyncStorage.getItem('email').then((value) => this.setState({ 'email': value }))
+        AsyncStorage.getItem('email').then((value) => this.setState({ email : value }))
         Firebase.auth().onAuthStateChanged(user => {
             this.props.navigation.navigate(user ? "Lcat" : (this.state.email ? "Login" : "Intro" ) );
         });

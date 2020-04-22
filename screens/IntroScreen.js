@@ -156,8 +156,10 @@ const styles = StyleSheet.create({
     height: 170,
     zIndex: 2,
     position: 'relative',
-    marginTop: '-70%'
+    marginTop: '-70%',
+    
   },
+
   titles: {
     marginTop:'-5%'
     
