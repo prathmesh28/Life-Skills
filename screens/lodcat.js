@@ -7,18 +7,26 @@ export default class SelectCat extends React.Component{
     headerShown: false
   };
   componentDidMount() {
+    let namevalue
     Firebase.database().ref('UsersList/').once('child_added', function (snapshot) {
       console.log("hi",snapshot.val())
-      console.log("yo",snapshot.val().email)
-  });
-  
+      console.log("yo",snapshot.val().topiclist)
+      namevalue = snapshot.val().topiclist
+    });
+    if(namevalue==="new"){
+      this.props.navigation.navigate("Cat");
 
-    AsyncStorage.getItem('name', (err, name) => {
-        //  console.log("one",name)
-        //  console.log("two",displayName)
-         const { email, displayName } = Firebase.auth().currentUser;
-        this.props.navigation.navigate(name ? "Cat" : "App");
-    })
+    }else{
+      this.props.navigation.navigate("App");
+    }
+   
+    console.log(namevalue)
+    // AsyncStorage.getItem('name', (err, name) => {
+    //     //  console.log("one",name)
+    //     //  console.log("two",displayName)
+    //      const { email, displayName } = Firebase.auth().currentUser;
+    //     this.props.navigation.navigate(name ? "Cat" : "App");
+    // })
   }
   render(){
     
