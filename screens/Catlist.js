@@ -37,29 +37,23 @@ export default class Cattist extends React.Component{
 //  }
 
 async componentDidMount() {
-  let namevalue
-  Firebase.database().ref('UsersList/').once('child_added', function (snapshot) {
-   // console.log("hi",snapshot.val())
-   // console.log("yo",snapshot.val().topiclist)
-    namevalue = snapshot.val().topiclist
-  });
-
   const { uid } = Firebase.auth().currentUser;
-  // console.log(uid)
   userid=uid
   console.log(userid)
 
-
+  let namevalue
+  Firebase.database().ref('UsersList/').once('child_added', function (snapshot) {
+    namevalue = snapshot.val().topiclist
+  });
+  Firebase.database().ref('UsersList/' + userid + "/topiclist/").on('value', snapshot => {
+    //console.log('User data: ', snapshot.val());
+    if(snapshot.val()!=="new"){
+      this.setState({renderData:snapshot.val()})
+    }
+  });
+  //console.log(namevalue)
   }
-  async componentWillUnmount() {
 
-      try {
-        await AsyncStorage.setItem('topickey', JSON.stringify(this.state.renderData));
-      } catch (error) {
-        // checking
-      }
-      
-  }
   
   onPressHandler(id) {
     //refresh homescreen
