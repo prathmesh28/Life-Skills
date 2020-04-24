@@ -13,6 +13,8 @@ import { Card, Title } from 'react-native-paper';
 const { width, height } = Dimensions.get("screen");
 import Topics from "./Topics"
 import { block } from "react-native-reanimated";
+import Firebase from '../firebase'
+let userid =null
 
 export default class Cattist extends React.Component{
   constructor(props) {
@@ -33,6 +35,22 @@ export default class Cattist extends React.Component{
 //   console.log(this.props.changeLink(this.state.renderData))
 
 //  }
+
+async componentDidMount() {
+  let namevalue
+  Firebase.database().ref('UsersList/').once('child_added', function (snapshot) {
+   // console.log("hi",snapshot.val())
+   // console.log("yo",snapshot.val().topiclist)
+    namevalue = snapshot.val().topiclist
+  });
+
+  const { uid } = Firebase.auth().currentUser;
+  // console.log(uid)
+  userid=uid
+  console.log(userid)
+
+
+  }
   async componentWillUnmount() {
 
       try {
@@ -54,8 +72,15 @@ export default class Cattist extends React.Component{
     }
     
     this.setState({renderData});
-    AsyncStorage.setItem('topickey', JSON.stringify(this.state.renderData));
-  //  console.log(this.state.renderData)
+   // AsyncStorage.setItem('topickey', JSON.stringify(this.state.renderData));
+   // console.log(this.state.renderData)
+
+      Firebase.database()
+      .ref('UsersList/' + userid )
+      .update({
+        topiclist: this.state.renderData
+      })
+      .then(() => console.log('Data updated.'));
   }
 
 onchangelink() {
