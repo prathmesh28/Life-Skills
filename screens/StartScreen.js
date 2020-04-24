@@ -6,7 +6,6 @@ import { Images, argonTheme } from "../constants";
 const { width, height } = Dimensions.get("screen");
 
 export default class StartScreen extends React.Component {
-
   static navigationOptions = {
     headerShown: false
   };
@@ -61,7 +60,8 @@ export default class StartScreen extends React.Component {
                   Sign up with
                 </Text>
                 <Block row style={{ marginTop: theme.SIZES.BASE }}>
-                  <Button style={{ ...styles.socialButtons, marginRight: 30,backgroundColor:"#3b5998" }}>
+                  <Button style={{ ...styles.socialButtons, marginRight: 30,backgroundColor:"#3b5998" }}
+                    onPress={() => this.signInWithGoogleAsync}>
                     <Block row>
                       <Icon
                         name="logo-facebook"
@@ -72,7 +72,8 @@ export default class StartScreen extends React.Component {
                       <Text style={styles.socialTextButtons}>FACEBOOK</Text>
                     </Block>
                   </Button>
-                  <Button style={{...styles.socialButtons, backgroundColor:"#db4a39"}}>
+                  <Button style={{...styles.socialButtons, backgroundColor:"#db4a39"}}
+                      onPress={() => this.signInWithGoogleAsync}>
                     <Block row>
                       <Icon
                         name="logo-google"

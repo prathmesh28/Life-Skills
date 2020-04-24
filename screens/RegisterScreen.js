@@ -16,7 +16,20 @@ export default class RegisterScreen extends React.Component {
   };
 
   state = { name: "", email: "", password: "", check: false, errorMessage: null }
- 
+
+// handleText = e => {
+//    //console.log(e)
+//     this.setState({
+//         name: e
+//     })
+// }
+//  handleSubmit = e => {
+//     let uname=Firebase.database().ref('name').orderByKey().limitToLast(100);
+//     Firebase.database().ref('name').push(this.state.name);
+//     this.setState({
+//         name:""
+//     })
+// }
   
   handleSignUp = () => {
       
@@ -29,7 +42,27 @@ export default class RegisterScreen extends React.Component {
               });
           })
           .catch(error => this.setState({ errorMessage: error.message }));
-         
+          // Firebase.database().ref('name').push(this.state.name);
+          //     this.setState({
+          //         name:""
+          //     })
+
+
+              let name=this.state.name
+              let email=this.state.email
+              let topiclist= ""
+              Firebase.database().ref('UsersList/').push({
+                name,
+                email,
+                topiclist
+            }).then((data)=>{
+            //    console.log('data ' , data)
+            }).catch((error)=>{
+             //   console.log('error ' , error)
+            })
+
+
+
           AsyncStorage.setItem('email', this.state.email, () => {
             AsyncStorage.setItem('name', this.state.name, () => {
           
@@ -64,7 +97,10 @@ export default class RegisterScreen extends React.Component {
                     <Input
                       borderless
                       placeholder="Name"
-                      onChangeText={name => this.setState({ name })}
+                     
+                      onChangeText={
+                        name => this.setState({ name })
+                        }
                       value={this.state.name}
                       iconContent={
                         <Icon

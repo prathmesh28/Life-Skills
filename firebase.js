@@ -1,12 +1,13 @@
 import firebase from "firebase";
 const Config = {
-  apiKey: "AIzaSyBNDBRCJY2NRkqtm5Njf5DwoUzfy5NHsck",
-  authDomain: "life-skills-87c6e.firebaseapp.com",
-  databaseURL: "https://life-skills-87c6e.firebaseio.com",
-  projectId: "life-skills-87c6e",
-  storageBucket: "life-skills-87c6e.appspot.com",
-  messagingSenderId: "152119177283",
-  appId: "1:152119177283:web:f8a695a710b3272e34e4f6"
+  apiKey: "AIzaSyBNQa0aymVX7PlxThXq_UBaMR95yuwjXvs",
+  authDomain: "lifeskill-97c4a.firebaseapp.com",
+  databaseURL: "https://lifeskill-97c4a.firebaseio.com",
+  projectId: "lifeskill-97c4a",
+  storageBucket: "lifeskill-97c4a.appspot.com",
+  messagingSenderId: "1092057614213",
+  appId: "1:1092057614213:web:a79c44532687cb0b2826ec",
+  measurementId: "G-0HCFF8DMZV"
 };
   // Initialize Firebase
 const Firebase = firebase.initializeApp(Config);

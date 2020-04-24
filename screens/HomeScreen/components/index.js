@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, AsyncStorage, ScrollView, Dimensions, Touchable
 import { Avatar, Button, Card, Title, Paragraph, IconButton ,Image, Colors, ToggleButton  } from 'react-native-paper';
 import RNUrlPreview from 'react-native-url-preview';
 import { WebView } from 'react-native-webview';
+import TopicList from '../../Catlist'
 const { width, height } = Dimensions.get("screen");
 import data from "../../data"
 //let arraynews = [];
@@ -13,19 +14,19 @@ export default class Home extends React.Component {
     super(props);
     this.state = {
     News: data,
-    arraynews:null
+    arraynews:this.props.renderData
   };
 }
 
 
 
 
-
  async componentDidMount(){
-  
-      const myArray = await AsyncStorage.getItem('topickey');
-      const arraynews = JSON.parse(myArray)
-      
+   console.log(this.state.arraynews)
+     // const myArray = await AsyncStorage.getItem('topickey');
+      //const arraynews = JSON.parse(myArray)
+      const arraynews = this.state.arraynews
+      console.log(arraynews)
       const arraylist = arraynews.filter(element => {
           ary.push(element.selected?element.name:null)
       })
@@ -104,7 +105,6 @@ export default class Home extends React.Component {
         showsVerticalScrollIndicator={false}
        // style={{ marginBottom:50 }}
       >
-        
           {this.list()}
           {/* {this.list()} */}
       

@@ -13,7 +13,7 @@ import Firebase from '../../firebase';
 import { Button } from "../../components";
 import { Images } from "../../constants";
 const { width, height } = Dimensions.get("screen");
-import Catlist from "./components/Catlist"
+import Catlist from "../Catlist"
 import Model from "./components/model"
 export default class ProfileScreen extends React.Component {
   state = { email: "", displayName: "" };

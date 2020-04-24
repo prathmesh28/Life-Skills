@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, ImageBackground, Dimensions, StatusBar, KeyboardAvoidingView, LayoutAnimation, AsyncStorage } from "react-native";
+import { StyleSheet, ImageBackground, TouchableOpacity, Dimensions, StatusBar, KeyboardAvoidingView, LayoutAnimation, AsyncStorage } from "react-native";
 import { Block, Text, theme } from "galio-framework";
 import { Button, Icon, Input } from '../components';
 import { Images, argonTheme } from "../constants";
@@ -12,6 +12,8 @@ export default class LoginScreen extends React.Component {
     headerShown: false
   };
 
+  
+  
   state = {
     email: '',
     password: '',
@@ -97,6 +99,9 @@ export default class LoginScreen extends React.Component {
                            LOG IN
                         </Text>
                       </Button>
+
+
+               
                     </Block>
                   </KeyboardAvoidingView>
                 </Block>

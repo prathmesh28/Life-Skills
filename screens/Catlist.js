@@ -4,13 +4,15 @@ import {
   Dimensions,
   FlatList,
   TouchableOpacity,
-  AsyncStorage
+  AsyncStorage,
+  View
 } from "react-native";
 
 import { Block, Text, theme } from "galio-framework";
 import { Card, Title } from 'react-native-paper';
 const { width, height } = Dimensions.get("screen");
-import Topics from "../../Topics"
+import Topics from "./Topics"
+import { block } from "react-native-reanimated";
 
 export default class Cattist extends React.Component{
   constructor(props) {
@@ -21,14 +23,16 @@ export default class Cattist extends React.Component{
       
     }
   }
-  async componentDidMount(){
-  //to update topics from phone data
-    const myArray = await AsyncStorage.getItem('topickey');
-    const renderData = JSON.parse(myArray)
-  //  this.setState({renderData})
-    renderData? this.setState({renderData}):null
-  // console.log(renderData)
- }
+//   async componentDidMount(){
+//   //to update topics from phone data
+//     const myArray = await AsyncStorage.getItem('topickey');
+//     const renderData = JSON.parse(myArray)
+//   //  this.setState({renderData})
+//     renderData? this.setState({renderData}):null
+//   // console.log(renderData)
+//   console.log(this.props.changeLink(this.state.renderData))
+
+//  }
   async componentWillUnmount() {
 
       try {
@@ -40,24 +44,28 @@ export default class Cattist extends React.Component{
   }
   
   onPressHandler(id) {
+    //refresh homescreen
     let renderData=[...this.state.renderData];
     for(let data of renderData){
       if(data.id==id){
         data.selected=(data.selected==false)?true:!data.selected;
-
         break;
       }
     }
     
     this.setState({renderData});
     AsyncStorage.setItem('topickey', JSON.stringify(this.state.renderData));
-    //console.log(this.state.renderData)
+  //  console.log(this.state.renderData)
   }
+
+onchangelink() {
+  console.log(this.props.changeLink(this.state.renderData))
+}
 render(){
         return(
-        
+        <View style={styles.Container} Renderdata={this.state.renderData}>
           <FlatList
-           
+          
             data={this.state.renderData}
             keyExtractor={item => item.id.toString()}
             style={{flex: 1}}
@@ -65,7 +73,7 @@ render(){
             
             renderItem={({ item }) => (
               <Block style={styles.CatCards} >
-              <TouchableOpacity  onPress={() => this.onPressHandler(item.id)}>
+              <TouchableOpacity  onPress={() => this.onPressHandler(item.id)} >
                 <Card
                   style={
                     item.selected==false
@@ -74,20 +82,20 @@ render(){
                         }
                       : {
                         ...styles.CatStyle,
-                          backgroundColor: '#a1a1a1',
+                          backgroundColor: '#ADD8E6',
                         }
                   } Center>
                   <Card.Cover source={item.img} style={styles.img}/>
                   <Card.Content>
                  
-                  <Title style={styles.txt} >{item.name} </Title>
+                  <Title style={styles.txt} textBreakStrategy={'simple'}>{item.name} </Title>
                   </Card.Content>
                 </Card>
               </TouchableOpacity>
               </Block>
             )}
           />
-
+          </View>
         )
 }
     
@@ -95,24 +103,37 @@ render(){
 
 
 const styles = StyleSheet.create({
+  Container: {
+    flex:1,
+    justifyContent:"center"
+    
+  },
 CatCards:{
-  flex: 1, flexDirection: 'column', 
+  flex: 1, 
+  flexDirection: 'column', 
+  flexWrap: "wrap"
 },
 CatStyle: {
-  margin:5,
-  width:width*0.25,
+   margin:5,
+  width:width*0.26,
   height:width*0.33,
+  // borderWidth:1,
+  elevation:6,
 },
 img:{
   width: width*0.2, 
-  padding:5, 
+  padding:10, 
   height: width*0.2, 
-  backgroundColor: "#fff",
+  backgroundColor: "transparent",
   alignSelf:"center",
 
 },
 txt:{
-  fontSize:13,textAlign: 'justify',lineHeight: 15,marginTop:7
+  fontSize:13,
+  textAlign: 'center',
+  lineHeight: 15,
+  marginTop:7,
+  margin:-14
 }
 
 });

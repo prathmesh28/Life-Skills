@@ -3,7 +3,7 @@ import {  TouchableOpacity, StyleSheet, View } from 'react-native';
 import { Block, Text, theme } from "galio-framework";
 
 import Modal from 'react-native-modal';
-import Catlist from "./Catlist"
+import Catlist from "../../Catlist"
 import { IconButton, Colors } from "react-native-paper"
 
 export default class model extends Component {

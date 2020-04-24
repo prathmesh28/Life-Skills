@@ -6,9 +6,9 @@ import { Block, Checkbox, theme } from "galio-framework";
 import { Button, Input } from '../../components';
 import { Images, argonTheme } from "../../constants";
 import { Searchbar } from 'react-native-paper';
-
+import AnimatedSplash from "react-native-animated-splash-screen";
 const { width, height } = Dimensions.get("screen");
-
+import Firebase from "../../firebase"
 export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -16,8 +16,12 @@ export default class HomeScreen extends React.Component {
           searchQuery: '',
         };
       }
-
+      
       componentDidMount () {
+      //   Firebase.database().ref('Users/').on('child_added', function (snapshot) {
+      //     console.log(snapshot.val())
+      //     console.log("hi")
+      // });
         AsyncStorage.getItem('name', (err, name) => {
           AsyncStorage.removeItem('name')
     //dont remove this
@@ -30,6 +34,7 @@ export default class HomeScreen extends React.Component {
     const { searchQuery } = this.state;
     
     return (
+   
       <Block flex center>
         <StatusBar hidden />
         
@@ -49,6 +54,7 @@ export default class HomeScreen extends React.Component {
         
           <Block style={styles.cards}>
           <Home />
+
           </Block>
         </Block>
         </Block>

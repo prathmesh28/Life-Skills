@@ -8,7 +8,7 @@ import {
 import { Block, Text, Button } from "galio-framework";
 import { Images, argonTheme } from "../constants";
 const { width, height } = Dimensions.get("screen");
-import Catlist from "./ProfileScreen/components/Catlist"
+import Catlist from "./Catlist"
 export default class SelectCat extends React.Component{
   static navigationOptions = {
     headerShown: false
@@ -17,34 +17,38 @@ export default class SelectCat extends React.Component{
   render(){
     
     return(
-       <Block>
+       <Block flex middle>
         <StatusBar hidden />
         <ImageBackground
             source={Images.Onboarding}
             style={{height:height,width:width}}
             //imageStyle={styles.profileBackground}
           >
-        <Block center style={styles.Container}>
-          <Block style={styles.title}>
-            <Text color="black" size={50}>
+                   <Block flex middle>
+
+        <Block center style={styles.box}>
+           <Block >
+            <Text style={styles.title} color="black" >
                     Choose Topics
             </Text>
           </Block>
+          
           <Block center>
             <Block flex style={styles.profileContainer}>
               <Catlist/>
             </Block>
             
             <Button 
-                      color="primary" 
-                      style={styles.createButton}
-                      onPress={() =>this.props.navigation.navigate('App')}
-                      >                      
-                      <Text bold size={14} color={argonTheme.COLORS.WHITE}>
-                       Next
-                      </Text>
-                    </Button>
+                color="primary" 
+                style={styles.createButton}
+                onPress={() =>this.props.navigation.navigate('App')}
+                >                      
+                <Text bold size={14} color={argonTheme.COLORS.WHITE}>
+                  Next
+                </Text>
+              </Button>
           </Block>
+      </Block>
       </Block>
       </ImageBackground>
     </Block>
@@ -53,26 +57,30 @@ export default class SelectCat extends React.Component{
 }
 
 const styles = StyleSheet.create({
-  Container: {
-    marginTop:110,
-    height: height*0.65,   //change this
+ 
+  box: {
+   // marginTop:110,
+    height: height* 0.7,   //change this
     width: width * 0.9,
-    elevation: 1,
+    elevation: 7,
     backgroundColor: "#F4F5F7",
+    borderRadius:20
 
   },
   profileContainer: {
     marginTop:50,
-    width: width * 0.8,
-     borderRadius: 4,
-    shadowRadius: 8,
+    width: width * 0.83,
+  //   borderRadius: 4,
+   // shadowRadius: 8,
     shadowOpacity: 0.1,
   },
   title:{
-    marginTop:30
+    marginTop:50,
+    fontSize: 35,
+    fontWeight: "600"
   },
   createButton: {
-    position:"absolute",
-    marginTop:height*0.49   //change this
+    position:"relative",
+  //  bottom:20
   }
 })

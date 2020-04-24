@@ -1,38 +1,38 @@
 export default Topics = [
     {
       id: 1,
-      name: 'Knowledge',
-      img: require("../assets/cat/book.png"),
+      name: 'Travel',
+      img: require("../assets/cat/heart.png"),
       selected: false
     },
     {
       id: 2,
-      name: 'Emotions',
-      img: require("../assets/cat/emotions.png"),
+      name: 'time management',
+      img: require("../assets/cat/leadership.png"),
       selected: false
     },
     {
       id: 3,
-      name: 'Leadership',
+      name: 'Self Improvement',
       img: require("../assets/cat/leadership.png"),
       selected: false
     },
     {
       id: 4,
+      name: 'Love and Relationship',
+      img: require("../assets/cat/heart.png"),
+      selected: false
+    },
+    {
+      id: 5,
       name: 'Communication',
       img: require("../assets/cat/conversation.png"),
       selected: false
     },
     {
-      id: 5,
-      name: 'Love',
-      img: require("../assets/cat/empathy.png"),
-      selected: false
-    },
-    {
       id: 6,
-      name: 'Travel',
-      img: require("../assets/cat/goal.png"),
+      name: 'Health and safety',
+      img: require("../assets/cat/wellness.png"),
       selected: false
     },
   ];

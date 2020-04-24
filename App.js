@@ -1,6 +1,7 @@
 import React from "react";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
+import AnimatedSplash from "react-native-animated-splash-screen";
 
 import LoadingScreen from "./screens/LoadingScreen";
 import LoginScreen from "./screens/LoginScreen";
@@ -21,12 +22,17 @@ const IntroPages = createStackNavigator({
     Guide: IntroScreen,
 });
 
-export default createAppContainer(
+const Container = createAppContainer(
 
     createSwitchNavigator(
         {
             Intro: IntroPages,
             Loading: LoadingScreen,
+            // Loading: {
+            //     screen: (props) => (
+            //       <LoadingScreen {...props} setAppLoaded={props.screenProps.setAppLoaded} />
+            //     ),
+            //   },
             Auth: AuthStack,
             Lcat:Loadcat,
             Cat:SelectCat,
@@ -38,3 +44,29 @@ export default createAppContainer(
         }
     )
 );
+
+class App extends React.Component {
+    // state = {
+    //   isLoaded: false,
+    // }
+   
+    // setAppLoaded = () => {
+    //   this.setState({ isLoaded: true })
+    // }
+   
+    render() {
+      return (
+        // <AnimatedSplash
+        //   isLoaded={this.state.isLoaded}
+        //   logoImage={require("./assets/logo.png")}
+        //   backgroundColor={"#262626"}
+        //   logoHeight={150}
+        //   logoWidht={150}
+        // >
+          <Container screenProps={{ setAppLoaded: this.setAppLoaded }} />
+        // </AnimatedSplash>
+      )
+    }
+  }
+   
+  export default App

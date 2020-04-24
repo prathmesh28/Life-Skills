@@ -36,7 +36,7 @@ hello = () => {
 list = () => { 
   
   const savearray = this.state.saved
-  console.log(this.state.saved)
+//  console.log(this.state.saved)
   return this.state.News.map(element => {
  //   console.log(savearray.indexOf(element.id))
  if(savearray!==null){
@@ -60,14 +60,14 @@ list = () => {
                            if(savedlist.indexOf(element.id) !== -1){
                              var index = savedlist.indexOf(element.id);
                              if (index !== -1) savedlist.splice(index, 1);
-                             console.log(savedlist)
+                           //  console.log(savedlist)
                            } 
                     }else{
                      element.Saved=true
                      if(savedlist.indexOf(element.id) !== -1){
                     } else{
                      savedlist.push(element.id)
-                     console.log(savedlist)
+                 //    console.log(savedlist)
                     }
                     }
                   

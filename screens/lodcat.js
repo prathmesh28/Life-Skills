@@ -16,6 +16,7 @@ export default class SelectCat extends React.Component{
   }
   render(){
     
+    
     return(
             <View style={styles.container}>
                 <Text>Loading</Text>
