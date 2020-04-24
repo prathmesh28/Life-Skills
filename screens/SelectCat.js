@@ -33,7 +33,7 @@ export default class SelectCat extends React.Component{
             </Text>
           </Block>
           
-          <Block center>
+          <Block center style={styles.area}>
             <Block flex style={styles.profileContainer}>
               <Catlist/>
             </Block>
@@ -77,10 +77,16 @@ const styles = StyleSheet.create({
   title:{
     marginTop:50,
     fontSize: 35,
-    fontWeight: "600"
+    fontWeight: "700"
+    
   },
   createButton: {
     position:"relative",
-  //  bottom:20
+    bottom:50,
+    width:width*0.5,
+  },
+  area: {
+    flex:1,
+    justifyContent:"center",
   }
 })

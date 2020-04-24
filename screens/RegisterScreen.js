@@ -32,26 +32,17 @@ export default class RegisterScreen extends React.Component {
 // }
   
   handleSignUp = () => {
-      
+    let name=this.state.name
+    let email=this.state.email
+    let topiclist= ""
       Firebase
           .auth()
           .createUserWithEmailAndPassword(this.state.email, this.state.password)
           .then(userCredentials => {
-              return userCredentials.user.updateProfile({
-                  displayName: this.state.name
-              });
-          })
-          .catch(error => this.setState({ errorMessage: error.message }));
-          // Firebase.database().ref('name').push(this.state.name);
-          //     this.setState({
-          //         name:""
-          //     })
-
-
-              let name=this.state.name
-              let email=this.state.email
-              let topiclist= ""
-              Firebase.database().ref('UsersList/').push({
+            console.log(userCredentials);
+            userCredentials.user.updateProfile({displayName: this.state.name});
+           
+            Firebase.database().ref('UsersList/' + userCredentials.user.uid).set({
                 name,
                 email,
                 topiclist
@@ -60,6 +51,26 @@ export default class RegisterScreen extends React.Component {
             }).catch((error)=>{
              //   console.log('error ' , error)
             })
+
+
+
+
+          })
+          .catch(error => this.setState({ errorMessage: error.message }));
+      
+
+            //   let name=this.state.name
+            //   let email=this.state.email
+            //   let topiclist= ""
+            //   Firebase.database().ref('UsersList/'+email).set({
+            //     name,
+            //     email,
+            //     topiclist
+            // }).then((data)=>{
+            // //    console.log('data ' , data)
+            // }).catch((error)=>{
+            //  //   console.log('error ' , error)
+            // })
 
 
 

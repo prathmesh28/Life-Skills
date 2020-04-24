@@ -13,9 +13,7 @@ export default class LoadingScreen extends React.Component {
     }
  
       componentDidMount() {
-        Firebase.database().ref('UsersList/').once('child_added', function (snapshot) {
-            console.log("hi",snapshot.val())
-        });
+     
         AsyncStorage.getItem('email').then((value) => this.setState({ email : value }))
         Firebase.auth().onAuthStateChanged(user => {
             //changed Lcat to App
