@@ -3,7 +3,6 @@ import { View, StyleSheet,FlatList, Text, AsyncStorage, ScrollView, Dimensions, 
 import { Avatar, Button, Card, Title, Paragraph, IconButton ,Image, Colors, ToggleButton  } from 'react-native-paper';
 import RNUrlPreview from 'react-native-url-preview';
 import { WebView } from 'react-native-webview';
-import TopicList from '../../Catlist'
 const { width, height } = Dimensions.get("screen");
 import data from "../../data"
 import Firebase from "../../../firebase"
