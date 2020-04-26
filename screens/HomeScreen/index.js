@@ -18,14 +18,7 @@ export default class HomeScreen extends React.Component {
       }
       
       componentDidMount () {
-      //   Firebase.database().ref('Users/').on('child_added', function (snapshot) {
-      //     console.log(snapshot.val())
-      //     console.log("hi")
-      // });
-        AsyncStorage.getItem('name', (err, name) => {
-          AsyncStorage.removeItem('name')
-    //dont remove this
-            });
+      
       }
         
        _onChangeSearch = query => this.setState({ searchQuery: query });

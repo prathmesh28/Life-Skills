@@ -7,7 +7,7 @@ export default Topics = [
     },
     {
       id: 2,
-      name: 'time management',
+      name: 'Time Management',
       img: require("../assets/cat/leadership.png"),
       selected: false
     },

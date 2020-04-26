@@ -1,18 +1,9 @@
 import React from "react";
-import {
-  StyleSheet,
-  Dimensions,
-  FlatList,
-  TouchableOpacity,
-  AsyncStorage,
-  View
-} from "react-native";
-
-import { Block, Text, theme } from "galio-framework";
+import { StyleSheet, Dimensions, FlatList, TouchableOpacity, View } from "react-native";
+import { Block } from "galio-framework";
 import { Card, Title } from 'react-native-paper';
 const { width, height } = Dimensions.get("screen");
 import Topics from "./Topics"
-import { block } from "react-native-reanimated";
 import Firebase from '../firebase'
 let userid =null
 
@@ -21,42 +12,30 @@ export default class Cattist extends React.Component{
     super(props);
     this.state = {
       selectedItem: null,
-      renderData:Topics,
-      
+      renderData:Topics
     }
   }
-//   async componentDidMount(){
-//   //to update topics from phone data
-//     const myArray = await AsyncStorage.getItem('topickey');
-//     const renderData = JSON.parse(myArray)
-//   //  this.setState({renderData})
-//     renderData? this.setState({renderData}):null
-//   // console.log(renderData)
-//   console.log(this.props.changeLink(this.state.renderData))
-
-//  }
 
 async componentDidMount() {
+
   const { uid } = Firebase.auth().currentUser;
   userid=uid
-  console.log(userid)
+  //console.log(userid)
 
   let namevalue
   Firebase.database().ref('UsersList/').once('child_added', function (snapshot) {
     namevalue = snapshot.val().topiclist
   });
+
   Firebase.database().ref('UsersList/' + userid + "/topiclist/").on('value', snapshot => {
-    //console.log('User data: ', snapshot.val());
     if(snapshot.val()!=="new"){
       this.setState({renderData:snapshot.val()})
     }
   });
-  //console.log(namevalue)
   }
 
   
   onPressHandler(id) {
-    //refresh homescreen
     let renderData=[...this.state.renderData];
     for(let data of renderData){
       if(data.id==id){
@@ -66,23 +45,18 @@ async componentDidMount() {
     }
     
     this.setState({renderData});
-   // AsyncStorage.setItem('topickey', JSON.stringify(this.state.renderData));
-   // console.log(this.state.renderData)
-
       Firebase.database()
       .ref('UsersList/' + userid )
       .update({
         topiclist: this.state.renderData
       })
-      .then(() => console.log('Data updated.'));
+      //.then(() => console.log('Data updated.'));
   }
 
-onchangelink() {
-  console.log(this.props.changeLink(this.state.renderData))
-}
+
 render(){
         return(
-        <View style={styles.Container} Renderdata={this.state.renderData}>
+        <View style={styles.Container} >
           <FlatList
           
             data={this.state.renderData}
@@ -116,9 +90,8 @@ render(){
           />
           </View>
         )
-}
-    
-}
+      }
+   }
 
 
 const styles = StyleSheet.create({
