@@ -35,4 +35,25 @@ export default Topics = [
       img: require("../assets/cat/wellness.png"),
       selected: false
     },
+
+  {
+    id: 7,
+    name: 'Fitness',
+    img: require("../assets/cat/wellness.png"),
+    selected: false
+  },
+
+  {
+    id: 8,
+    name: 'motivation',
+    img: require("../assets/cat/wellness.png"),
+    selected: false
+  },
+
+  {
+    id: 9,
+    name: 'psychology',
+    img: require("../assets/cat/wellness.png"),
+    selected: false
+  },
   ];

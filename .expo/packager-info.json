@@ -1,10 +1,11 @@
 {
-  "expoServerPort": 19000,
-  "expoServerNgrokUrl": "https://tg-3tb.prthmsh18.life-skills.exp.direct",
-  "packagerNgrokUrl": "https://packager.tg-3tb.prthmsh18.life-skills.exp.direct",
-  "ngrokPid": 9428,
-  "packagerPort": 19001,
-  "packagerPid": 7872,
+
+  "expoServerPort": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
+  "packagerPort": null,
+  "packagerPid": null,
   "webpackServerPort": null,
   "devToolsPort": 19002
 }
