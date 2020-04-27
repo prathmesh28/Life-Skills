@@ -1,8 +1,8 @@
 {
-  "urlRandomness": "tg-3tb",
+  "urlRandomness": "au-ttm",
   "hostType": "lan",
   "lanType": "ip",
   "dev": true,
   "minify": false,
-  "https": false
+  "https": true
 }
