@@ -45,39 +45,16 @@ export default class RegisterScreen extends React.Component {
             Firebase.database().ref('UsersList/' + userCredentials.user.uid).set({
                 name,
                 email,
-                topiclist
+                topiclist,
+                
             }).then((data)=>{
             //    console.log('data ' , data)
             }).catch((error)=>{
              //   console.log('error ' , error)
             })
-
-
-
-
           })
           .catch(error => this.setState({ errorMessage: error.message }));
-      
-
-            //   let name=this.state.name
-            //   let email=this.state.email
-            //   let topiclist= ""
-            //   Firebase.database().ref('UsersList/'+email).set({
-            //     name,
-            //     email,
-            //     topiclist
-            // }).then((data)=>{
-            // //    console.log('data ' , data)
-            // }).catch((error)=>{
-            //  //   console.log('error ' , error)
-            // })
-
-
-
           AsyncStorage.setItem('email', this.state.email, () => {
-            AsyncStorage.setItem('name', this.state.name, () => {
-          
-            });
           });
   };
 

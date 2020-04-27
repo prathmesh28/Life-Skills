@@ -1,86 +1,53 @@
 import React from "react";
-import { View, StyleSheet,FlatList, Text, AsyncStorage, ScrollView, Dimensions, TouchableOpacity, ToastAndroid } from "react-native";
-import { Avatar, Button, Card, Title, Paragraph, IconButton ,Image, Colors, ToggleButton  } from 'react-native-paper';
+import { StyleSheet, ScrollView, Dimensions, TouchableOpacity, ToastAndroid } from "react-native";
+import { Card, Colors, ToggleButton  } from 'react-native-paper';
 import RNUrlPreview from 'react-native-url-preview';
 import { WebView } from 'react-native-webview';
 const { width, height } = Dimensions.get("screen");
 import data from "../../data"
 import Firebase from "../../../firebase"
+import { Block } from "galio-framework";
 
-let arraynews = null
-const ary = []
-const savedlist = []
 let userid 
 let result = []
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-    News: null,
+    News: data,
     NewsData: data,
-    //ary:null
-    //arraynews: "data"
+    showURL: false,
   };
 }
 
-
 componentDidMount(){
-  console.log("hi pk")
   const { uid } = Firebase.auth().currentUser;
   userid= uid
-  console.log(uid)
-  let arraynews
  
-
   Firebase.database().ref('UsersList/' + uid + "/topiclist/").on('value', snapshot => {
-          const anews = snapshot.val()
-         // console.log(anews)
-         // console.log(this.state.NewsData)
-         this.setState({ NewsData:data })
-     //console.log(snapshot.val())
-     
-     const hio = snapshot.val().map(element => {
-      // console.log(element.selected)
-      if(element.selected){
-        const temp = element.name
-      // temp.name = element.name  != null
-       return temp 
-      }
-      
-        
-     })
-     
-        // anews.map(item => {
-           result =  this.state.NewsData.filter(element => {
 
+      const hio = snapshot.val().map(element => {
+
+          if(element.selected){
+
+            const temp = element.name
+            return temp 
+          }
+      })
+     
+      result =  this.state.NewsData.filter(element => {
            if(hio.includes(element.topic)){
              return element
-           }
-            
-                    // return item.name == element.topic
-               })
-                // console.log(result)
-               this.setState({ NewsData:result })
-            //   console.log(this.state.NewsData)
-        //    console.log(this.state.NewsData[2])
-               
-              
-        // })
-        
-       
-
+           } 
+      })
+      this.setState({ News:result })
   });
-  //console.log(result);
-  // this.setState({ News: result })
-  // console.log(this.state.News)
- 
 }
 
 list = () => { 
-  return this.state.NewsData.map(element => {
-   
+  return this.state.News.map(element => {
        return (
-         <Card  style={styles.card}>
+         <Card  style={styles.card} onPress={() => this.setState({ showURL: true })}>
          <Card.Title
            key={element.id}
            title={element.topic}
@@ -88,43 +55,15 @@ list = () => {
            right={(props) => 
              <ToggleButton
                  icon="heart"
-                 //value={element.Saved}
                  color={Colors.pink300}
-                 status={element.Saved}
-                 onPress={ () => {  
-                 if(element.Saved)
-                 {
-                         element.Saved=false
-                         ToastAndroid.show("Removed from Saved", ToastAndroid.SHORT);
-                         if(savedlist.indexOf(element.id) !== -1){
-                         
-                           var index = savedlist.indexOf(element.id);
-                           if (index !== -1) savedlist.splice(index, 1);
-                         // console.log(savedlist)
-               
-                         } 
-                 }
-                 else{
-                   element.Saved=true
-                   ToastAndroid.show("Added to Saved list", ToastAndroid.SHORT);
-                   if(savedlist.indexOf(element.id) !== -1){} 
-                   else{
-                       savedlist.push(element.id)
-                      // console.log(savedlist)
-                       }
-                  }
-               
-          //         console.log(savedlist)
-                   AsyncStorage.setItem('save', JSON.stringify(savedlist));
-                   
-                }
-               }
+              //   status={element.Saved}
+                 onPress={ () => this.savelist(element)}
                ></ToggleButton>
            }
            rightStyle={styles.righticon}
            style={styles.cardsty}
          />
-         {/* <TouchableOpacity onPress={() => {this.props.navigation.navigate('WebS')}}> */}
+        
        <RNUrlPreview  
          text={element.link} 
          titleStyle={styles.linktitle}
@@ -133,27 +72,50 @@ list = () => {
          imageStyle={styles.linkimage}
          disable
        />
-       {/* </TouchableOpacity> */}
        </Card>
        )
      
- //    console.log(savedlist)
   });
  
 };
 
+savelist = (props) => {
+  console.log("hi")
+  Firebase.database().ref('UsersList/' + userid + "/SavedList/").once('value', snapshot => {
+    
+    if(snapshot.val()[props.id]){
+      ToastAndroid.show("Removed from Saved", ToastAndroid.SHORT);
+      Firebase.database().ref('UsersList/' + userid + "/SavedList/" + props.id ).set(null);
 
+    }else{
+          const Savedlist = props
+          ToastAndroid.show("Added to Saved", ToastAndroid.SHORT);
+          Firebase.database().ref('UsersList/' + userid + "/SavedList/" + props.id).set({  
+            Savedlist
+          }).then((data)=>{
+              console.log('data ' , data)
+          }).catch((error)=>{
+            console.log('error ' , error)
+          })
+    }
+
+  })
+
+  
+}
   render() {
+   
     return (
       <ScrollView
       showsVerticalScrollIndicator={false}
      // style={{ marginBottom:50 }}
     >
         {this.list()}
-        {/* {this.list()} */}
+   
     
     </ScrollView>
     )
+    
   }
 }
 const styles = StyleSheet.create({
@@ -167,6 +129,9 @@ const styles = StyleSheet.create({
   },
   titlecard: {
     fontSize:12,
+    
+    borderBottomWidth:1,
+    borderBottomColor: '#D3D3D3'
    
   },
   button: {

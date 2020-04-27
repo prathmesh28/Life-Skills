@@ -18,7 +18,7 @@ export default class IntroScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showRealApp: false,
+      showRealApp: false, 
     };
   }
   _renderItem = ({ item }) => {
