@@ -76,7 +76,7 @@ export default class ProfileScreen extends React.Component {
                     <Block style={styles.divider} />
                   </Block>
                   <Block middle style={{marginBottom:100}}>
-                  Topics
+                  <Text>Topics</Text>
                   </Block>
                   <Catlist/>
                  
