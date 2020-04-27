@@ -12,6 +12,10 @@ import Bottomnav from "./Bottomnav"
 import SelectCat from "./screens/SelectCat"
 import Loadcat from "./screens/lodcat"
 import WebPage from "./screens/HomeScreen/components/WebPage"
+import * as Facebook from 'expo-facebook'
+
+Facebook.initializeAsync('2926256467492608', 'Life Skill')
+
 const AuthStack = createStackNavigator({
     Start:StartScreen,
     Login: LoginScreen,
