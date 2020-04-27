@@ -2,13 +2,13 @@ export default Topics = [
     {
       id: 1,
       name: 'Travel',
-      img: require("../assets/cat/heart.png"),
+      img: require("../assets/cat/travel.svg"),
       selected: false
     },
     {
       id: 2,
       name: 'Time Management',
-      img: require("../assets/cat/leadership.png"),
+      img: require("../assets/cat/time.png"),
       selected: false
     },
     {

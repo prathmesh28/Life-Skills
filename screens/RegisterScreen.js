@@ -2,7 +2,7 @@ import React  from "react";
 import { StyleSheet, ImageBackground, Dimensions, StatusBar, KeyboardAvoidingView, AsyncStorage } from "react-native";
 import { Block, Checkbox, Text, theme } from "galio-framework";
 import { Button, Icon, Input } from '../components';
-import { Images, argonTheme } from "../constants";
+import { argonTheme } from "../constants";
 import Firebase from '../firebase';
 
 import RNPasswordStrengthMeter, { TextPasswordStrengthDisplay } from 'react-native-password-strength-meter';
@@ -17,20 +17,6 @@ export default class RegisterScreen extends React.Component {
 
   state = { name: "", email: "", password: "", check: false, errorMessage: null }
 
-// handleText = e => {
-//    //console.log(e)
-//     this.setState({
-//         name: e
-//     })
-// }
-//  handleSubmit = e => {
-//     let uname=Firebase.database().ref('name').orderByKey().limitToLast(100);
-//     Firebase.database().ref('name').push(this.state.name);
-//     this.setState({
-//         name:""
-//     })
-// }
-  
   handleSignUp = () => {
     let name=this.state.name
     let email=this.state.email
@@ -39,9 +25,7 @@ export default class RegisterScreen extends React.Component {
           .auth()
           .createUserWithEmailAndPassword(this.state.email, this.state.password)
           .then(userCredentials => {
-           // console.log(userCredentials);
             userCredentials.user.updateProfile({displayName: this.state.name});
-           
             Firebase.database().ref('UsersList/' + userCredentials.user.uid).set({
                 name,
                 email,
@@ -57,13 +41,15 @@ export default class RegisterScreen extends React.Component {
           AsyncStorage.setItem('email', this.state.email, () => {
           });
   };
-
+  componentDidMount() { 
+    const Onboarding = require("../assets/backbg.jpg")
+  }
   render() {
     return (
       <Block flex middle>
         <StatusBar hidden />
         <ImageBackground
-          source={Images.Onboarding}
+          source={this.Onboarding}
           style={{ width, height, zIndex: 1 }}>
           <Block flex middle>
             <Block style={styles.registerContainer}>

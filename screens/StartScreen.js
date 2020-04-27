@@ -2,28 +2,31 @@ import React from "react";
 import { StyleSheet, Dimensions, ImageBackground, StatusBar, Image } from "react-native";
 import { Block, Text, theme } from "galio-framework";
 import { Button, Icon } from '../components';
-import { Images, argonTheme } from "../constants";
+import { argonTheme } from "../constants";
 const { width, height } = Dimensions.get("screen");
 
 export default class StartScreen extends React.Component {
   static navigationOptions = {
     headerShown: false
   };
-
+  componentWillMount() {
+    const Onboarding = require("../assets/backbg.jpg")
+    const logo = require('../assets/skills.png')
+}
 
   render() {
       return (
         <Block flex middle>
           <StatusBar hidden />
           <ImageBackground
-            source={Images.Onboarding}
+            source={this.Onboarding}
             style={{ width, height, zIndex: 1 }}>
             <Block flex middle>
               <Block style={styles.registerContainer} middle>
                 <Block width={width * 0.8} middle >
                    <Image 
                       style={styles.logoimg} 
-                      source={require('../assets/skills.png')} /> 
+                      source={this.logo} /> 
                 </Block>
                 <Block middle width={width * 0.8} style={{position:"relative" ,top:-60}}>
                   <Text style={{fontSize:22, fontWeight:"bold", textAlign: 'justify', lineHeight: 50,}}>
