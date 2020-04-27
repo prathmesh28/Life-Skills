@@ -19,7 +19,11 @@ export default class LoginScreen extends React.Component {
     password: '',
     errorMessage: null,
   };
-  componentDidMount = () => AsyncStorage.getItem('email').then((value) => this.setState({ 'email': value }))
+  componentDidMount() { 
+    const Onboarding = require("../assets/backbg.jpg")
+
+    AsyncStorage.getItem('email').then((value) => this.setState({ 'email': value })) 
+  }
 
   handleLogin = () => {
     const { email, password } = this.state;
@@ -38,7 +42,7 @@ export default class LoginScreen extends React.Component {
       <Block flex middle>
         <StatusBar hidden />
         <ImageBackground
-          source={Images.Onboarding}
+          source={this.Onboarding}
           style={{ width, height, zIndex: 1 }}>
           <Block flex middle>
             <Block style={styles.registerContainer}>

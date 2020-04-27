@@ -2,7 +2,6 @@ import React from "react";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import AnimatedSplash from "react-native-animated-splash-screen";
-
 import LoadingScreen from "./screens/LoadingScreen";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
@@ -11,6 +10,9 @@ import IntroScreen from "./screens/IntroScreen"
 import Bottomnav from "./Bottomnav"
 import SelectCat from "./screens/SelectCat"
 import Loadcat from "./screens/lodcat"
+import * as Facebook from 'expo-facebook'
+
+Facebook.initializeAsync('2926256467492608', 'Life Skill')
 const AuthStack = createStackNavigator({
     Start:StartScreen,
     Login: LoginScreen,

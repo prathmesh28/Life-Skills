@@ -2,13 +2,154 @@ import React from "react";
 import { StyleSheet, Dimensions, ImageBackground, StatusBar, Image } from "react-native";
 import { Block, Text, theme } from "galio-framework";
 import { Button, Icon } from '../components';
+import { argonTheme } from "../constants";
 import { Images, argonTheme } from "../constants";
+import * as Google from "expo-google-app-auth";
+import * as Facebook from 'expo-facebook';
+import firebase from 'firebase';
 const { width, height } = Dimensions.get("screen");
+
+Facebook.initializeAsync('2926256467492608', 'Life Skill')
+
 
 export default class StartScreen extends React.Component {
   static navigationOptions = {
     headerShown: false
   };
+  componentWillMount() {
+    const Onboarding = require("../assets/backbg.jpg")
+    const logo = require('../assets/skills.png')
+}
+
+
+  isUserEqual = (googleUser, firebaseUser) => {
+    if (firebaseUser) {
+      var providerData = firebaseUser.providerData;
+      for (var i = 0; i < providerData.length; i++) {
+        if (providerData[i].providerId === firebase.auth.GoogleAuthProvider.PROVIDER_ID &&
+          providerData[i].uid === googleUser.getBasicProfile().getId()) {
+          // We don't need to reauth the Firebase connection.
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+
+  onSignIn = googleUser => {
+    console.log('Google Auth Response', googleUser);
+    // We need to register an Observer on Firebase Auth to make sure auth is initialized.
+    var unsubscribe = firebase.auth().onAuthStateChanged(function (firebaseUser) {
+      unsubscribe();
+      // Check if we are already signed-in Firebase with the correct user.
+      if (!this.isUserEqual(googleUser, firebaseUser)) {
+        // Build Firebase credential with the Google ID token.
+
+        var credential = firebase.auth.GoogleAuthProvider.credential(
+          googleUser.idToken,
+          googleUser.accessToken
+        );
+
+        // Sign in with credential from the Google user.
+
+        firebase.auth().signInWithCredential(credential)
+          .then(function (result) {
+            console.log('user signed in');
+
+            if (result.additionalUserInfo.isNewUser) {
+              console.log('new user');
+
+              let topiclist = "new"
+              firebase
+                .database()
+                .ref('/UsersList/' + result.user.uid)
+                .set({
+                  email: result.user.email,
+                  name: result.additionalUserInfo.profile.given_name,
+                 topiclist
+                })
+
+            } else {
+              firebase
+                .database()
+                .ref('/UsersList/' + result.user.uid).update({ last_logged_in: Date.now() })
+            }
+
+          }).catch(function (error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // The email of the user's account used.
+            var email = error.email;
+            // The firebase.auth.AuthCredential type that was used.
+            var credential = error.credential;
+            // ...
+          });
+      } else {
+        console.log('User already signed-in Firebase.');
+      }
+    }.bind(this));
+  }
+
+  signInWithGoogleAsync = async () => {
+    try {
+      const result = await Google.logInAsync({
+        behaviour: 'web',
+        androidClientId: '1092057614213-1qf6oho4vdi2aiqm5b46vdce09sl6nje.apps.googleusercontent.com',
+        iosClientId: '1092057614213-immhnu3nt79fvhmq1st8dl32qlk6o352.apps.googleusercontent.com',
+        scopes: ['profile', 'email'],
+      });
+      console.log(result)
+      if (result.type === 'success') {
+        console.log('google sucess')
+        this.onSignIn(result);
+        return result.accessToken;
+      } else {
+        return { cancelled: true };
+      }
+    } catch (e) {
+      return { error: true };
+    }
+  }
+
+    loginWithFacebook = async () => {
+      const { type, token } = await Facebook.logInWithReadPermissionsAsync
+        ('2926256467492608', { permissions: ['public_profile'] })
+
+      if (type == 'success') {
+
+        const credential = await firebase.auth.FacebookAuthProvider.credential(token)
+        firebase.auth().signInWithCredential(credential).then(function (result) {
+          console.log(result.additionalUserInfo, result.additionalUserInfo.profile)
+
+
+          if (result.additionalUserInfo.isNewUser) {
+
+            let topiclist = "new"
+            firebase
+              .database()
+              .ref('/UsersList/' + result.user.uid)
+              .set({
+                gmail: result.user.email,
+                first_name: result.additionalUserInfo.profile.given_name,
+                topiclist
+              })
+
+          } else {
+            firebase
+              .database()
+              .ref('/UsersList/' + result.user.uid).update({ last_logged_in: Date.now() })
+          }
+        }).catch(error => {
+          console.log(error);
+        })
+      }
+
+    }
+  
+
+
 
 
   render() {
@@ -16,14 +157,14 @@ export default class StartScreen extends React.Component {
         <Block flex middle>
           <StatusBar hidden />
           <ImageBackground
-            source={Images.Onboarding}
+            source={this.Onboarding}
             style={{ width, height, zIndex: 1 }}>
             <Block flex middle>
               <Block style={styles.registerContainer} middle>
                 <Block width={width * 0.8} middle >
                    <Image 
                       style={styles.logoimg} 
-                      source={require('../assets/skills.png')} /> 
+                      source={this.logo} /> 
                 </Block>
                 <Block middle width={width * 0.8} style={{position:"relative" ,top:-60}}>
                   <Text style={{fontSize:22, fontWeight:"bold", textAlign: 'justify', lineHeight: 50,}}>
@@ -61,7 +202,7 @@ export default class StartScreen extends React.Component {
                 </Text>
                 <Block row style={{ marginTop: theme.SIZES.BASE }}>
                   <Button style={{ ...styles.socialButtons, marginRight: 30,backgroundColor:"#3b5998" }}
-                    onPress={() => this.signInWithGoogleAsync}>
+                      onPress={() => this.loginWithFacebook()}>
                     <Block row>
                       <Icon
                         name="logo-facebook"
@@ -73,7 +214,7 @@ export default class StartScreen extends React.Component {
                     </Block>
                   </Button>
                   <Button style={{...styles.socialButtons, backgroundColor:"#db4a39"}}
-                      onPress={() => this.signInWithGoogleAsync}>
+                      onPress={() => this.signInWithGoogleAsync()}>
                     <Block row>
                       <Icon
                         name="logo-google"

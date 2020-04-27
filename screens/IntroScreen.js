@@ -5,10 +5,7 @@ import { argonTheme } from "../constants";
 import slides from "./Slides"
 const { width, height } = Dimensions.get("screen");
 
-
 import { Block, Button, Text, theme } from "galio-framework";
-
-import Images from "../constants/Images";
 
 export default class IntroScreen extends React.Component {
 
@@ -21,6 +18,10 @@ export default class IntroScreen extends React.Component {
       showRealApp: false, 
     };
   }
+  componentWillMount() {
+    const Onboarding = require("../assets/backbg.jpg")
+    const logo = require("../assets/logo.png")
+}
   _renderItem = ({ item }) => {
     return (
       <View
@@ -58,12 +59,12 @@ export default class IntroScreen extends React.Component {
         <StatusBar hidden />
         <Block flex center>
         <ImageBackground
-            source={Images.Onboarding}
+            source={this.Onboarding}
             style={{ height , width , zIndex: 1 }}
           />
         </Block>
         <Block center>
-          <Image source={Images.Logo} style={styles.logo} />
+          <Image source={this.logo} style={styles.logo} />
         </Block>
         <Block flex space="between" style={styles.padded}>
             <Block flex space="around" style={{ zIndex: 2 }}>
