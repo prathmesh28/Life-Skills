@@ -1,10 +1,10 @@
 {
   "expoServerPort": 19000,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "expoServerNgrokUrl": "https://up-ugb.vibhav-09.life-skills.exp.direct",
+  "packagerNgrokUrl": "https://packager.up-ugb.vibhav-09.life-skills.exp.direct",
+  "ngrokPid": 9484,
   "packagerPort": 19001,
-  "packagerPid": 5584,
+  "packagerPid": 2704,
   "webpackServerPort": null,
   "devToolsPort": 19002
 }
