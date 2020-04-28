@@ -69,6 +69,7 @@ export default class StartScreen extends React.Component {
                  topiclist
                 })
 
+                
             } else {
               firebase
                 .database()

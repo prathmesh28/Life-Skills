@@ -17,7 +17,7 @@ export default class SelectCat extends React.Component{
    
     });
    // this.props.navigation.navigate("Cat");
-    if(namevalue==="new" || namevalue===undefined){
+    if(namevalue==="new" ){
       this.props.navigation.navigate("Cat");
 
     }else{

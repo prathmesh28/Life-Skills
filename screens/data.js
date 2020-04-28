@@ -17,13 +17,11 @@ export default data=[
     {
       id: 3,
       topic: 'relationships',
-      Saved: false,
       link: 'https://medium.com/an-idea-for-you/how-i-got-more-done-reduced-stress-increased-focus-and-mastered-time-management-in-10-minutes-a-4ed59e41f7ba'
     },
     {
       id: 4,
       topic: 'fitness',
-      Saved: false,
       link: 'https://medium.com/the-mission/the-4-stages-of-time-management-ce595e4b0796'
     }
   ]
