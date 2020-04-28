@@ -6,13 +6,43 @@ import {
   StatusBar
 } from "react-native";
 import { Block, Text, Button } from "galio-framework";
-import { Images, argonTheme } from "../constants";
+import { argonTheme } from "../constants";
 const { width, height } = Dimensions.get("screen");
 import Catlist from "./Catlist"
+import Firebase from "../firebase"
+
 export default class SelectCat extends React.Component{
   static navigationOptions = {
     headerShown: false
   };
+  state = { check: false }
+  
+
+  async componentDidMount() {
+    const { uid } = Firebase.auth().currentUser;
+
+    Firebase.database().ref('UsersList/' + uid + "/topiclist/").on('value', snapshot => {
+     // console.log(snapshot.val())
+
+       if(snapshot.val()==="new" || snapshot.val() === undefined || snapshot.val() === false){
+        this.setState({check: true})
+      }
+       else{
+        var status = snapshot.val().some((el) => {
+          return (el.selected == true);
+         });
+        console.log(status);
+        if(status){
+          this.setState({check: false})
+        }else{
+          this.setState({check: true})
+       }
+     }
+      
+      
+    });
+  }
+
 
   render(){
     
@@ -20,8 +50,8 @@ export default class SelectCat extends React.Component{
        <Block flex middle>
         <StatusBar hidden />
         <ImageBackground
-            source={Images.Onboarding}
-            style={{height:height,width:width}}
+          source={require("../assets/backbg.jpg")}
+          style={{height:height,width:width}}
             //imageStyle={styles.profileBackground}
           >
                    <Block flex middle>
@@ -35,12 +65,13 @@ export default class SelectCat extends React.Component{
           
           <Block center style={styles.area}>
             <Block flex style={styles.profileContainer}>
-              <Catlist/>
+              <Catlist />
             </Block>
             
             <Button 
                 color="primary" 
                 style={styles.createButton}
+                disabled={this.state.check}
                 onPress={() =>this.props.navigation.navigate('App')}
                 >                      
                 <Text bold size={14} color={argonTheme.COLORS.WHITE}>

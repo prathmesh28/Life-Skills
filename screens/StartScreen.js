@@ -3,7 +3,6 @@ import { StyleSheet, Dimensions, ImageBackground, StatusBar, Image } from "react
 import { Block, Text, theme } from "galio-framework";
 import { Button, Icon } from '../components';
 import { argonTheme } from "../constants";
-import { Images, argonTheme } from "../constants";
 import * as Google from "expo-google-app-auth";
 import * as Facebook from 'expo-facebook';
 import firebase from 'firebase';
@@ -17,8 +16,8 @@ export default class StartScreen extends React.Component {
     headerShown: false
   };
   componentWillMount() {
-    const Onboarding = require("../assets/backbg.jpg")
-    const logo = require('../assets/skills.png')
+    this.Onboarding = require("../assets/backbg.jpg")
+    this.logo = require('../assets/skills.png')
 }
 
 

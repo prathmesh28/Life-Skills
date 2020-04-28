@@ -2,7 +2,7 @@ export default Topics = [
     {
       id: 1,
       name: 'Travel',
-      img: require("../assets/cat/travel.svg"),
+      img: require("../assets/cat/travel.png"),
       selected: false
     },
     {
@@ -36,24 +36,24 @@ export default Topics = [
       selected: false
     },
 
-  {
-    id: 7,
-    name: 'Fitness',
-    img: require("../assets/cat/wellness.png"),
-    selected: false
-  },
+  // {
+  //   id: 7,
+  //   name: 'Fitness',
+  //   img: require("../assets/cat/wellness.png"),
+  //   selected: false
+  // },
 
-  {
-    id: 8,
-    name: 'motivation',
-    img: require("../assets/cat/wellness.png"),
-    selected: false
-  },
+  // {
+  //   id: 8,
+  //   name: 'motivation',
+  //   img: require("../assets/cat/wellness.png"),
+  //   selected: false
+  // },
 
-  {
-    id: 9,
-    name: 'psychology',
-    img: require("../assets/cat/wellness.png"),
-    selected: false
-  },
+  // {
+  //   id: 9,
+  //   name: 'psychology',
+  //   img: require("../assets/cat/wellness.png"),
+  //   selected: false
+  // },
   ];

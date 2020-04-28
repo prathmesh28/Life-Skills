@@ -7,12 +7,17 @@ export default class SelectCat extends React.Component{
   };
   componentDidMount() {
     let namevalue
-    Firebase.database().ref('UsersList/').once('child_added', function (snapshot) {
-      // console.log("hi",snapshot.val())
-      // console.log("yo",snapshot.val().topiclist)
+    const { uid } = Firebase.auth().currentUser;
+    //console.log(uid)
+    Firebase.database().ref('UsersList/' + uid).once('child_added', function (snapshot) {
+  
       namevalue = snapshot.val().topiclist
+    
+      // console.log(namevalue)
+   
     });
-    if(namevalue==="new"){
+   // this.props.navigation.navigate("Cat");
+    if(namevalue==="new" || namevalue===undefined){
       this.props.navigation.navigate("Cat");
 
     }else{

@@ -17,17 +17,12 @@ import Catlist from "../Catlist"
 export default class ProfileScreen extends React.Component {
   state = { email: "", displayName: "" };
   signOutUser = () => {
-    Firebase.auth().signOut();
-//removed this coz when user logs in this dosent update
-//     AsyncStorage.getItem('topickey', (err, topickey) => {
-//       AsyncStorage.removeItem('topickey')
-// //dont remove this
-//         });
-     
+    Firebase.auth().signOut();     
   };
     componentDidMount() {
         const { email, displayName } = Firebase.auth().currentUser;
-
+        this.Onboarding = require("../../assets/backbg.jpg")
+        this.Exit = require("../../assets/exit.png");
         this.setState({ email, displayName });
     }
  
@@ -37,14 +32,14 @@ export default class ProfileScreen extends React.Component {
         <StatusBar hidden />
         <Block flex>
           <ImageBackground
-            source={Images.Onboarding}
-            style={styles.profileContainer}
+          source={this.Onboarding}
+          style={styles.profileContainer}
             imageStyle={styles.profileBackground}
           >
               
               <Button style={{...styles.socialButtons, right: 10}} onPress={this.signOutUser}>
                 <Image
-                        source={ Images.Exit }
+                        source={ this.Exit }
                          style={styles.exit}
                 ></Image>
                 <Text style={{ 

@@ -20,16 +20,16 @@ async componentDidMount() {
 
   const { uid } = Firebase.auth().currentUser;
   userid=uid
-  //console.log(userid)
 
-  let namevalue
-  Firebase.database().ref('UsersList/').once('child_added', function (snapshot) {
-    namevalue = snapshot.val().topiclist
-  });
-
+  let topiclist=this.state.renderData
   Firebase.database().ref('UsersList/' + userid + "/topiclist/").on('value', snapshot => {
     if(snapshot.val()!=="new"){
       this.setState({renderData:snapshot.val()})
+    }
+    if(snapshot.val()==undefined){
+       Firebase.database().ref('UsersList/' + userid).set({
+            topiclist 
+        })
     }
   });
   }
