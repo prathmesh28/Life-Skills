@@ -82,22 +82,22 @@ list = () => {
 savelist = (props) => {
   console.log("hi")
   Firebase.database().ref('UsersList/' + userid + "/SavedList/").once('value', snapshot => {
-    
-    if(snapshot.val()[props.id]){
-      ToastAndroid.show("Removed from Saved", ToastAndroid.SHORT);
-      Firebase.database().ref('UsersList/' + userid + "/SavedList/" + props.id ).set(null);
+   
+    // if(snapshot.val()[props.id]){
+    //   ToastAndroid.show("Removed from Saved", ToastAndroid.SHORT);
+    //   Firebase.database().ref('UsersList/' + userid + "/SavedList/" + props.id ).set(null);
 
-    }else{
-          const Savedlist = props
-          ToastAndroid.show("Added to Saved", ToastAndroid.SHORT);
-          Firebase.database().ref('UsersList/' + userid + "/SavedList/" + props.id).set({  
-            Savedlist
-          }).then((data)=>{
-              console.log('data ' , data)
-          }).catch((error)=>{
-            console.log('error ' , error)
-          })
-    }
+    // }else{
+    //       const Savedlist = props
+    //       ToastAndroid.show("Added to Saved", ToastAndroid.SHORT);
+    //       Firebase.database().ref('UsersList/' + userid + "/SavedList/" + props.id).set({  
+    //         Savedlist
+    //       }).then((data)=>{
+    //           console.log('data ' , data)
+    //       }).catch((error)=>{
+    //         console.log('error ' , error)
+    //       })
+    // }
 
   })
 
