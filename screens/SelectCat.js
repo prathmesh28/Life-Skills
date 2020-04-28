@@ -22,9 +22,9 @@ export default class SelectCat extends React.Component{
     const { uid } = Firebase.auth().currentUser;
 
     Firebase.database().ref('UsersList/' + uid + "/topiclist/").on('value', snapshot => {
-     // console.log(snapshot.val())
+      console.log("checkthis"+snapshot.val())
 
-       if(snapshot.val()==="new" || snapshot.val() === undefined || snapshot.val() === false){
+       if(snapshot.val()==="new" ){
         this.setState({check: true})
       }
        else{
