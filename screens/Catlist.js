@@ -21,15 +21,9 @@ async componentDidMount() {
   const { uid } = Firebase.auth().currentUser;
   userid=uid
 
-  let topiclist=this.state.renderData
   Firebase.database().ref('UsersList/' + userid + "/topiclist/").on('value', snapshot => {
     if(snapshot.val()!=="new"){
       this.setState({renderData:snapshot.val()})
-    }
-    if(snapshot.val()==undefined){
-       Firebase.database().ref('UsersList/' + userid).set({
-            topiclist 
-        })
     }
   });
   }
