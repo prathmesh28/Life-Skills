@@ -42,7 +42,7 @@ export default class RegisterScreen extends React.Component {
           });
   };
   componentDidMount() { 
-    const Onboarding = require("../assets/backbg.jpg")
+    this.Onboarding = require("../assets/backbg.jpg")
   }
   render() {
     return (
@@ -145,7 +145,7 @@ export default class RegisterScreen extends React.Component {
                     <Checkbox  
                       onChange={ () => this.setState({check: !this.state.check}) }
                       checkboxStyle={{ borderWidth: 3 }}
-                      color={argonTheme.COLORS.PRIMARY}
+                      color="#5E72E4"
                       label="I agree with the"/>
                     <Button
                       style={{ width: 100 , elevation: 0}}

@@ -19,8 +19,8 @@ export default class IntroScreen extends React.Component {
     };
   }
   componentWillMount() {
-    const Onboarding = require("../assets/backbg.jpg")
-    const logo = require("../assets/logo.png")
+    this.Onboarding = require("../assets/backbg.jpg")
+    this.logo = require("../assets/logo.png")
 }
   _renderItem = ({ item }) => {
     return (

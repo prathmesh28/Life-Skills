@@ -19,7 +19,7 @@ export default class SavedScreen extends React.Component {
     super(props);
     this.state = {
       News: data,
-      Saved: []
+      Saved: data
   };
 }
 
@@ -28,17 +28,17 @@ componentDidMount(){
   userid= uid
  
  
-  Firebase.database().ref('UsersList/' + uid + "/SavedList/" ).on('value', snapshot => {
+  // Firebase.database().ref('UsersList/' + uid + "/SavedList/" ).on('value', snapshot => {
 
-    savedlist= snapshot.val()
-   // console.log(savedlist)
-    qwe = snapshot.val().filter(element => {
-      return element.Savedlist
-    })
-  //  console.log(qwe)
-   // this.setState({Saved})
+  //   savedlist= snapshot.val()
+  //  // console.log(savedlist)
+  //   // qwe = snapshot.val().filter(element => {
+  //   //   return element.Savedlist
+  //   // })
+  // //  console.log(qwe)
+  //  // this.setState({Saved})
 
-  })
+  // })
 }
 
 list = () => { 
@@ -91,7 +91,7 @@ list = () => {
       >
       
         <Block flex >
-         {this.list()}
+         {/* {this.list()} */}
         </Block>
        
        

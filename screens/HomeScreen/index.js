@@ -4,7 +4,7 @@ import Home from "./components/index"
 import RNUrlPreview from 'react-native-url-preview';
 import { Block, Checkbox, theme } from "galio-framework";
 import { Button, Input } from '../../components';
-import { Images, argonTheme } from "../../constants";
+import { argonTheme } from "../../constants";
 import { Searchbar } from 'react-native-paper';
 import AnimatedSplash from "react-native-animated-splash-screen";
 const { width, height } = Dimensions.get("screen");
@@ -17,8 +17,9 @@ export default class HomeScreen extends React.Component {
         };
       }
       
-      componentDidMount () {
-      
+      componentDidMount() {
+        this.Onboarding = require("../../assets/backbg.jpg")
+
       }
         
        _onChangeSearch = query => this.setState({ searchQuery: query });
@@ -32,8 +33,8 @@ export default class HomeScreen extends React.Component {
         <StatusBar hidden />
         
         <ImageBackground
-            source={Images.Onboarding}
-            style={styles.profileContainer}
+          source={require("../../assets/backbg.jpg")}
+          style={styles.profileContainer}
             imageStyle={styles.profileBackground}
           >
              <Block middle>

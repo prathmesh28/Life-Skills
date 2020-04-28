@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, ImageBackground, TouchableOpacity, Dimensions, StatusBar, KeyboardAvoidingView, LayoutAnimation, AsyncStorage } from "react-native";
 import { Block, Text, theme } from "galio-framework";
 import { Button, Icon, Input } from '../components';
-import { Images, argonTheme } from "../constants";
+import { argonTheme } from "../constants";
 import Firebase from '../firebase';
 
 const { width, height } = Dimensions.get("screen");
@@ -20,8 +20,7 @@ export default class LoginScreen extends React.Component {
     errorMessage: null,
   };
   componentDidMount() { 
-    const Onboarding = require("../assets/backbg.jpg")
-
+    this.Onboarding = require("../assets/backbg.jpg")
     AsyncStorage.getItem('email').then((value) => this.setState({ 'email': value })) 
   }
 
