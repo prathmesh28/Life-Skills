@@ -80,31 +80,31 @@ list = () => {
 };
 
 savelist = (props) => {
-  console.log("hi")
-  Firebase.database().ref('UsersList/' + userid + "/SavedList/").once('value', snapshot => {
-   console.log("test"+snapshot.val()[props.id])
+  // console.log("hi")
+  // Firebase.database().ref('UsersList/' + userid + "/SavedList/").once('value', snapshot => {
+  //  console.log("test"+snapshot.val()[props.id])
   
 
 
-     if(snapshot.val()!==null){
-      ToastAndroid.show("Removed from Saved", ToastAndroid.SHORT);
-      Firebase.database().ref('UsersList/' + userid + "/SavedList/" + props.id ).set(null);
-     }
-    else{
-      console.log("testing")
+  //    if(snapshot.val()!==null){
+  //     ToastAndroid.show("Removed from Saved", ToastAndroid.SHORT);
+  //     Firebase.database().ref('UsersList/' + userid + "/SavedList/" + props.id ).set(null);
+  //    }
+  //   else{
+  //     console.log("testing")
 
-          const Savedlist = props
-          ToastAndroid.show("Added to Saved", ToastAndroid.SHORT);
-          Firebase.database().ref('UsersList/' + userid + "/SavedList/" + props.id).set({  
-            Savedlist
-          }).then((data)=>{
-              console.log('data ' , data)
-          }).catch((error)=>{
-            console.log('error ' , error)
-          })
-     }
+  //         const Savedlist = props
+  //         ToastAndroid.show("Added to Saved", ToastAndroid.SHORT);
+  //         Firebase.database().ref('UsersList/' + userid + "/SavedList/" + props.id).set({  
+  //           Savedlist
+  //         }).then((data)=>{
+  //             console.log('data ' , data)
+  //         }).catch((error)=>{
+  //           console.log('error ' , error)
+  //         })
+  //    }
 
-  })
+  // })
 
   
 }
