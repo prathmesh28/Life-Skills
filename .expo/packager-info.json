@@ -1,10 +1,9 @@
 {
+  "devToolsPort": 19002,
   "expoServerPort": 19000,
-  "expoServerNgrokUrl": "https://db-2up.vibhav-09.life-skills.exp.direct",
-  "packagerNgrokUrl": "https://packager.db-2up.vibhav-09.life-skills.exp.direct",
-  "ngrokPid": 3716,
   "packagerPort": 19001,
-  "packagerPid": 5128,
-  "webpackServerPort": null,
-  "devToolsPort": 19002
+  "packagerPid": 10668,
+  "expoServerNgrokUrl": "https://83-8qq.prthmsh18.life-skills.exp.direct",
+  "packagerNgrokUrl": "https://packager.83-8qq.prthmsh18.life-skills.exp.direct",
+  "ngrokPid": 10012
 }

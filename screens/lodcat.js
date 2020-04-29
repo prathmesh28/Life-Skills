@@ -9,12 +9,13 @@ export default class SelectCat extends React.Component{
     let namevalue
     const { uid } = Firebase.auth().currentUser;
     //console.log(uid)
-    Firebase.database().ref('UsersList/' + uid +  "/topiclist/").once('child_added', function (snapshot) {
+    Firebase.database().ref('UsersList/' + uid +  "/topiclist/").once('value', function (snapshot) {
   
       namevalue = snapshot.val()
-    
-       console.log("hi"+namevalue)
-   
+      // console.log(snapshot.val())
+      //  console.log("topiccheck"+namevalue)
+      //  console.log("topiccheck123"+namevalue)
+
     });
    // this.props.navigation.navigate("Cat");
     if(namevalue==="new" ){
@@ -23,7 +24,7 @@ export default class SelectCat extends React.Component{
     }else{
       this.props.navigation.navigate("App");
     }
- 
+ console
   }
   render(){
     return(

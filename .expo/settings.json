@@ -1,8 +1,8 @@
 {
-  "urlRandomness": "db-2up",
   "hostType": "lan",
   "lanType": "ip",
   "dev": true,
   "minify": false,
-  "https": true
+  "urlRandomness": "83-8qq",
+  "https": false
 }
