@@ -1,9 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 10668,
-  "expoServerNgrokUrl": "https://83-8qq.prthmsh18.life-skills.exp.direct",
-  "packagerNgrokUrl": "https://packager.83-8qq.prthmsh18.life-skills.exp.direct",
-  "ngrokPid": 10012
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
+  "webpackServerPort": null
 }

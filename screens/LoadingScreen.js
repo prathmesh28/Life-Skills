@@ -6,24 +6,24 @@ import AnimatedSplash from "react-native-animated-splash-screen";
 export default class LoadingScreen extends React.Component {
     static navigationOptions = {
         headerShown: false
-      };
-      constructor(){
+    };
+    constructor() {
         super();
-        this.state = {email: null, name: null};
+        this.state = { email: null, name: null };
     }
- 
-      componentDidMount() {
-     
-        AsyncStorage.getItem('email').then((value) => this.setState({ email : value }))
+
+    componentDidMount() {
+
+        AsyncStorage.getItem('email').then((value) => this.setState({ email: value }))
         Firebase.auth().onAuthStateChanged(user => {
             //changed Lcat to App
-            this.props.navigation.navigate(user ? "Lcat" : (this.state.email ? "Login" : "Intro" ) );
+            this.props.navigation.navigate(user ? "Lcat" : (this.state.email ? "Login" : "Intro"));
         });
     }
     render() {
         return (
             <View style={styles.container}>
-        
+
                 <Text>Loading</Text>
                 <ActivityIndicator size="large"></ActivityIndicator>
             </View>

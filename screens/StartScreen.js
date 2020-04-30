@@ -18,7 +18,7 @@ export default class StartScreen extends React.Component {
   componentWillMount() {
     this.Onboarding = require("../assets/backbg.jpg")
     this.logo = require('../assets/skills.png')
-}
+  }
 
 
   isUserEqual = (googleUser, firebaseUser) => {
@@ -66,10 +66,10 @@ export default class StartScreen extends React.Component {
                 .set({
                   email: result.user.email,
                   name: result.additionalUserInfo.profile.given_name,
-                 topiclist
+                  topiclist
                 })
 
-                
+
             } else {
               firebase
                 .database()
@@ -113,125 +113,125 @@ export default class StartScreen extends React.Component {
     }
   }
 
-    loginWithFacebook = async () => {
-      const { type, token } = await Facebook.logInWithReadPermissionsAsync
-        ('2926256467492608', { permissions: ['public_profile'] })
+  loginWithFacebook = async () => {
+    const { type, token } = await Facebook.logInWithReadPermissionsAsync
+      ('2926256467492608', { permissions: ['public_profile'] })
 
-      if (type == 'success') {
+    if (type == 'success') {
 
-        const credential = await firebase.auth.FacebookAuthProvider.credential(token)
-        firebase.auth().signInWithCredential(credential).then(function (result) {
-          console.log(result.additionalUserInfo, result.additionalUserInfo.profile)
+      const credential = await firebase.auth.FacebookAuthProvider.credential(token)
+      firebase.auth().signInWithCredential(credential).then(function (result) {
+        console.log(result.additionalUserInfo, result.additionalUserInfo.profile)
 
 
-          if (result.additionalUserInfo.isNewUser) {
+        if (result.additionalUserInfo.isNewUser) {
 
-            let topiclist = "new"
-            firebase
-              .database()
-              .ref('/UsersList/' + result.user.uid)
-              .set({
-                gmail: result.user.email,
-                first_name: result.additionalUserInfo.profile.given_name,
-                topiclist
-              })
+          let topiclist = "new"
+          firebase
+            .database()
+            .ref('/UsersList/' + result.user.uid)
+            .set({
+              gmail: result.user.email,
+              first_name: result.additionalUserInfo.profile.given_name,
+              topiclist
+            })
 
-          } else {
-            firebase
-              .database()
-              .ref('/UsersList/' + result.user.uid).update({ last_logged_in: Date.now() })
-          }
-        }).catch(error => {
-          console.log(error);
-        })
-      }
-
+        } else {
+          firebase
+            .database()
+            .ref('/UsersList/' + result.user.uid).update({ last_logged_in: Date.now() })
+        }
+      }).catch(error => {
+        console.log(error);
+      })
     }
-  
+
+  }
+
 
 
 
 
   render() {
-      return (
-        <Block flex middle>
-          <StatusBar hidden />
-          <ImageBackground
-            source={this.Onboarding}
-            style={{ width, height, zIndex: 1 }}>
-            <Block flex middle>
-              <Block style={styles.registerContainer} middle>
-                <Block width={width * 0.8} middle >
-                   <Image 
-                      style={styles.logoimg} 
-                      source={this.logo} /> 
-                </Block>
-                <Block middle width={width * 0.8} style={{position:"relative" ,top:-60}}>
-                  <Text style={{fontSize:22, fontWeight:"bold", textAlign: 'justify', lineHeight: 50,}}>
-                    Welcome to Life Skills</Text>
-                  <Text center style={{fontSize:17, }}>
-                    A platform that provides you with a variety of topics to learn from and life hacks to make your lifestyle more productive and organized.
+    return (
+      <Block flex middle>
+        <StatusBar hidden />
+        <ImageBackground
+          source={this.Onboarding}
+          style={{ width, height, zIndex: 1 }}>
+          <Block flex middle>
+            <Block style={styles.registerContainer} middle>
+              <Block width={width * 0.8} middle >
+                <Image
+                  style={styles.logoimg}
+                  source={this.logo} />
+              </Block>
+              <Block middle width={width * 0.8} style={{ position: "relative", top: -60 }}>
+                <Text style={{ fontSize: 22, fontWeight: "bold", textAlign: 'justify', lineHeight: 50, }}>
+                  Welcome to Life Skills</Text>
+                <Text center style={{ fontSize: 17, }}>
+                  A platform that provides you with a variety of topics to learn from and life hacks to make your lifestyle more productive and organized.
                   </Text>
-                </Block>
-                <Block row width={width * 0.8} style={{ marginBottom: 15 }} middle>
-                  <Block style={{ margin: 10 }}>
-                    <Button 
-                      color="primary" 
-                      style={styles.login}
-                      onPress={() =>this.props.navigation.navigate('Login')}>
-                      <Text bold size={14} color={argonTheme.COLORS.WHITE}>
-                        Log In
+              </Block>
+              <Block row width={width * 0.8} style={{ marginBottom: 15 }} middle>
+                <Block style={{ margin: 10 }}>
+                  <Button
+                    color="primary"
+                    style={styles.login}
+                    onPress={() => this.props.navigation.navigate('Login')}>
+                    <Text bold size={14} color={argonTheme.COLORS.WHITE}>
+                      Log In
                       </Text>
-                    </Button>
-                  </Block>
-                  <Block style={{ margin: 10 }}>
-                    <Button 
-                      color="intro" 
-                      style={styles.register}
-                      onPress={() => this.props.navigation.navigate('Register')}>
-                      <Text bold size={14} color={argonTheme.COLORS.WHITE}>
+                  </Button>
+                </Block>
+                <Block style={{ margin: 10 }}>
+                  <Button
+                    color="intro"
+                    style={styles.register}
+                    onPress={() => this.props.navigation.navigate('Register')}>
+                    <Text bold size={14} color={argonTheme.COLORS.WHITE}>
                       Register
                       </Text>
-                    </Button>
-                  </Block>
+                  </Button>
                 </Block>
-                <Block flex={0.15} middle style={styles.socialConnect}>
-                <Text center color="#8898AA" size={12} style={{lineHeight:30, marginTop:-30}}>
+              </Block>
+              <Block flex={0.15} middle style={styles.socialConnect}>
+                <Text center color="#8898AA" size={12} style={{ lineHeight: 30, marginTop: -30 }}>
                   OR{"\n"}
                   Sign up with
                 </Text>
                 <Block row style={{ marginTop: theme.SIZES.BASE }}>
-                  <Button style={{ ...styles.socialButtons, marginRight: 30,backgroundColor:"#3b5998" }}
-                      onPress={() => this.loginWithFacebook()}>
+                  <Button style={{ ...styles.socialButtons, marginRight: 30, backgroundColor: "#3b5998" }}
+                    onPress={() => this.loginWithFacebook()}>
                     <Block row>
                       <Icon
                         name="logo-facebook"
                         family="Ionicon"
                         size={14}
                         color={"white"}
-                        style={{ marginTop: 2, marginRight: 5 }}/>
+                        style={{ marginTop: 2, marginRight: 5 }} />
                       <Text style={styles.socialTextButtons}>FACEBOOK</Text>
                     </Block>
                   </Button>
-                  <Button style={{...styles.socialButtons, backgroundColor:"#db4a39"}}
-                      onPress={() => this.signInWithGoogleAsync()}>
+                  <Button style={{ ...styles.socialButtons, backgroundColor: "#db4a39" }}
+                    onPress={() => this.signInWithGoogleAsync()}>
                     <Block row>
                       <Icon
                         name="logo-google"
                         family="Ionicon"
                         size={14}
                         color={"white"}
-                        style={{ marginTop: 2, marginRight: 5 }}/>
-                      <Text style={{...styles.socialTextButtons, color:"white"}}>GOOGLE</Text>
+                        style={{ marginTop: 2, marginRight: 5 }} />
+                      <Text style={{ ...styles.socialTextButtons, color: "white" }}>GOOGLE</Text>
                     </Block>
                   </Button>
                 </Block>
               </Block>
-              </Block>
             </Block>
-          </ImageBackground>
-        </Block>
-      );
+          </Block>
+        </ImageBackground>
+      </Block>
+    );
   }
 }
 const styles = StyleSheet.create({
@@ -250,35 +250,35 @@ const styles = StyleSheet.create({
     elevation: 1,
     overflow: "hidden"
   },
-    login: {
-      color: argonTheme.COLORS.PRIMARY,
-      fontWeight: "800",
-      fontSize: 14,
-      width: width * 0.3,
-    },
-    register: {
-      color: argonTheme.COLORS.INTRO,
-      fontWeight: "800",
-      fontSize: 14,
-      width: width * 0.3,
-    },
-  logoimg:{
-    top:-100,
+  login: {
+    color: argonTheme.COLORS.PRIMARY,
+    fontWeight: "800",
+    fontSize: 14,
+    width: width * 0.3,
+  },
+  register: {
+    color: argonTheme.COLORS.INTRO,
+    fontWeight: "800",
+    fontSize: 14,
+    width: width * 0.3,
+  },
+  logoimg: {
+    top: -100,
     width: 180,
     height: 180,
   },
   socialConnect: {
     backgroundColor: "#f0f0f0",
     borderBottomWidth: StyleSheet.hairlineWidth,
-    position:"absolute",
+    position: "absolute",
     borderColor: "#8898AA",
     width: width * 0.9,
     height: height * 0.16,
-    bottom:0,
-    position:"absolute"
+    bottom: 0,
+    position: "absolute"
   },
   pass: {
-    
+
   },
   socialButtons: {
     width: 120,
