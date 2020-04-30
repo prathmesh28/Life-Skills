@@ -9,6 +9,7 @@ import { createStackNavigator } from "react-navigation-stack";
 
 
 
+
 export default class MyComponent extends React.Component {
                  state = {
                    index: 0,

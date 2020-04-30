@@ -18,7 +18,6 @@ export default class RegisterScreen extends React.Component {
   state = { name: "", email: "", password: "", check: false, errorMessage: null }
 
   handleSignUp = () => {
-<<<<<<< HEAD
     let name=this.state.name
     let email=this.state.email
     let topiclist= "new"
@@ -43,30 +42,6 @@ export default class RegisterScreen extends React.Component {
           .catch(error => this.setState({ errorMessage: error.message }));
           AsyncStorage.setItem('email', this.state.email, () => {
           });
-=======
-    let name = this.state.name
-    let email = this.state.email
-    let topiclist = "new"
-    Firebase
-      .auth()
-      .createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then(userCredentials => {
-        userCredentials.user.updateProfile({ displayName: this.state.name });
-        Firebase.database().ref('UsersList/' + userCredentials.user.uid).set({
-          name,
-          email,
-          topiclist,
-
-        }).then((data) => {
-          //    console.log('data ' , data)
-        }).catch((error) => {
-          //   console.log('error ' , error)
-        })
-      })
-      .catch(error => this.setState({ errorMessage: error.message }));
-    AsyncStorage.setItem('email', this.state.email, () => {
-    });
->>>>>>> 8a36b89ca13394889d87d4cedaf7c02ebb5072c9
   };
   componentDidMount() {
     this.Onboarding = require("../assets/backbg.jpg")

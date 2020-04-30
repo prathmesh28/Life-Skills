@@ -2,6 +2,7 @@ import React from "react";
 import {
   StyleSheet,
   ScrollView,
+  FlatList,
   Dimensions,
   TouchableOpacity,
   ToastAndroid,
@@ -62,42 +63,6 @@ export default withNavigation(
 
 }
 
-list = () => { 
-  return this.state.News.map(element => {
-       return (
-         <Card  style={styles.card}  onPress={() => this.setState({ showURL: true })}>
-         <Card.Title
-           key={element.id}
-           title={element.topic}
-           titleStyle={styles.titlecard}
-           right={(props) => 
-             <ToggleButton
-                 icon="heart"
-                 color={Colors.pink300}
-              //   status={element.Saved}
-                 onPress={ () => this.savelist(element)}
-               ></ToggleButton>
-           }
-           rightStyle={styles.righticon}
-           style={styles.cardsty}
-         />
-         <View pointerEvents="none">
-       <RNUrlPreview  
-         text={element.link} 
-         titleStyle={styles.linktitle}
-         containerStyle={styles.linkcontainer}
-         titleNumberOfLines={2}
-         imageStyle={styles.linkimage}
-         disable
-       />
-       </View>
-       </Card>
-       )
-     
-  });
- 
-};
-
 
 savelist = (props) => {
   console.log("hi")
@@ -113,7 +78,7 @@ savelist = (props) => {
         savecheck = this.state.SavedData.find((item) =>  item.id===props.id)
        
        
-              
+  
               console.log(savecheck)
               if(savecheck===undefined){
                   //  console.log("not present")
@@ -161,14 +126,49 @@ savelist = (props) => {
   render() {
    
     return (
-      <ScrollView
-      showsVerticalScrollIndicator={false}
-     // style={{ marginBottom:50 }}
-    >
-        {this.list()}
-   
-    
-    </ScrollView>
+      <View style={styles.Container} >
+        <FlatList
+
+          data={this.state.News}
+          keyExtractor={item => item.id.toString()}
+          //style={{ flex: 1 }}
+         // numColumns={3}
+
+          renderItem={({ item }) => ( 
+            <Card  style={styles.card}  onPress={() => this.setState({ showURL: true })}>
+         <Card.Title
+           key={item.id}
+           title={item.topic}
+           titleStyle={styles.titlecard}
+           right={(props) => 
+             <ToggleButton
+                 icon="heart"
+                 color={Colors.pink300}
+              //   status={item.Saved}
+                 onPress={ () => this.savelist(item)}
+               ></ToggleButton>
+           }
+           rightStyle={styles.righticon}
+           style={styles.cardsty}
+         />
+         <TouchableOpacity onPress={() => { this.openWebView(item.link) }}>
+            <View pointerEvents="none">
+              <RNUrlPreview  
+                text={item.link} 
+                titleStyle={styles.linktitle}
+                containerStyle={styles.linkcontainer}
+                titleNumberOfLines={2}
+                imageStyle={styles.linkimage}
+                disable
+              />
+          </View>
+       </TouchableOpacity>
+       </Card>
+
+          )
+            }
+          />
+          </View>
     )
     
   }
@@ -177,6 +177,7 @@ savelist = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+   // flexDirection:"column"
   },
   card: {
     margin: 10,
