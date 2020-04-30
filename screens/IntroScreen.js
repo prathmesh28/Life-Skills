@@ -15,13 +15,13 @@ export default class IntroScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showRealApp: false, 
+      showRealApp: false,
     };
   }
   componentWillMount() {
     this.Onboarding = require("../assets/backbg.jpg")
     this.logo = require("../assets/logo.png")
-}
+  }
   _renderItem = ({ item }) => {
     return (
       <View
@@ -43,32 +43,32 @@ export default class IntroScreen extends React.Component {
     if (this.state.showRealApp) {
       return (
         <Block flex style={styles.container}>
-        <StatusBar hidden />
-        <AppIntroSlider
-          slides={slides}
-          renderItem={this._renderItem}
-          onDone={() =>this.props.navigation.navigate('Auth')}
-          showSkipButton={true}
-          onSkip={() =>this.props.navigation.navigate('Auth')}
-        />
-        </Block>
-      );
-    }else{
-      return(
-        <Block flex style={styles.container}>
-        <StatusBar hidden />
-        <Block flex center>
-        <ImageBackground
-            source={this.Onboarding}
-            style={{ height , width , zIndex: 1 }}
+          <StatusBar hidden />
+          <AppIntroSlider
+            slides={slides}
+            renderItem={this._renderItem}
+            onDone={() => this.props.navigation.navigate('Auth')}
+            showSkipButton={true}
+            onSkip={() => this.props.navigation.navigate('Auth')}
           />
         </Block>
-        <Block center>
-          <Image source={this.logo} style={styles.logo} />
-        </Block>
-        <Block flex space="between" style={styles.padded}>
+      );
+    } else {
+      return (
+        <Block flex style={styles.container}>
+          <StatusBar hidden />
+          <Block flex center>
+            <ImageBackground
+              source={this.Onboarding}
+              style={{ height, width, zIndex: 1 }}
+            />
+          </Block>
+          <Block center>
+            <Image source={this.logo} style={styles.logo} />
+          </Block>
+          <Block flex space="between" style={styles.padded}>
             <Block flex space="around" style={{ zIndex: 2 }}>
-              
+
               <Block center>
                 <Button
                   style={styles.button}
@@ -79,13 +79,13 @@ export default class IntroScreen extends React.Component {
                   Get Started
                 </Button>
               </Block>
+            </Block>
           </Block>
         </Block>
-      </Block>
       );
     }
-    }
   }
+}
 
 const styles = StyleSheet.create({
   registerContainer: {
@@ -103,19 +103,19 @@ const styles = StyleSheet.create({
     elevation: 1,
     overflow: "hidden"
   },
-    login: {
-      color: argonTheme.COLORS.PRIMARY,
-      //fontWeight: "800",
-      fontSize: 14,
-      width: width * 0.5,
-    },
-    register: {
-      marginTop: 25,
-      color: argonTheme.COLORS.PRIMARY,
-      //fontWeight: "800",
-      fontSize: 14,
-      width: width * 0.5,
-    },
+  login: {
+    color: argonTheme.COLORS.PRIMARY,
+    //fontWeight: "800",
+    fontSize: 14,
+    width: width * 0.5,
+  },
+  register: {
+    marginTop: 25,
+    color: argonTheme.COLORS.PRIMARY,
+    //fontWeight: "800",
+    fontSize: 14,
+    width: width * 0.5,
+  },
   image: {
     width: 200,
     height: 200,
@@ -158,12 +158,12 @@ const styles = StyleSheet.create({
     zIndex: 2,
     position: 'relative',
     marginTop: '-70%',
-    
+
   },
 
   titles: {
-    marginTop:'-5%'
-    
+    marginTop: '-5%'
+
   },
   subTitle: {
     marginTop: 20

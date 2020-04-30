@@ -1,18 +1,18 @@
 
 import React from "react";
-import { StyleSheet,Dimensions, AsyncStorage, StatusBar, ImageBackground, ScrollView } from "react-native";
+import { StyleSheet, Dimensions, AsyncStorage, StatusBar, ImageBackground, ScrollView } from "react-native";
 import RNUrlPreview from 'react-native-url-preview';
 import { Block, Checkbox, theme } from "galio-framework";
 import { Button, Input } from '../components';
 import { Images, argonTheme } from "../constants";
-import { Avatar, Card, Title, Paragraph, IconButton ,Image, Colors, ToggleButton, FAB, Portal,  } from 'react-native-paper';
+import { Avatar, Card, Title, Paragraph, IconButton, Image, Colors, ToggleButton, FAB, Portal, } from 'react-native-paper';
 import Home from './HomeScreen/components/index'
 import data from "./data"
 import Firebase from "../firebase";
 
 const { width, height } = Dimensions.get("screen");
 let savedlist = []
-let userid 
+let userid
 let qwe = []
 export default class SavedScreen extends React.Component {
   constructor(props) {
@@ -93,11 +93,8 @@ list = () => {
         <Block flex >
          {this.list()}
         </Block>
-       
-       
-      </ScrollView>
-      </Block>
-    
+        </ScrollView>
+        </Block>
       </Block>
     );
   }
@@ -111,48 +108,48 @@ const styles = StyleSheet.create({
   },
   fab: {
     margin: 8,
-    width:55,
-    position:"absolute",
-    bottom:10,
-    right:10
+    width: 55,
+    position: "absolute",
+    bottom: 10,
+    right: 10
   },
-   card: {
-    margin:10,
-    paddingLeft:10,
-    paddingRight:10
+  card: {
+    margin: 10,
+    paddingLeft: 10,
+    paddingRight: 10
   },
   titlecard: {
-    fontSize:12,
-   
+    fontSize: 12,
+
   },
   button: {
-    elevation:0,
-    borderRadius:100,
-    color:"red"
+    elevation: 0,
+    borderRadius: 100,
+    color: "red"
   },
   righticon: {
-    
+
   },
   cardsty: {
     marginTop: -16,
     marginBottom: -16,
-    
+
   },
   linktitle: {
-   // backgroundColor: '#fff'
-   fontWeight:"bold",
-   alignItems:"flex-start",
-   
+    // backgroundColor: '#fff'
+    fontWeight: "bold",
+    alignItems: "flex-start",
+
   },
   linkcontainer: {
     backgroundColor: '#fff',
-    flex: 2, 
-    flexDirection: 'row', 
+    flex: 2,
+    flexDirection: 'row',
     flexWrap: 'wrap'
   },
   cards: {
-    marginTop:50,
-    width:width*0.9,
-    height:height*0.79
+    marginTop: 50,
+    width: width * 0.9,
+    height: height * 0.79
   },
 });

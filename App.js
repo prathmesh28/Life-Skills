@@ -14,54 +14,54 @@ import * as Facebook from 'expo-facebook'
 
 Facebook.initializeAsync('2926256467492608', 'Life Skill')
 const AuthStack = createStackNavigator({
-    Start:StartScreen,
-    Login: LoginScreen,
-    Register: RegisterScreen,
-    
+  Start: StartScreen,
+  Login: LoginScreen,
+  Register: RegisterScreen,
+
 });
 const IntroPages = createStackNavigator({
-    Guide: IntroScreen,
+  Guide: IntroScreen,
 });
 
 const Container = createAppContainer(
 
-    createSwitchNavigator(
-        {
-            Intro: IntroPages,
-            Loading: LoadingScreen,
-            Auth: AuthStack,
-            Lcat:Loadcat,
-            Cat:SelectCat,
-            App: Bottomnav, 
-        },
-        {
-            initialRouteName: "Loading"
-        }
-    )
+  createSwitchNavigator(
+    {
+      Intro: IntroPages,
+      Loading: LoadingScreen,
+      Auth: AuthStack,
+      Lcat: Loadcat,
+      Cat: SelectCat,
+      App: Bottomnav,
+    },
+    {
+      initialRouteName: "Loading"
+    }
+  )
 );
 
 class App extends React.Component {
-    // state = {
-    //   isLoaded: false,
-    // }
-   
-    // setAppLoaded = () => {
-    //   this.setState({ isLoaded: true })
-    // }
-   
-    render() {
-      return (
-        // <AnimatedSplash
-        //   isLoaded={this.state.isLoaded}
-        //   logoImage={require("./assets/logo.png")}
-        //   backgroundColor={"#262626"}
-        //   logoHeight={150}
-        //   logoWidht={150}
-        // >
-          <Container screenProps={{ setAppLoaded: this.setAppLoaded }} />
-        // </AnimatedSplash>
-      )
-    }
+  // state = {
+  //   isLoaded: false,
+  // }
+
+  // setAppLoaded = () => {
+  //   this.setState({ isLoaded: true })
+  // }
+
+  render() {
+    return (
+      // <AnimatedSplash
+      //   isLoaded={this.state.isLoaded}
+      //   logoImage={require("./assets/logo.png")}
+      //   backgroundColor={"#262626"}
+      //   logoHeight={150}
+      //   logoWidht={150}
+      // >
+      <Container screenProps={{ setAppLoaded: this.setAppLoaded }} />
+      // </AnimatedSplash>
+    )
   }
-   
-  export default App
+}
+
+export default App

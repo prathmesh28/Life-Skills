@@ -6,7 +6,7 @@ import {
   ImageBackground,
   StatusBar,
   AsyncStorage
-  
+
 } from "react-native";
 import { Block, Text, theme } from "galio-framework";
 import Firebase from '../../firebase';
@@ -17,71 +17,72 @@ import Catlist from "../Catlist"
 export default class ProfileScreen extends React.Component {
   state = { email: "", displayName: "" };
   signOutUser = () => {
-    Firebase.auth().signOut();     
+    Firebase.auth().signOut();
   };
-    componentDidMount() {
-        const { email, displayName } = Firebase.auth().currentUser;
-        this.Onboarding = require("../../assets/backbg.jpg")
-        this.Exit = require("../../assets/exit.png");
-        this.setState({ email, displayName });
-    }
- 
+  componentDidMount() {
+    const { email, displayName } = Firebase.auth().currentUser;
+    this.Onboarding = require("../../assets/backbg.jpg")
+    this.Exit = require("../../assets/exit.png");
+    this.setState({ email, displayName });
+  }
+
   render() {
     return (
       <Block flex style={styles.profile}>
         <StatusBar hidden />
         <Block flex>
           <ImageBackground
-          source={this.Onboarding}
-          style={styles.profileContainer}
+            source={this.Onboarding}
+            style={styles.profileContainer}
             imageStyle={styles.profileBackground}
           >
-              
-              <Button style={{...styles.socialButtons, right: 10}} onPress={this.signOutUser}>
+
+            <Button style={{ ...styles.socialButtons, right: 10 }} onPress={this.signOutUser}>
+              <Image
+                source={this.Exit}
+                style={styles.exit}
+              ></Image>
+              <Text style={{
+                color: "#fff",
+                fontSize: 14,
+                marginLeft: -6
+              }}>logout</Text>
+            </Button>
+
+
+
+            <Block flex style={styles.profileCard}>
+
+              <Block middle style={styles.avatarContainer}>
                 <Image
-                        source={ this.Exit }
-                         style={styles.exit}
-                ></Image>
-                <Text style={{ 
-                      color: "#fff",
-                        fontSize: 14,
-                        marginLeft: -6}}>logout</Text>
-              </Button>
-            
-            
-              
-              <Block flex style={styles.profileCard}>
-                
-                <Block middle style={styles.avatarContainer}>
-                  <Image
-                    source={{ uri: "https://api.adorable.io/avatars/124/"+this.state.displayName+".png" }}
-                    style={styles.avatar}
-                    
-                  />
-                </Block>
-                 
-                <Block flex>
-                  <Block middle style={styles.nameInfo}>
-                    <Text bold size={28} color="#32325D">
-                    {this.state.displayName}
-                    </Text>
-                    
-                  </Block>
-                  <Block middle style={{ marginTop: 30, marginBottom: 16 }}>
-                    <Block style={styles.divider} />
-                  </Block>
-                  <Block middle style={{marginBottom:100}}>
-                  <Text>Topics</Text>
-                  </Block>
-                  <Catlist/>
-                 
-                  
-                </Block>
+                  source={{ uri: "https://api.adorable.io/avatars/124/" + this.state.displayName + ".png" }}
+                  style={styles.avatar}
+
+                />
               </Block>
-            
+
+              <Block flex>
+                <Block middle style={styles.nameInfo}>
+                  <Text bold size={28} color="#32325D">
+                    {this.state.displayName}
+                  </Text>
+
+                </Block>
+                <Block middle style={{ marginTop: 30, marginBottom: 16 }}>
+                  <Block style={styles.divider} />
+                </Block>
+                <Block middle style={{ marginBottom: 100 }}>
+                  <Text>Topics</Text>
+                </Block>
+                <Catlist />
+
+
+              </Block>
+            </Block>
+
           </ImageBackground>
         </Block>
-       
+
       </Block>
     );
   }
@@ -104,11 +105,11 @@ const styles = StyleSheet.create({
     height: height
   },
   profileCard: {
-     //position: "relative",
+    //position: "relative",
     //height:height*0.4,
     padding: theme.SIZES.BASE,
     marginHorizontal: theme.SIZES.BASE,
-    marginTop: height*0.15,
+    marginTop: height * 0.15,
     borderTopLeftRadius: 6,
     borderTopRightRadius: 6,
     backgroundColor: theme.COLORS.WHITE,
@@ -124,14 +125,14 @@ const styles = StyleSheet.create({
   avatarContainer: {
     position: "absolute",
     marginTop: -80,
-    alignSelf:"center"
+    alignSelf: "center"
   },
   avatar: {
     width: 124,
     height: 124,
     borderRadius: 62,
     borderWidth: 2,
-    borderColor:'#fff'
+    borderColor: '#fff'
   },
   nameInfo: {
     marginTop: 35
@@ -142,14 +143,14 @@ const styles = StyleSheet.create({
     borderColor: "#E9ECEF"
   },
   socialButtons: {
-    position:"absolute",
+    position: "absolute",
     width: 60,
     height: 60,
     backgroundColor: 'transparent',
-    borderRadius:100,
+    borderRadius: 100,
     elevation: 0,
-    marginTop: 20 
-   
+    marginTop: 20
+
   },
   exit: {
     width: 44,
