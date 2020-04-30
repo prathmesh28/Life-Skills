@@ -10,20 +10,25 @@ import { Block } from "galio-framework";
 
 let userid 
 let result = []
+
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
     News: data,
     NewsData: data,
-    showURL: false,
+   
+    Saved: false,
+    SavedData: []
+   
   };
 }
 
 componentDidMount(){
   const { uid } = Firebase.auth().currentUser;
   userid= uid
- 
+  //console.log(this.state.NewsData)
+
   Firebase.database().ref('UsersList/' + uid + "/topiclist/").on('value', snapshot => {
 
       const hio = snapshot.val().map(element => {
@@ -34,7 +39,8 @@ componentDidMount(){
             return temp 
           }
       })
-     
+     //   console.log(this.state.todos)
+        //console.log(this.state.)
       result =  this.state.NewsData.filter(element => {
            if(hio.includes(element.topic)){
              return element
@@ -42,12 +48,14 @@ componentDidMount(){
       })
       this.setState({ News:result })
   });
+
+
 }
 
 list = () => { 
   return this.state.News.map(element => {
        return (
-         <Card  style={styles.card} onPress={() => this.setState({ showURL: true })}>
+         <Card  style={styles.card}>
          <Card.Title
            key={element.id}
            title={element.topic}
@@ -79,33 +87,64 @@ list = () => {
  
 };
 
+
 savelist = (props) => {
-  // console.log("hi")
-  // Firebase.database().ref('UsersList/' + userid + "/SavedList/").once('value', snapshot => {
-  //  console.log("test"+snapshot.val()[props.id])
-  
+  console.log("hi")
 
+    Firebase.database().ref('UsersList/' + userid + "/savedlist/").once('value', snapshot => {
+    
+       // console.log(this.state.SavedData)
+       // console.log(props)
+       let savecheck
+       if(snapshot.val()){
+        this.setState({SavedData:snapshot.val()})
 
-  //    if(snapshot.val()!==null){
-  //     ToastAndroid.show("Removed from Saved", ToastAndroid.SHORT);
-  //     Firebase.database().ref('UsersList/' + userid + "/SavedList/" + props.id ).set(null);
-  //    }
-  //   else{
-  //     console.log("testing")
+        savecheck = this.state.SavedData.find((item) =>  item.id===props.id)
+       
+       
+              
+              console.log(savecheck)
+              if(savecheck===undefined){
+                  //  console.log("not present")
+                    this.state.SavedData.push(props)
+                    Firebase.database().ref('UsersList/' + userid ).update({
+                        savedlist: this.state.SavedData,
+                                  }).then((data)=>{
+                                      console.log('data ' , data)
+                                  }).catch((error)=>{
+                                    console.log('error ' , error)
+                                  })
+              }else{
+                console.log("present")
+                var array = [...this.state.SavedData]; 
+                var index = array.indexOf(savecheck)
+                
+                if (index !== -1) {
+                    array.splice(index, 1);
+                    this.setState({SavedData: array});
+                }
+             //   console.log(this.state.SavedData)
+                Firebase.database().ref('UsersList/' + userid ).update({
+                savedlist: this.state.SavedData,
+                        }).then((data)=>{
+                            console.log('data ' , data)
+                        }).catch((error)=>{
+                          console.log('error ' , error)
+                        })
+              }
+    
+      }else{
+       this.state.SavedData.push(props)
+       Firebase.database().ref('UsersList/' + userid ).update({
+      savedlist: this.state.SavedData,
+                }).then((data)=>{
+                    console.log('data ' , data)
+                }).catch((error)=>{
+                  console.log('error ' , error)
+                })
+      }
 
-  //         const Savedlist = props
-  //         ToastAndroid.show("Added to Saved", ToastAndroid.SHORT);
-  //         Firebase.database().ref('UsersList/' + userid + "/SavedList/" + props.id).set({  
-  //           Savedlist
-  //         }).then((data)=>{
-  //             console.log('data ' , data)
-  //         }).catch((error)=>{
-  //           console.log('error ' , error)
-  //         })
-  //    }
-
-  // })
-
+    })
   
 }
   render() {

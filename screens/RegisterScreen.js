@@ -21,6 +21,7 @@ export default class RegisterScreen extends React.Component {
     let name=this.state.name
     let email=this.state.email
     let topiclist= "new"
+    let savedlist = "new"
       Firebase
           .auth()
           .createUserWithEmailAndPassword(this.state.email, this.state.password)
@@ -30,6 +31,7 @@ export default class RegisterScreen extends React.Component {
                 name,
                 email,
                 topiclist,
+                savedlist
                 
             }).then((data)=>{
             //    console.log('data ' , data)

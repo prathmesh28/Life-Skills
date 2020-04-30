@@ -60,13 +60,15 @@ export default class StartScreen extends React.Component {
               console.log('new user');
 
               let topiclist = "new"
+              let savedlist = "new"
               firebase
                 .database()
                 .ref('/UsersList/' + result.user.uid)
                 .set({
                   email: result.user.email,
                   name: result.additionalUserInfo.profile.given_name,
-                 topiclist
+                 topiclist,
+                 savedlist
                 })
 
                 
@@ -127,13 +129,15 @@ export default class StartScreen extends React.Component {
           if (result.additionalUserInfo.isNewUser) {
 
             let topiclist = "new"
+            let savedlist = "new"
             firebase
               .database()
               .ref('/UsersList/' + result.user.uid)
               .set({
                 gmail: result.user.email,
                 first_name: result.additionalUserInfo.profile.given_name,
-                topiclist
+                topiclist,
+                savedlist
               })
 
           } else {

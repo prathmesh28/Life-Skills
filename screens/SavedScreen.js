@@ -18,8 +18,7 @@ export default class SavedScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      News: data,
-      Saved: data
+      SavedData: []
   };
 }
 
@@ -28,53 +27,54 @@ componentDidMount(){
   userid= uid
  
  
-  // Firebase.database().ref('UsersList/' + uid + "/SavedList/" ).on('value', snapshot => {
+   Firebase.database().ref('UsersList/' + uid  ).on('value', snapshot => {
+    this.setState({SavedData:snapshot.val().savedlist})
+   // const savedarray = snapshot.val()
+    //console.log(savedarray)
+   //this.state.SavedData.push(snapshot.val())
 
-  //   savedlist= snapshot.val()
-  //  // console.log(savedlist)
-  //   // qwe = snapshot.val().filter(element => {
-  //   //   return element.Savedlist
-  //   // })
-  // //  console.log(qwe)
-  //  // this.setState({Saved})
+   //  console.log(this.state.SavedData)
+    // console.log(snapshot.val().savedlist)
+    savedlist=this.state.SavedData
+   })
+   //console.log(this.state.SavedData)
 
-  // })
 }
 
 list = () => { 
  // Firebase.database().ref('UsersList/' + userid + "/SavedList/" ).on('value', snapshot => {
   //  let news = snapshot.val()
-
-  return qwe.map(element => {
-  
-    return (
-      <Card  style={styles.card} onPress={() => this.setState({ showURL: true })}>
-      <Card.Title
-        key={element.Savedlist.id}
-        title={element.Savedlist.topic}
-        titleStyle={styles.titlecard}
-        right={(props) => 
-          <ToggleButton
-              icon="heart"
-              color={Colors.pink300}
-             // status={element.Savedlist.Saved}
-              onPress={ () => this.savelist(element.Savedlist)}
-            ></ToggleButton>
-        }
-        rightStyle={styles.righticon}
-        style={styles.cardsty}
-      />
+  console.log(savedlist)
+  return this.state.SavedData.map(element => {
+ // console.log(element)
+    // return (
+    //   <Card  style={styles.card} onPress={() => this.setState({ showURL: true })}>
+    //   <Card.Title
+    //     key={element.Savedlist.id}
+    //     title={element.Savedlist.topic}
+    //     titleStyle={styles.titlecard}
+    //     right={(props) => 
+    //       <ToggleButton
+    //           icon="heart"
+    //           color={Colors.pink300}
+    //          // status={element.Savedlist.Saved}
+    //           onPress={ () => this.savelist(element.Savedlist)}
+    //         ></ToggleButton>
+    //     }
+    //     rightStyle={styles.righticon}
+    //     style={styles.cardsty}
+    //   />
      
-    <RNUrlPreview  
-      text={element.Savedlist.link} 
-      titleStyle={styles.linktitle}
-      containerStyle={styles.linkcontainer}
-      titleNumberOfLines={2}
-      imageStyle={styles.linkimage}
-      disable
-    />
-    </Card>
-    )
+    // <RNUrlPreview  
+    //   text={element.Savedlist.link} 
+    //   titleStyle={styles.linktitle}
+    //   containerStyle={styles.linkcontainer}
+    //   titleNumberOfLines={2}
+    //   imageStyle={styles.linkimage}
+    //   disable
+    // />
+    // </Card>
+    // )
   
 });
 
@@ -91,7 +91,7 @@ list = () => {
       >
       
         <Block flex >
-         {/* {this.list()} */}
+         {this.list()}
         </Block>
        
        
