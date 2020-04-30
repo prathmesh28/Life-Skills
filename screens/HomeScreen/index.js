@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet,Dimensions, AsyncStorage, StatusBar, ImageBackground } from "react-native";
+import { StyleSheet, Dimensions, AsyncStorage, StatusBar, ImageBackground } from "react-native";
 import Home from "./components/index"
 import RNUrlPreview from 'react-native-url-preview';
 import { Block, Checkbox, theme } from "galio-framework";
@@ -13,63 +13,64 @@ export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-          searchQuery: '',
-        };
-      }
-      
-      componentDidMount() {
-        this.Onboarding = require("../../assets/backbg.jpg")
+      searchQuery: '',
+    };
+  }
 
-      }
-        
-       _onChangeSearch = query => this.setState({ searchQuery: query });
+  componentDidMount() {
+    this.Onboarding = require("../../assets/backbg.jpg")
+
+  }
+
+  _onChangeSearch = query => this.setState({ searchQuery: query });
 
   render() {
     const { searchQuery } = this.state;
-    
+
     return (
-   
+
       <Block flex center>
         <StatusBar hidden />
-        
+
         <ImageBackground
           source={require("../../assets/backbg.jpg")}
           style={styles.profileContainer}
-            imageStyle={styles.profileBackground}
-          >
-             <Block middle>
-        <Searchbar
-        style={styles.search}
-        placeholder="Search"
-        onChangeText={this._onChangeSearch}
-        value={searchQuery}
-      />
-        <Block middle>
-        
-          <Block style={styles.cards}>
-          <Home />
+          imageStyle={styles.profileBackground}
+        >
+          <Block middle>
+            <Searchbar
+              style={styles.search}
+              placeholder="Search"
+              onChangeText={this._onChangeSearch}
+              value={searchQuery}
+            />
+            <Block middle>
 
+              <Block style={styles.cards}>
+                <Home />
+
+              </Block>
+            </Block>
           </Block>
-        </Block>
-        </Block>
         </ImageBackground>
-        
-    </Block>
-  )}
+
+      </Block>
+    )
+  }
 }
 const styles = StyleSheet.create({
   container: {
-      flex: 1,
+    flex: 1,
   },
   search: {
-    marginTop:width*0.1,
-    marginBottom:width*0.07,
+    marginTop: width * 0.1,
+    marginBottom: width * 0.07,
     borderRadius: 50,
-    width:width*0.9
+    width: width * 0.9
   },
   cards: {
-    width:width*0.9,
-    height:height*0.79
+    width: width * 0.9,
+    height: height * 0.79
   },
   profileContainer: {
     width: width,

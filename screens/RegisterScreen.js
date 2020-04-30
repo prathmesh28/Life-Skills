@@ -1,4 +1,4 @@
-import React  from "react";
+import React from "react";
 import { StyleSheet, ImageBackground, Dimensions, StatusBar, KeyboardAvoidingView, AsyncStorage } from "react-native";
 import { Block, Checkbox, Text, theme } from "galio-framework";
 import { Button, Icon, Input } from '../components';
@@ -12,7 +12,7 @@ const { width, height } = Dimensions.get("screen");
 
 export default class RegisterScreen extends React.Component {
   static navigationOptions = {
-      headerShown: false
+    headerShown: false
   };
 
   state = { name: "", email: "", password: "", check: false, errorMessage: null }
@@ -21,6 +21,7 @@ export default class RegisterScreen extends React.Component {
     let name=this.state.name
     let email=this.state.email
     let topiclist= "new"
+    let savedlist = "new"
       Firebase
           .auth()
           .createUserWithEmailAndPassword(this.state.email, this.state.password)
@@ -30,6 +31,7 @@ export default class RegisterScreen extends React.Component {
                 name,
                 email,
                 topiclist,
+                savedlist
                 
             }).then((data)=>{
             //    console.log('data ' , data)
@@ -41,7 +43,7 @@ export default class RegisterScreen extends React.Component {
           AsyncStorage.setItem('email', this.state.email, () => {
           });
   };
-  componentDidMount() { 
+  componentDidMount() {
     this.Onboarding = require("../assets/backbg.jpg")
   }
   render() {
@@ -62,122 +64,122 @@ export default class RegisterScreen extends React.Component {
                     {this.state.errorMessage && (<Text style={styles.error}>{this.state.errorMessage}</Text>)}
                   </Block>
                 </Block>
-              <Block flex center>
-                <KeyboardAvoidingView
-                  style={{ flex: 1 }}
-                  behavior="padding"
-                  enabled>
-                  <Block width={width * 0.8} style={{ marginBottom: 15 }}>
-                    <Input
-                      borderless
-                      placeholder="Name"
-                     
-                      onChangeText={
-                        name => this.setState({ name })
+                <Block flex center>
+                  <KeyboardAvoidingView
+                    style={{ flex: 1 }}
+                    behavior="padding"
+                    enabled>
+                    <Block width={width * 0.8} style={{ marginBottom: 15 }}>
+                      <Input
+                        borderless
+                        placeholder="Name"
+
+                        onChangeText={
+                          name => this.setState({ name })
                         }
-                      value={this.state.name}
-                      iconContent={
-                        <Icon
-                          size={16}
-                          color={argonTheme.COLORS.ICON}
-                          name="hat-3"
-                          family="ArgonExtra"
-                          style={styles.inputIcons}/>
-                      }/>
-                  </Block>
-                  <Block width={width * 0.8} style={{ marginBottom: 15 }}>
-                    <Input
-                      borderless
-                      placeholder="Email"
-                      onChangeText={email => this.setState({ email })}
-                      value={this.state.email}
-                      iconContent={
-                        <Icon
-                          size={16}
-                          color={argonTheme.COLORS.ICON}
-                          name="ic_mail_24px"
-                          family="ArgonExtra"
-                          style={styles.inputIcons}
-                        />
-                      }
-                    />
-                  </Block>
-                  <Block width={width * 0.8}>
-                    <Input
-                      password
-                      borderless
-                      secureTextEntry
-                      autoCapitalize="none"
-                      placeholder="Password"
-                      onChangeText={password => this.setState({ password })}
-                      value={this.state.password}
-                      iconContent={
-                        <Icon
-                          size={16}
-                          color={argonTheme.COLORS.ICON}
-                          name="padlock-unlocked"
-                          family="ArgonExtra"
-                          style={styles.inputIcons}/>
-                      }>
-                     </Input>
-                     
-                       <Block row style={styles.passwordCheck}>
+                        value={this.state.name}
+                        iconContent={
+                          <Icon
+                            size={16}
+                            color={argonTheme.COLORS.ICON}
+                            name="hat-3"
+                            family="ArgonExtra"
+                            style={styles.inputIcons} />
+                        } />
+                    </Block>
+                    <Block width={width * 0.8} style={{ marginBottom: 15 }}>
+                      <Input
+                        borderless
+                        placeholder="Email"
+                        onChangeText={email => this.setState({ email })}
+                        value={this.state.email}
+                        iconContent={
+                          <Icon
+                            size={16}
+                            color={argonTheme.COLORS.ICON}
+                            name="ic_mail_24px"
+                            family="ArgonExtra"
+                            style={styles.inputIcons}
+                          />
+                        }
+                      />
+                    </Block>
+                    <Block width={width * 0.8}>
+                      <Input
+                        password
+                        borderless
+                        secureTextEntry
+                        autoCapitalize="none"
+                        placeholder="Password"
+                        onChangeText={password => this.setState({ password })}
+                        value={this.state.password}
+                        iconContent={
+                          <Icon
+                            size={16}
+                            color={argonTheme.COLORS.ICON}
+                            name="padlock-unlocked"
+                            family="ArgonExtra"
+                            style={styles.inputIcons} />
+                        }>
+                      </Input>
+
+                      <Block row style={styles.passwordCheck}>
                         <Block >
-                        <Text  size={12} color={argonTheme.COLORS.MUTED}>
-                          password strength:
+                          <Text size={12} color={argonTheme.COLORS.MUTED}>
+                            password strength:
                         </Text>
-                       
+
                         </Block>
                         <Block flex>
-                        <TextPasswordStrengthDisplay
-                       
-                        password={this.state.password}
-                        wrapperStyle={{
-                          marginTop:-9, 
-                        }}
-                        labelStyle={{fontWeight:"bold"}}
-                      />
+                          <TextPasswordStrengthDisplay
+
+                            password={this.state.password}
+                            wrapperStyle={{
+                              marginTop: -9,
+                            }}
+                            labelStyle={{ fontWeight: "bold" }}
+                          />
+                        </Block>
                       </Block>
                     </Block>
-                  </Block>
-                  
-                  <Block row width={width * 0.75}>
-                    <Checkbox  
-                      onChange={ () => this.setState({check: !this.state.check}) }
-                      checkboxStyle={{ borderWidth: 3 }}
-                      color="#5E72E4"
-                      label="I agree with the"/>
-                    <Button
-                      style={{ width: 100 , elevation: 0}}
-                      color="transparent"
-                      textStyle={{
-                        color: argonTheme.COLORS.PRIMARY,
-                        fontSize: 14
-                      }}>
-                      Privacy Policy
+
+                    <Block row width={width * 0.75}>
+                      <Checkbox
+                        onChange={() => this.setState({ check: !this.state.check })}
+                        checkboxStyle={{ borderWidth: 3 }}
+                        color="#5E72E4"
+                        label="I agree with the" />
+                      <Button
+                        style={{ width: 100, elevation: 0 }}
+                        color="transparent"
+                        textStyle={{
+                          color: argonTheme.COLORS.PRIMARY,
+                          fontSize: 14
+                        }}>
+                        Privacy Policy
                     </Button>
-                  </Block>
-                  <Block middle>
-                    <Button 
-                      color="primary" 
-                      style={styles.createButton}
-                      onPress={this.handleSignUp}
-                      disabled={this.state.check}>
-                      <Text bold size={14} color={argonTheme.COLORS.WHITE}>
-                      CREATE ACCOUNT 
+                    </Block>
+                    <Block middle>
+                      <Button
+                        color="primary"
+                        style={styles.createButton}
+                        onPress={this.handleSignUp}
+                        disabled={this.state.check}>
+                        <Text bold size={14} color={argonTheme.COLORS.WHITE}>
+                          CREATE ACCOUNT
                       </Text>
-                    </Button>
-                  </Block>
-                </KeyboardAvoidingView>
+                      </Button>
+                    </Block>
+                  </KeyboardAvoidingView>
+                </Block>
+
               </Block>
-              
             </Block>
           </Block>
-        </Block>
-      </ImageBackground>
-    </Block>
-    ); 
-    
+        </ImageBackground>
+      </Block>
+    );
+
   }
 }
 
@@ -198,10 +200,10 @@ const styles = StyleSheet.create({
     overflow: "hidden"
   },
   titletxt: {
-    marginTop:60,
+    marginTop: 60,
     fontSize: 45,
     fontWeight: "600"
-    
+
   },
   inputIcons: {
     marginRight: 12
@@ -222,12 +224,12 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     textAlign: 'center',
   },
- 
+
   passwordCheck: {
     paddingLeft: 15,
     paddingTop: 13,
     paddingBottom: 30,
-    flex: 0.5, 
+    flex: 0.5,
     justifyContent: "space-evenly",
   },
 });

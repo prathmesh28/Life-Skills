@@ -12,16 +12,16 @@ export default class LoginScreen extends React.Component {
     headerShown: false
   };
 
-  
-  
+
+
   state = {
     email: '',
     password: '',
     errorMessage: null,
   };
-  componentDidMount() { 
+  componentDidMount() {
     this.Onboarding = require("../assets/backbg.jpg")
-    AsyncStorage.getItem('email').then((value) => this.setState({ 'email': value })) 
+    AsyncStorage.getItem('email').then((value) => this.setState({ 'email': value }))
   }
 
   handleLogin = () => {
@@ -71,8 +71,8 @@ export default class LoginScreen extends React.Component {
                             color={argonTheme.COLORS.ICON}
                             name="ic_mail_24px"
                             family="ArgonExtra"
-                            style={styles.inputIcons}/>
-                        }/>
+                            style={styles.inputIcons} />
+                        } />
                     </Block>
                     <Block width={width * 0.8}>
                       <Input
@@ -89,22 +89,22 @@ export default class LoginScreen extends React.Component {
                             color={argonTheme.COLORS.ICON}
                             name="padlock-unlocked"
                             family="ArgonExtra"
-                            style={styles.inputIcons}/>
-                        }/> 
+                            style={styles.inputIcons} />
+                        } />
                     </Block>
                     <Block middle>
-                      <Button 
-                        color="primary" 
+                      <Button
+                        color="primary"
                         style={styles.createButton}
                         onPress={this.handleLogin}
-                        disabled={this.state.check}> 
+                        disabled={this.state.check}>
                         <Text bold size={14} color={argonTheme.COLORS.WHITE}>
-                           LOG IN
+                          LOG IN
                         </Text>
                       </Button>
 
 
-               
+
                     </Block>
                   </KeyboardAvoidingView>
                 </Block>
@@ -113,7 +113,7 @@ export default class LoginScreen extends React.Component {
           </Block>
         </ImageBackground>
       </Block>
-    );   
+    );
   }
 }
 
@@ -134,10 +134,10 @@ const styles = StyleSheet.create({
     overflow: "hidden"
   },
   titletxt: {
-    marginTop:60,
+    marginTop: 60,
     fontSize: 45,
     fontWeight: "600"
-    
+
   },
   inputIcons: {
     marginRight: 12
