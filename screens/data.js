@@ -16,12 +16,12 @@ export default data = [
   },
   {
     id: 3,
-    topic: 'relationships',
+    topic: 'Love and Relationship',
     link: 'https://medium.com/an-idea-for-you/how-i-got-more-done-reduced-stress-increased-focus-and-mastered-time-management-in-10-minutes-a-4ed59e41f7ba'
   },
   {
     id: 4,
-    topic: 'fitness',
+    topic: 'Self Improvement',
     link: 'https://medium.com/the-mission/the-4-stages-of-time-management-ce595e4b0796'
   }
 ]

@@ -36,6 +36,7 @@ export default class HomeScreen extends React.Component {
           source={require("../../assets/backbg.jpg")}
           style={styles.profileContainer}
           imageStyle={styles.profileBackground}
+          blurRadius={ 1 } 
         >
           <Block middle>
             <Searchbar
@@ -80,6 +81,7 @@ const styles = StyleSheet.create({
   },
   profileBackground: {
     width: width,
-    height: height
+    height: height,
+    
   },
 });

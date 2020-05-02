@@ -7,20 +7,32 @@ import * as Google from "expo-google-app-auth";
 import * as Facebook from 'expo-facebook';
 import firebase from 'firebase';
 const { width, height } = Dimensions.get("screen");
-
+import Loader from './Loader'
 Facebook.initializeAsync('2926256467492608', 'Life Skill')
 
 
 export default class StartScreen extends React.Component {
   static navigationOptions = {
-    headerShown: false
+    headerShown: false,
   };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: false,
+    }
+  }
+
   componentWillMount() {
     this.Onboarding = require("../assets/backbg.jpg")
     this.logo = require('../assets/skills.png')
   }
 
-
+async check() {
+  this.setState({
+    loading: true
+  });
+}
   isUserEqual = (googleUser, firebaseUser) => {
     if (firebaseUser) {
       var providerData = firebaseUser.providerData;
@@ -95,6 +107,9 @@ export default class StartScreen extends React.Component {
   }
 
   signInWithGoogleAsync = async () => {
+    this.setState({
+      loading: true
+    });
     try {
       const result = await Google.logInAsync({
         behaviour: 'web',
@@ -103,6 +118,11 @@ export default class StartScreen extends React.Component {
         scopes: ['profile', 'email'],
       });
       console.log(result)
+      setTimeout(() => {
+        this.setState({
+          loading: false,
+        });
+      }, 2500);
       if (result.type === 'success') {
         console.log('google sucess')
         this.onSignIn(result);
@@ -113,12 +133,20 @@ export default class StartScreen extends React.Component {
     } catch (e) {
       return { error: true };
     }
+   
   }
 
   loginWithFacebook = async () => {
+    this.setState({
+      loading: true
+    });
     const { type, token } = await Facebook.logInWithReadPermissionsAsync
       ('2926256467492608', { permissions: ['public_profile'] })
-
+      setTimeout(() => {
+        this.setState({
+          loading: false,
+        });
+      }, 2500);
     if (type == 'success') {
 
       const credential = await firebase.auth.FacebookAuthProvider.credential(token)
@@ -166,6 +194,7 @@ export default class StartScreen extends React.Component {
           source={this.Onboarding}
           style={{ width, height, zIndex: 1 }}>
           <Block flex middle>
+          <Loader loading={this.state.loading} />
             <Block style={styles.registerContainer} middle>
               <Block width={width * 0.8} middle >
                 <Image

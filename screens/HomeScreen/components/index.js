@@ -1,7 +1,6 @@
 import React from "react";
 import {
   StyleSheet,
-  ScrollView,
   FlatList,
   Dimensions,
   TouchableOpacity,
@@ -10,7 +9,6 @@ import {
 } from "react-native";
 import { Card, Colors, ToggleButton } from "react-native-paper";
 import RNUrlPreview from "react-native-url-preview";
-import { WebView } from "react-native-webview";
 const { width, height } = Dimensions.get("screen");
 import data from "../../data";
 import Firebase from "../../../firebase";
@@ -24,10 +22,8 @@ export default withNavigation(
     constructor(props) {
       super(props);
       this.state = {
-        News: data,
+        News: [],
         NewsData: data,
-        showURL: false,
-        Saved: false,
         SavedData: []
       };
     }
@@ -50,8 +46,6 @@ export default withNavigation(
             }
           });
 
-     //   console.log(this.state.todos)
-        //console.log(this.state.)
       result =  this.state.NewsData.filter(element => {
            if(hio.includes(element.topic)){
              return element
@@ -60,7 +54,6 @@ export default withNavigation(
       this.setState({ News:result })
   });
 
-
 }
 
 
@@ -68,58 +61,24 @@ savelist = (props) => {
   console.log("hi")
 
     Firebase.database().ref('UsersList/' + userid + "/savedlist/").once('value', snapshot => {
-    
-       // console.log(this.state.SavedData)
-       // console.log(props)
-       let savecheck
-       if(snapshot.val()){
-        this.setState({SavedData:snapshot.val()})
-
-        savecheck = this.state.SavedData.find((item) =>  item.id===props.id)
-       
-       
-  
-              console.log(savecheck)
-              if(savecheck===undefined){
-                  //  console.log("not present")
-                    this.state.SavedData.push(props)
-                    Firebase.database().ref('UsersList/' + userid ).update({
-                        savedlist: this.state.SavedData,
-                                  }).then((data)=>{
-                                      console.log('data ' , data)
-                                  }).catch((error)=>{
-                                    console.log('error ' , error)
-                                  })
-              }else{
-                console.log("present")
-                var array = [...this.state.SavedData]; 
-                var index = array.indexOf(savecheck)
-                
-                if (index !== -1) {
-                    array.splice(index, 1);
-                    this.setState({SavedData: array});
-                }
-             //   console.log(this.state.SavedData)
-                Firebase.database().ref('UsersList/' + userid ).update({
-                savedlist: this.state.SavedData,
-                        }).then((data)=>{
-                            console.log('data ' , data)
-                        }).catch((error)=>{
-                          console.log('error ' , error)
-                        })
-              }
-    
-      }else{
-       this.state.SavedData.push(props)
-       Firebase.database().ref('UsersList/' + userid ).update({
-      savedlist: this.state.SavedData,
-                }).then((data)=>{
-                    console.log('data ' , data)
-                }).catch((error)=>{
-                  console.log('error ' , error)
-                })
-      }
-
+      // console.log(snapshot.val())
+        if(snapshot.val()==="new" || snapshot.val()===null){
+            this.state.SavedData.push(props)
+            //console.log(this.state.SavedData)
+            Firebase.database().ref('UsersList/' + userid ).update({
+            savedlist: this.state.SavedData,
+            })
+        }
+        else{
+         // console.log(snapshot.val())
+         this.setState({SavedData:snapshot.val()})
+         const arrayitem = snapshot.val().filter(itm => itm.id!==props.id)
+         arrayitem.push(props)
+         console.log(arrayitem)
+         Firebase.database().ref('UsersList/' + userid ).update({
+          savedlist: arrayitem
+          })
+        }
     })
   
 }
@@ -135,7 +94,7 @@ savelist = (props) => {
          // numColumns={3}
 
           renderItem={({ item }) => ( 
-            <Card  style={styles.card}  onPress={() => this.setState({ showURL: true })}>
+          <Card  style={styles.card}>
          <Card.Title
            key={item.id}
            title={item.topic}
@@ -144,7 +103,7 @@ savelist = (props) => {
              <ToggleButton
                  icon="heart"
                  color={Colors.pink300}
-              //   status={item.Saved}
+                //  status={item.Saved}
                  onPress={ () => this.savelist(item)}
                ></ToggleButton>
            }
@@ -159,7 +118,7 @@ savelist = (props) => {
                 containerStyle={styles.linkcontainer}
                 titleNumberOfLines={2}
                 imageStyle={styles.linkimage}
-                disable
+                
               />
           </View>
        </TouchableOpacity>
@@ -183,6 +142,7 @@ const styles = StyleSheet.create({
     margin: 10,
     paddingLeft: 10,
     paddingRight: 10,
+    height:height*0.2
   },
   titlecard: {
     fontSize: 12,
