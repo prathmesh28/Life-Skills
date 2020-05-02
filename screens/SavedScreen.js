@@ -12,16 +12,21 @@ import {
 import { Block, Checkbox, theme } from "galio-framework";
 import { Avatar, Card, Title, Paragraph, IconButton, Image, Colors, ToggleButton } from 'react-native-paper';
 import Firebase from "../firebase";
+import { withNavigation } from "react-navigation";
 
 const { width, height } = Dimensions.get("screen");
 let userid
-export default class SavedScreen extends React.Component {
+export default withNavigation( class SavedScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       SavedItem: []
   };
 }
+
+  openWebView = (uri) => {
+    this.props.navigation.navigate("WebViewScreen", { uri: uri });
+  };
 
 componentDidMount(){
   const { uid } = Firebase.auth().currentUser;
@@ -47,7 +52,7 @@ savelist = (props) => {
         <FlatList
 
           data={this.state.SavedItem}
-        //  keyExtractor={item => item.id.toString()}
+          keyExtractor={item => item.id.toString()}
         
           renderItem={({ item }) => ( 
             <Card  style={styles.card}  >
@@ -87,6 +92,7 @@ savelist = (props) => {
     )
   }
 }
+)
 
 const styles = StyleSheet.create({
   container: {

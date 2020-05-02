@@ -1,10 +1,10 @@
 {
-  "expoServerPort": 19000,
-  "expoServerNgrokUrl": "https://yq-ksh.anonymous.life-skills.exp.direct",
-  "packagerNgrokUrl": "https://packager.yq-ksh.anonymous.life-skills.exp.direct",
-  "ngrokPid": 11012,
-  "packagerPort": 19001,
-  "packagerPid": 2796,
+  "expoServerPort": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
+  "packagerPort": null,
+  "packagerPid": null,
   "webpackServerPort": null,
   "devToolsPort": 19002
 }

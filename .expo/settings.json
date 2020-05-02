@@ -4,5 +4,5 @@
   "dev": true,
   "minify": false,
   "urlRandomness": "yq-ksh",
-  "https": false
+  "https": true
 }

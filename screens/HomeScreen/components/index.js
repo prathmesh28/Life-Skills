@@ -46,103 +46,103 @@ export default withNavigation(
             }
           });
 
-      result =  this.state.NewsData.filter(element => {
-           if(hio.includes(element.topic)){
-             return element
-           } 
-      })
-      this.setState({ News:result })
-  });
+          result = this.state.NewsData.filter(element => {
+            if (hio.includes(element.topic)) {
+              return element
+            }
+          })
+          this.setState({ News: result })
+        });
 
-}
+    }
 
 
-savelist = (props) => {
-  console.log("hi")
+    savelist = (props) => {
+      console.log("hi")
 
-    Firebase.database().ref('UsersList/' + userid + "/savedlist/").once('value', snapshot => {
-      // console.log(snapshot.val())
-        if(snapshot.val()==="new" || snapshot.val()===null){
-            this.state.SavedData.push(props)
-            //console.log(this.state.SavedData)
-            Firebase.database().ref('UsersList/' + userid ).update({
+      Firebase.database().ref('UsersList/' + userid + "/savedlist/").once('value', snapshot => {
+        // console.log(snapshot.val())
+        if (snapshot.val() === "new" || snapshot.val() === null) {
+          this.state.SavedData.push(props)
+          //console.log(this.state.SavedData)
+          Firebase.database().ref('UsersList/' + userid).update({
             savedlist: this.state.SavedData,
-            })
-        }
-        else{
-         // console.log(snapshot.val())
-         this.setState({SavedData:snapshot.val()})
-         const arrayitem = snapshot.val().filter(itm => itm.id!==props.id)
-         arrayitem.push(props)
-         console.log(arrayitem)
-         Firebase.database().ref('UsersList/' + userid ).update({
-          savedlist: arrayitem
           })
         }
-    })
-  
-}
-  render() {
-   
-    return (
-      <View style={styles.Container} >
-        <FlatList
+        else {
+          // console.log(snapshot.val())
+          this.setState({ SavedData: snapshot.val() })
+          const arrayitem = snapshot.val().filter(itm => itm.id !== props.id)
+          arrayitem.push(props)
+          console.log(arrayitem)
+          Firebase.database().ref('UsersList/' + userid).update({
+            savedlist: arrayitem
+          })
+        }
+      })
 
-          data={this.state.News}
-          keyExtractor={item => item.id.toString()}
-          //style={{ flex: 1 }}
-         // numColumns={3}
+    }
+    render() {
 
-          renderItem={({ item }) => ( 
-          <Card  style={styles.card}>
-         <Card.Title
-           key={item.id}
-           title={item.topic}
-           titleStyle={styles.titlecard}
-           right={(props) => 
-             <ToggleButton
-                 icon="heart"
-                 color={Colors.pink300}
-                //  status={item.Saved}
-                 onPress={ () => this.savelist(item)}
-               ></ToggleButton>
-           }
-           rightStyle={styles.righticon}
-           style={styles.cardsty}
-         />
-         <TouchableOpacity onPress={() => { this.openWebView(item.link) }}>
-            <View pointerEvents="none">
-              <RNUrlPreview  
-                text={item.link} 
-                titleStyle={styles.linktitle}
-                containerStyle={styles.linkcontainer}
-                titleNumberOfLines={2}
-                imageStyle={styles.linkimage}
-                
-              />
-          </View>
-       </TouchableOpacity>
-       </Card>
+      return (
+        <View style={styles.Container} >
+          <FlatList
 
-          )
+            data={this.state.News}
+            keyExtractor={item => item.id.toString()}
+            //style={{ flex: 1 }}
+            // numColumns={3}
+
+            renderItem={({ item }) => (
+              <Card style={styles.card}>
+                <Card.Title
+                  key={item.id}
+                  title={item.topic}
+                  titleStyle={styles.titlecard}
+                  right={(props) =>
+                    <ToggleButton
+                      icon="heart"
+                      color={Colors.pink300}
+                      //  status={item.Saved}
+                      onPress={() => this.savelist(item)}
+                    ></ToggleButton>
+                  }
+                  rightStyle={styles.righticon}
+                  style={styles.cardsty}
+                />
+                <TouchableOpacity style={{ flex: 1 }} onPress={() => { this.openWebView(item.link) }}>
+                  <View pointerEvents="none">
+                    <RNUrlPreview
+                      text={item.link}
+                      titleStyle={styles.linktitle}
+                      containerStyle={styles.linkcontainer}
+                      titleNumberOfLines={2}
+                      imageStyle={styles.linkimage}
+
+                    />
+                  </View>
+                </TouchableOpacity>
+              </Card>
+
+            )
             }
           />
-          </View>
-    )
-    
+        </View>
+      )
+
+    }
   }
-}
 )
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-   // flexDirection:"column"
+    // flexDirection:"column"
   },
   card: {
     margin: 10,
     paddingLeft: 10,
     paddingRight: 10,
-    height:height*0.2
+    height: height * 0.2
   },
   titlecard: {
     fontSize: 12,
