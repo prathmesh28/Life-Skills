@@ -5,17 +5,16 @@ import {
   Image,
   ImageBackground,
   StatusBar,
-  AsyncStorage
-
+  ActivityIndicator
 } from "react-native";
+import Constants from 'expo-constants';
 import { Block, Text, theme } from "galio-framework";
 import Firebase from '../../firebase';
 import { Button } from "../../components";
-import { Images } from "../../constants";
 const { width, height } = Dimensions.get("screen");
 import Catlist from "../Catlist"
 export default class ProfileScreen extends React.Component {
-  state = { email: "", displayName: "" };
+  state = { email: "", displayName: "", loadpic: true };
   signOutUser = () => {
     Firebase.auth().signOut();
   };
@@ -29,14 +28,12 @@ export default class ProfileScreen extends React.Component {
   render() {
     return (
       <Block flex style={styles.profile}>
-        <StatusBar hidden />
         <Block flex>
           <ImageBackground
             source={this.Onboarding}
             style={styles.profileContainer}
             imageStyle={styles.profileBackground}
           >
-
             <Button style={{ ...styles.socialButtons, right: 10 }} onPress={this.signOutUser}>
               <Image
                 source={this.Exit}
@@ -49,16 +46,15 @@ export default class ProfileScreen extends React.Component {
               }}>logout</Text>
             </Button>
 
-
-
             <Block flex style={styles.profileCard}>
-
               <Block middle style={styles.avatarContainer}>
                 <Image
                   source={{ uri: "https://api.adorable.io/avatars/124/" + this.state.displayName + ".png" }}
                   style={styles.avatar}
-
-                />
+                  onLoadEnd={ ()=>{ this.setState({ loadpic: false })}}
+                  />
+                    
+            {this.state.loadpic &&<ActivityIndicator  size="large" color="#741cc7"/> }
               </Block>
 
               <Block flex>
@@ -66,23 +62,18 @@ export default class ProfileScreen extends React.Component {
                   <Text bold size={28} color="#32325D">
                     {this.state.displayName}
                   </Text>
-
-                </Block>
-                <Block middle style={{ marginTop: 30, marginBottom: 16 }}>
-                  <Block style={styles.divider} />
+              </Block>
+              <Block middle style={{ marginTop: 30, marginBottom: 16 }}>
+                <Block style={styles.divider} />
                 </Block>
                 <Block middle style={{ marginBottom: 100 }}>
-                  <Text>Topics</Text>
+                  <Text bold size={28} color="#32325D">Topics</Text>
                 </Block>
-                <Catlist />
-
-
+                  <Catlist />
               </Block>
             </Block>
-
           </ImageBackground>
         </Block>
-
       </Block>
     );
   }
@@ -149,7 +140,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     borderRadius: 100,
     elevation: 0,
-    marginTop: 20
+    marginTop: Constants.statusBarHeight
 
   },
   exit: {

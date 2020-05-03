@@ -133,7 +133,6 @@ async check() {
     } catch (e) {
       return { error: true };
     }
-   
   }
 
   loginWithFacebook = async () => {
