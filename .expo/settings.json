@@ -1,8 +1,8 @@
 {
-  "hostType": "lan",
+  "hostType": "localhost",
   "lanType": "ip",
   "dev": true,
   "minify": false,
-  "urlRandomness": "fg-jv7",
+  "urlRandomness": "z3-mq3",
   "https": false
 }
