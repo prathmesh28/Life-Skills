@@ -5,7 +5,7 @@ import {
   Modal,
   ActivityIndicator
 } from 'react-native';
-
+import AnimatedLoader from "react-native-animated-loader";
 const Loader = props => {
   const {
     loading,
@@ -18,13 +18,20 @@ const Loader = props => {
       animationType={'none'}
       visible={loading}
       onRequestClose={() => {console.log('close modal')}}>
-      <View style={styles.modalBackground}>
-        <View style={styles.activityIndicatorWrapper}>
-          <ActivityIndicator 
+      {/* <View style={styles.modalBackground}> */}
+       {/* <View style={styles.activityIndicatorWrapper}>
+           <ActivityIndicator 
             size="large" color="#1699e0"
-            animating={loading} />
-        </View>
-      </View>
+            animating={loading} /> */}
+            <AnimatedLoader
+                visible={loading}
+                overlayColor="rgba(255,255,255,0.75)"
+                source={require("../assets/login.json")}
+                animationStyle={styles.lottie}
+                speed={1}
+            />
+        {/* </View> */}
+      {/* </View> */}
     </Modal>
   )
 }
@@ -38,13 +45,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#00000040'
   },
   activityIndicatorWrapper: {
-    backgroundColor: '#FFFFFF',
-    height: 100,
-    width: 100,
+    backgroundColor: "rgba(255,255,255,0.75)",
+    // height: 100,
+    // width: 100,
     borderRadius: 10,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-around'
+  },
+  lottie: {
+    width: 100,
+    height: 100
   }
 });
 

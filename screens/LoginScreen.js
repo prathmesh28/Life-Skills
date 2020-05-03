@@ -1,23 +1,22 @@
 import React from "react";
-import { StyleSheet, ImageBackground, TouchableOpacity, Dimensions, StatusBar, KeyboardAvoidingView, LayoutAnimation, AsyncStorage } from "react-native";
+import { StyleSheet, ImageBackground, Dimensions, StatusBar, KeyboardAvoidingView, LayoutAnimation, AsyncStorage } from "react-native";
 import { Block, Text, theme } from "galio-framework";
 import { Button, Icon, Input } from '../components';
 import { argonTheme } from "../constants";
 import Firebase from '../firebase';
-
+import Loader from './Loadergif'
 const { width, height } = Dimensions.get("screen");
 
 export default class LoginScreen extends React.Component {
   static navigationOptions = {
     headerShown: false
   };
-
-
-
+  
   state = {
     email: '',
     password: '',
     errorMessage: null,
+    loading: false
   };
   componentDidMount() {
     this.Onboarding = require("../assets/backbg.jpg")
@@ -25,13 +24,20 @@ export default class LoginScreen extends React.Component {
   }
 
   handleLogin = () => {
+    this.setState({
+      loading: true
+    })
     const { email, password } = this.state;
-
     Firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
       .catch(error => this.setState({ errorMessage: error.message }));
     AsyncStorage.setItem('email', email);
+    setTimeout(() => {
+      this.setState({
+        loading: false,
+      });
+    }, 2500);
   };
 
   render() {
@@ -43,6 +49,7 @@ export default class LoginScreen extends React.Component {
         <ImageBackground
           source={this.Onboarding}
           style={{ width, height, zIndex: 1 }}>
+          <Loader loading={this.state.loading} />
           <Block flex middle>
             <Block style={styles.registerContainer}>
               <Block middle>

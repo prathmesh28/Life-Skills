@@ -4,6 +4,7 @@ import { Block, Checkbox, Text, theme } from "galio-framework";
 import { Button, Icon, Input } from '../components';
 import { argonTheme } from "../constants";
 import Firebase from '../firebase';
+import Loader from './Loadergif'
 
 import RNPasswordStrengthMeter, { TextPasswordStrengthDisplay } from 'react-native-password-strength-meter';
 
@@ -15,9 +16,12 @@ export default class RegisterScreen extends React.Component {
     headerShown: false
   };
 
-  state = { name: "", email: "", password: "", check: false, errorMessage: null }
+  state = { name: "", email: "", password: "", check: false, errorMessage: null, loading: false }
 
   handleSignUp = () => {
+    this.setState({
+      loading: true
+    })
     let name=this.state.name
     let email=this.state.email
     let topiclist= "new"
@@ -33,15 +37,26 @@ export default class RegisterScreen extends React.Component {
                 topiclist,
                 savedlist
                 
-            }).then((data)=>{
-            //    console.log('data ' , data)
+            }).then((data)=>{          
+            setTimeout(() => {
+              this.setState({
+                loading: false,
+              });
+            }, 2500);
+            
             }).catch((error)=>{
              //   console.log('error ' , error)
             })
           })
           .catch(error => this.setState({ errorMessage: error.message }));
           AsyncStorage.setItem('email', this.state.email, () => {
-          });
+          })
+          setTimeout(() => {
+            this.setState({
+              loading: false,
+            });
+          }, 500);
+        
   };
   componentDidMount() {
     this.Onboarding = require("../assets/backbg.jpg")
@@ -54,6 +69,7 @@ export default class RegisterScreen extends React.Component {
           source={this.Onboarding}
           style={{ width, height, zIndex: 1 }}>
           <Block flex middle>
+          <Loader loading={this.state.loading} />
             <Block style={styles.registerContainer}>
               <Block middle>
                 <Text style={styles.titletxt}>Register</Text>

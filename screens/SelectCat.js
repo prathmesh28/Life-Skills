@@ -67,7 +67,9 @@ export default class SelectCat extends React.Component {
                 <Block flex style={styles.profileContainer}>
                   <Catlist />
                 </Block>
-
+                <Text italic size={12} style={styles.text}>
+                   *Please select atleat one topic
+                </Text>
                 <Button
                   color="primary"
                   style={styles.createButton}
@@ -101,15 +103,16 @@ const styles = StyleSheet.create({
   profileContainer: {
     marginTop: 50,
     width: width * 0.83,
-    //   borderRadius: 4,
-    // shadowRadius: 8,
     shadowOpacity: 0.1,
   },
   title: {
     marginTop: 50,
     fontSize: 35,
     fontWeight: "700"
-
+  },
+  text: {
+    position: "relative",
+    bottom: 90,
   },
   createButton: {
     position: "relative",
