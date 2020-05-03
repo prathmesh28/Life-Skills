@@ -6,18 +6,21 @@ const { width, height } = Dimensions.get("screen");
 import Topics from "./Topics"
 import Firebase from '../firebase'
 let userid = null
-
+import Loader from "./Loader";
 export default class Cattist extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       selectedItem: null,
-      renderData: Topics
+      renderData: Topics,
+      loading: false,
     }
   }
 
   async componentDidMount() {
-
+    this.setState({
+      loading: true,
+    });
     const { uid } = Firebase.auth().currentUser;
     userid = uid
 
@@ -26,10 +29,16 @@ export default class Cattist extends React.Component {
         this.setState({ renderData: snapshot.val() })
       }
     });
+    this.setState({
+      loading: false,
+    });
   }
 
 
   onPressHandler(id) {
+    this.setState({
+      loading: true,
+    });
     let renderData = [...this.state.renderData];
     for (let data of renderData) {
       if (data.id == id) {
@@ -45,12 +54,18 @@ export default class Cattist extends React.Component {
         topiclist: this.state.renderData
       })
     //.then(() => console.log('Data updated.'));
+    setTimeout(() => {
+      this.setState({
+        loading: false,
+      });
+    }, 2500);
   }
 
 
   render() {
     return (
       <View style={styles.Container} >
+         <Loader loading={this.state.loading} />
         <FlatList
 
           data={this.state.renderData}
