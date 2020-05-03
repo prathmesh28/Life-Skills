@@ -7,6 +7,9 @@ import { createAppContainer } from "react-navigation";
 import { BottomNavigation, Text } from "react-native-paper";
 import { createStackNavigator } from "react-navigation-stack";
 
+
+
+
 export default class MyComponent extends React.Component {
                  state = {
                    index: 0,
