@@ -1,10 +1,1 @@
-{
-  "expoServerPort": 19000,
-  "expoServerNgrokUrl": "https://z3-mq3.prthmsh18.life-skills.exp.direct",
-  "packagerNgrokUrl": "https://packager.z3-mq3.prthmsh18.life-skills.exp.direct",
-  "ngrokPid": 1696,
-  "packagerPort": 19001,
-  "packagerPid": 7984,
-  "webpackServerPort": null,
-  "devToolsPort": 19002
-}
+{}
