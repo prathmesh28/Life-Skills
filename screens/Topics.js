@@ -13,8 +13,8 @@ export default Topics = [
   },
   {
     id: 3,
-    name: 'Self Improvement',
-    img: require("../assets/cat/leadership.png"),
+    name: 'Teamwork',
+    img: require("../assets/meeting.png"),
     selected: false
   },
   {
@@ -35,25 +35,4 @@ export default Topics = [
     img: require("../assets/cat/wellness.png"),
     selected: false
   },
-
-  // {
-  //   id: 7,
-  //   name: 'Fitness',
-  //   img: require("../assets/cat/wellness.png"),
-  //   selected: false
-  // },
-
-  // {
-  //   id: 8,
-  //   name: 'motivation',
-  //   img: require("../assets/cat/wellness.png"),
-  //   selected: false
-  // },
-
-  // {
-  //   id: 9,
-  //   name: 'psychology',
-  //   img: require("../assets/cat/wellness.png"),
-  //   selected: false
-  // },
 ];
