@@ -35,6 +35,10 @@ export default withNavigation(
       this.setState({ searchQuery: query });
     };
 
+    openWebView = (uri) => {
+      this.props.navigation.navigate('WebViewScreen', { uri: uri })
+    }
+    
     componentDidMount() {
       this.setState({
         loading: true,
@@ -142,15 +146,9 @@ export default withNavigation(
                       rightStyle={styles.righticon}
                       style={styles.cardsty}
                     />
-                    {/* <RNUrlPreview  
-                  text={item.link} 
-                  titleStyle={styles.linktitle}
-                  containerStyle={styles.linkcontainer}
-                  titleNumberOfLines={2}
-                  imageStyle={styles.linkimage}
-                  disabled
-                  /> */}
-
+                  
+                    <TouchableOpacity style={{ flex: 1 }} onPress={() => { this.openWebView(item.link); console.log('clicked'); }}>
+                      <View pointerEvents="none">
                     <Card.Content style={styles.styleurl}>
                       <ActivityIndicator
                         style={styles.loadcards}
@@ -175,6 +173,8 @@ export default withNavigation(
                         descriptionNumberOfLines={4}
                       />
                     </Card.Content>
+                      </View>
+                    </TouchableOpacity>
                   </Card>
                 );
               }

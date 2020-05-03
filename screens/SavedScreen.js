@@ -1,5 +1,5 @@
 import React from "react";
-import { StatusBar, StyleSheet, FlatList, Dimensions, ToastAndroid, ActivityIndicator, ImageBackground } from "react-native";
+import { StatusBar, StyleSheet, FlatList, Dimensions, ToastAndroid, ActivityIndicator, ImageBackground , TouchableOpacity , View, } from "react-native";
 import RNUrlPreview from 'react-native-url-preview';
 import { Block } from "galio-framework";
 import { Card, Colors, ToggleButton } from 'react-native-paper';
@@ -7,6 +7,8 @@ import Firebase from "../firebase";
 import Loader from './Loader'
 const { width, height } = Dimensions.get("screen");
 import Constants from 'expo-constants';
+import { withNavigation } from "react-navigation";
+
 let userid
 export default withNavigation( class SavedScreen extends React.Component {
   constructor(props) {
@@ -85,14 +87,8 @@ savelist = (props) => {
                   rightStyle={styles.righticon}
                   style={styles.cardsty}
                 />
-                {/* <RNUrlPreview  
-                  text={item.link} 
-                  titleStyle={styles.linktitle}
-                  containerStyle={styles.linkcontainer}
-                  titleNumberOfLines={2}
-                  imageStyle={styles.linkimage}
-                  disabled
-                  /> */}
+                <TouchableOpacity style={{ flex: 1 }} onPress={() => { this.openWebView(item.link); console.log('clicked'); }}>
+                  <View pointerEvents="none">
                 
                 <Card.Content style={styles.styleurl}>
                   <ActivityIndicator style={styles.loadcards} size="large" color="#741cc7"/> 
@@ -114,6 +110,8 @@ savelist = (props) => {
                     descriptionNumberOfLines={4}
                   />
                 </Card.Content>
+                  </View>
+                </TouchableOpacity>
 
               </Card>
             )
