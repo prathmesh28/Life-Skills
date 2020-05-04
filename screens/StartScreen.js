@@ -24,15 +24,17 @@ export default class StartScreen extends React.Component {
   }
 
   componentWillMount() {
+    this.setState({
+      loading: true
+    });
     this.Onboarding = require("../assets/backbg.jpg")
     this.logo = require('../assets/skills.png')
+    this.setState({
+      loading: false
+    });
   }
 
-async check() {
-  this.setState({
-    loading: true
-  });
-}
+
   isUserEqual = (googleUser, firebaseUser) => {
     if (firebaseUser) {
       var providerData = firebaseUser.providerData;

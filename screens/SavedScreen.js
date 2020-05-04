@@ -1,5 +1,5 @@
 import React from "react";
-import { StatusBar, StyleSheet, FlatList, Dimensions, ToastAndroid, ActivityIndicator, ImageBackground , TouchableOpacity , View } from "react-native";
+import { Text, StatusBar, StyleSheet, FlatList, Dimensions, ToastAndroid, ActivityIndicator, ImageBackground , TouchableOpacity , View } from "react-native";
 import RNUrlPreview from 'react-native-url-preview';
 import { Block } from "galio-framework";
 import { Card, Colors, ToggleButton } from 'react-native-paper';
@@ -65,11 +65,14 @@ savelist = (props) => {
         
          <Block center>
         <Loader loading={this.state.loading} />
+        <Block middle style={styles.top}>
+                  {/* <Text bold size={20} color="#fff">Saved Articles</Text> */}
+        </Block>
         <FlatList
           data={this.state.SavedItem}
           keyExtractor={item => item.id.toString()}
           showsVerticalScrollIndicator={false}
-          style={{marginTop: Constants.statusBarHeight, width: width * 0.9, height: height * 0.85}}
+          style={{ width: width * 0.9, height: height * 0.85}}
         // onRefresh={() => }      
           renderItem={({ item }) => { 
             
@@ -91,9 +94,8 @@ savelist = (props) => {
                   style={styles.cardsty}
                 />
                 <TouchableOpacity style={{ flex: 1 }} onPress={() => { this.openWebView(item.link); console.log('clicked'); }}>
-                  <View pointerEvents="none">
                 
-                <Card.Content style={styles.styleurl}>
+                <Card.Content style={styles.styleurl} pointerEvents="none">
                   <ActivityIndicator style={styles.loadcards} size="large" color="#741cc7"/> 
 
                   <RNUrlPreview  
@@ -113,7 +115,6 @@ savelist = (props) => {
                     descriptionNumberOfLines={4}
                   />
                 </Card.Content>
-                  </View>
                 </TouchableOpacity>
 
               </Card>
@@ -148,6 +149,10 @@ const styles = StyleSheet.create({
   linktitle: {
     fontWeight: "bold",
  //  width:width
+  },
+  top: {
+    marginBottom: 20 ,
+    marginTop: Constants.statusBarHeight,
   },
   linkcontainer: {
     backgroundColor: "#fff",
