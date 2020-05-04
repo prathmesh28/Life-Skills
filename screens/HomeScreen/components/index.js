@@ -39,7 +39,8 @@ export default withNavigation(
     };
 
     openWebView = (uri) => {
-      this.props.navigation.navigate('WebViewScreen', { uri: uri })
+      this.props.navigation.navigate('WebViewScreen', { uri: uri });
+      console.log(uri)
     }
     
     componentDidMount() {
