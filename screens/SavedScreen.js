@@ -1,5 +1,5 @@
 import React from "react";
-import { StatusBar, StyleSheet, FlatList, Dimensions, ToastAndroid, ActivityIndicator, ImageBackground , TouchableOpacity , View, } from "react-native";
+import { StatusBar, StyleSheet, FlatList, Dimensions, ToastAndroid, ActivityIndicator, ImageBackground , TouchableOpacity , View } from "react-native";
 import RNUrlPreview from 'react-native-url-preview';
 import { Block } from "galio-framework";
 import { Card, Colors, ToggleButton } from 'react-native-paper';
@@ -9,8 +9,9 @@ const { width, height } = Dimensions.get("screen");
 import Constants from 'expo-constants';
 import { withNavigation } from "react-navigation";
 
-let userid
-export default withNavigation( class SavedScreen extends React.Component {
+let userid;
+export default withNavigation(
+  class SavedScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,8 +20,10 @@ export default withNavigation( class SavedScreen extends React.Component {
   };
 }
 
-  openWebView = (uri) => {
-    this.props.navigation.navigate("WebViewScreen", { uri: uri });
+    openWebView = (uri) => {
+    this.props.navigation.navigate('WebViewScreen', { uri: uri });
+    console.log('uri working')
+    console.log(uri);
   };
 
 componentDidMount(){
@@ -29,8 +32,8 @@ componentDidMount(){
   this.setState({
     loading: true
   });
-  Firebase.database().ref('UsersList/' + uid  ).on('value', snapshot => {
-    this.setState({SavedItem:snapshot.val().savedlist})
+  Firebase.database().ref('UsersList/' + uid).on('value', snapshot => {
+    this.setState({ SavedItem: snapshot.val().savedlist })
   })
   setTimeout(() => {
     this.setState({
@@ -41,8 +44,8 @@ componentDidMount(){
 
 savelist = (props) => {
   const arrayitem = this.state.SavedItem.filter(itm => itm.id!==props.id)
-  Firebase.database().ref('UsersList/' + userid ).update({
-      savedlist: arrayitem
+  Firebase.database().ref('UsersList/' + userid).update({
+      savedlist: arrayitem,
   })
   ToastAndroid.showWithGravityAndOffset(
     'Removed from Saved List',
@@ -81,7 +84,7 @@ savelist = (props) => {
                         icon="heart"
                         color={Colors.pink300}
                         //  status={item.Saved}
-                        onPress={ () => this.savelist(item)}
+                        onPress={ () => this.savelist(item) }
                       ></ToggleButton>
                   }
                   rightStyle={styles.righticon}
@@ -122,7 +125,7 @@ savelist = (props) => {
     )
   }
 }
-)
+);
 
 const styles = StyleSheet.create({
  
