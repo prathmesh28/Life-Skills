@@ -5,12 +5,14 @@ import { Block } from "galio-framework";
 import AnimatedSplash from "react-native-animated-splash-screen";
 const { width, height } = Dimensions.get("screen");
 import Constants from 'expo-constants';
-
+import LinkPreview from 'react-native-link-preview';
 export default class HomeScreen extends React.Component {
   
 
   componentDidMount() {
     this.Onboarding = require("../../assets/backbg.jpg")
+    // LinkPreview.getPreview('https://www.npmjs.com/package/react-native-link-preview')
+    // .then(data => console.log(data));
   }
 
 

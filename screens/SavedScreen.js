@@ -34,6 +34,7 @@ componentDidMount(){
   });
   Firebase.database().ref('UsersList/' + uid).on('value', snapshot => {
     this.setState({ SavedItem: snapshot.val().savedlist })
+  
   })
   setTimeout(() => {
     this.setState({
@@ -70,14 +71,14 @@ savelist = (props) => {
         </Block>
         <FlatList
           data={this.state.SavedItem}
-          keyExtractor={item => item.id.toString()}
+        //  keyExtractor={item => item.id.toString()}
           showsVerticalScrollIndicator={false}
           style={{ width: width * 0.9, height: height * 0.85}}
         // onRefresh={() => }      
           renderItem={({ item }) => { 
-            
+            if(item!=='new'||item!==null){
             return( 
-              <Card  style={styles.card}>
+              <Card style={styles.card}>
                 <Card.Title
                   key={item.id}
                   title={item.topic}
@@ -118,7 +119,7 @@ savelist = (props) => {
                 </TouchableOpacity>
 
               </Card>
-            )
+            )}
           }}
         />
         </Block>

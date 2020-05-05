@@ -23,6 +23,7 @@ export default class ProfileScreen extends React.Component {
     this.Onboarding = require("../../assets/backbg.jpg")
     this.Exit = require("../../assets/exit.png");
     this.setState({ email, displayName });
+   
   }
 
   render() {
