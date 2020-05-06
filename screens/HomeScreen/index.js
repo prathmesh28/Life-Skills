@@ -11,8 +11,7 @@ export default class HomeScreen extends React.Component {
 
   componentDidMount() {
     this.Onboarding = require("../../assets/backbg.jpg")
-    // LinkPreview.getPreview('https://www.npmjs.com/package/react-native-link-preview')
-    // .then(data => console.log(data));
+  
   }
 
 
@@ -25,11 +24,11 @@ export default class HomeScreen extends React.Component {
         translucent={true} 
         backgroundColor={'transparent'} />
 
-        {/* <ImageBackground
+        <ImageBackground
           source={require("../../assets/backbg.jpg")}
           style={styles.profileContainer}
           imageStyle={styles.profileBackground}
-        > */}
+        >
           <Block middle>
             
               <Block style={styles.cards}>
@@ -37,7 +36,7 @@ export default class HomeScreen extends React.Component {
               </Block>
             
           </Block>
-        {/* </ImageBackground> */}
+        </ImageBackground>
       </Block>
     )
   }

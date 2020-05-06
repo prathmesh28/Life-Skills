@@ -47,7 +47,7 @@ export default withNavigation(
 
     openWebView = (uri) => {
       this.props.navigation.navigate('WebViewScreen', { uri: uri });
-      console.log(uri)
+  //    console.log(uri)
     }
     
     componentDidMount() {
@@ -73,8 +73,11 @@ export default withNavigation(
           .once("value", (snapshot) => {
             snapshot.val().map( item => {
               LinkPreview.getPreview(item.link).then(data => {
+
                 let DataArray = data
+                DataArray.id = item.id
                 DataArray.contentType = item.topic
+         //       console.log(DataArray)
                 this.state.InfoData.push(DataArray)
               })
             })
@@ -87,27 +90,9 @@ export default withNavigation(
         }, 2500);
     }
 
-    // addRecords = (page) => {
-    //   const newRecords = []
-    //   for(var i = page * 12, il = i + 12; i < il && i < 
-    //     this.state.NewsData.length; i++){
-    //     newRecords.push(this.state.NewsData[i]);
-    //   }
-    //   this.setState({
-    //     posts: [...this.state.posts, ...newRecords]
-    //   });
-    // }
-
-    // onScrollHandler = () => {
-    //   this.setState({
-    //     page: this.state.page + 1
-    //   }, () => {
-    //     this.addRecords(this.state.page);
-    //   });
-    // }
 
     savelist = (props) => {
-      console.log("hi");
+    
 
       Firebase.database()
         .ref("UsersList/" + userid + "/savedlist/")
@@ -146,7 +131,7 @@ export default withNavigation(
               50
             );
           }
-        });
+         });
     };
 
 
@@ -154,19 +139,18 @@ export default withNavigation(
       if(this.state.hio.includes(item.contentType)){
         return( 
           <Card style={styles.card}>
-            <Card.Cover source={{ uri: item.images[0] }} />
+            <Card.Cover source={{ uri: item.images[0] }} blurRadius={1}/>
             <Card.Content >
               <Title style={styles.titlecard}>{item.title}</Title>
               <Paragraph style={styles.paracard}>{item.description}</Paragraph>
-    </Card.Content>
-    <Card.Actions>
-      <Button>#{item.contentType}</Button>
-      <ToggleButton
+            </Card.Content>
+            <Card.Actions>
+              <Button>#{item.contentType}</Button>
+              <ToggleButton
                 style={styles.righticon}
                 icon="heart"
                 color={Colors.pink300}
-                //  status={item.Saved}
-               // onPress={() => this.savelist(item)}
+                onPress={() => this.savelist(item)}
               ></ToggleButton>
     </Card.Actions>
          
@@ -177,8 +161,8 @@ export default withNavigation(
     onRefresh() {
           this.setState({isRefreshing:true})
           var currentIndex = this.state.InfoData.length, temporaryValue, randomIndex;
-          console.log(currentIndex)
-          let array = this.state.NewsData
+        //  console.log(currentIndex)
+          let array = this.state.InfoData
           while (0 !== currentIndex) {
             randomIndex = Math.floor(Math.random() * currentIndex);
             currentIndex -= 1;
@@ -186,21 +170,9 @@ export default withNavigation(
             array[currentIndex] = array[randomIndex];
             array[randomIndex] = temporaryValue;
           }
-          this.setState({NewsData:array})
+          this.setState({InfoData:array})
           this.setState({isRefreshing:false})
     }
-    // renderFooter = () => {
-    //   //it will show indicator at the bottom of the list when data is loading otherwise it returns null
-    //     if (!this.state.listloading) return null;
-    //    return (
-    //      <ActivityIndicator
-    //        style={{ color: '#000' }}
-    //      />
-    //    );
-    //  };
-    //  handleLoadMore = () => {
-    //   this.setState({isRefreshing:true})
-    // };
 
     render() {
       const { searchQuery } = this.state;
@@ -247,20 +219,16 @@ const styles = StyleSheet.create({
     
   },
   titlecard: {
-    top:-100,
+    top:-130,
     fontSize: 22,
     color:'#fff',
     position:'absolute',
     fontWeight:"bold",
-   // textShadowOffset:{width: -1,height: -1},
     lineHeight: 25,
     letterSpacing:1,
-    // textShadowColor: "#808088",
-    // textShadowRadius: 2,
-    
-    right:20,
+    right:10,
     textShadowColor:'black',
-    textShadowOffset:{width: 0, height: 0},
+    textShadowOffset:{width: 1, height: 1},
     textShadowRadius:20,
    
   },
@@ -273,43 +241,5 @@ const styles = StyleSheet.create({
     right:10,
     position:"absolute"
   },
-  // cardsty: {
-  //   marginTop: -16,
-  //   marginBottom: -16,
-  // },
-  // linktitle: {
-  //   fontWeight: "bold",
-  //   //  width:width
-  // },
-  // linkcontainer: {
-  //   backgroundColor: "#fff",
-  //   //   flex: 1,
-  //   //  // flexDirection: "row",
-  //   //   flexWrap: "wrap",
-  // },
-  // linkimage: {
-  //   //alignItems: 'flex-end' ,
-  //   // flexDirection: 'row',
-  //   //  justifyContent: 'flex-start' ,
-  //   display: "none",
-  // },
-  // imagesty: {
-  //   width: 80,
-  // },
-  // discript: {
-  //   //dont remove
-  // },
-  // styleurl: {
-  //   flex: 1,
-  //   flexDirection: "column",
-  // },
-  // loadcards: {
-  //   position: "absolute",
-  //   top: 0,
-  //   left: 0,
-  //   right: 0,
-  //   bottom: 0,
-  //   justifyContent: "center",
-  //   alignItems: "center",
-  // },
+
 });

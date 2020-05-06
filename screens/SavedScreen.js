@@ -2,7 +2,7 @@ import React from "react";
 import { Text, StatusBar, StyleSheet, FlatList, Dimensions, ToastAndroid, ActivityIndicator, ImageBackground , TouchableOpacity , View } from "react-native";
 import RNUrlPreview from 'react-native-url-preview';
 import { Block } from "galio-framework";
-import { Card, Colors, ToggleButton } from 'react-native-paper';
+import { Card, Colors, Title, ToggleButton, Paragraph, Searchbar, Button } from "react-native-paper";
 import Firebase from "../firebase";
 import Loader from './Loader'
 const { width, height } = Dimensions.get("screen");
@@ -33,7 +33,11 @@ componentDidMount(){
     loading: true
   });
   Firebase.database().ref('UsersList/' + uid).on('value', snapshot => {
-    this.setState({ SavedItem: snapshot.val().savedlist })
+    if(snapshot.val().savedlist === "new"){
+      this.setState({ SavedItem: [] })
+    }else{
+      this.setState({ SavedItem: snapshot.val().savedlist })
+    }
   
   })
   setTimeout(() => {
@@ -54,9 +58,38 @@ savelist = (props) => {
     ToastAndroid.BOTTOM,
     25,
     50,
-  );
+  )
 }
-
+ListEmpty = () => {
+  return (
+    //View to show when list is empty
+    <View style={styles.MainContainer}>
+      <Text style={{ textAlign: 'center' }}>No Data Found</Text>
+    </View>
+  );
+};
+renderItem = ({item}) => {
+ 
+    return( 
+      <Card style={styles.card}>
+        <Card.Cover source={{ uri: item.images[0] }}  blurRadius={1}/>
+        <Card.Content >
+          <Title style={styles.titlecard}>{item.title}</Title>
+          <Paragraph style={styles.paracard}>{item.description}</Paragraph>
+        </Card.Content>
+        <Card.Actions>
+          <Button>#{item.contentType}</Button>
+          <ToggleButton
+            style={styles.righticon}
+            icon="heart"
+            color={Colors.pink300}
+            onPress={() => this.savelist(item)}
+          ></ToggleButton>
+</Card.Actions>
+     
+    </Card>
+    )
+}
   render() {
     return (
       <Block flex  style={{ backgroundColor: '#005957'}}>
@@ -69,60 +102,16 @@ savelist = (props) => {
         <Block middle style={styles.top}>
                   {/* <Text bold size={20} color="#fff">Saved Articles</Text> */}
         </Block>
-        <Text>X</Text>
-        {/* <FlatList
+       
+        <FlatList
           data={this.state.SavedItem}
         //  keyExtractor={item => item.id.toString()}
           showsVerticalScrollIndicator={false}
           style={{ width: width * 0.9, height: height * 0.85}}
+          ListEmptyComponent={this.ListEmpty}
         // onRefresh={() => }      
-          renderItem={({ item }) => { 
-            if(item!=='new'||item!==null){
-            return( 
-              <Card style={styles.card}>
-                <Card.Title
-                  key={item.id}
-                  title={item.topic}
-                  titleStyle={styles.titlecard}
-                  right={(props) => 
-                    <ToggleButton
-                        icon="heart"
-                        color={Colors.pink300}
-                        //  status={item.Saved}
-                        onPress={ () => this.savelist(item) }
-                      ></ToggleButton>
-                  }
-                  rightStyle={styles.righticon}
-                  style={styles.cardsty}
-                />
-                <TouchableOpacity style={{ flex: 1 }} onPress={() => { this.openWebView(item.link); console.log('clicked'); }}>
-                
-                <Card.Content style={styles.styleurl} pointerEvents="none">
-                  <ActivityIndicator style={styles.loadcards} size="large" color="#741cc7"/> 
-
-                  <RNUrlPreview  
-                    text={item.link} 
-                    titleStyle={styles.linktitle}
-                    containerStyle={styles.linkcontainer}
-                    titleNumberOfLines={3}
-                    imageStyle={styles.imagesty}
-                    descriptionStyle ={styles.linkimage}
-                  />
-                  <RNUrlPreview  
-                    text={item.link} 
-                    title={false}
-                    containerStyle={styles.linkcontainer}
-                    imageStyle={styles.linkimage}
-                    descriptionStyle ={styles.discript}
-                    descriptionNumberOfLines={4}
-                  />
-                </Card.Content>
-                </TouchableOpacity>
-
-              </Card>
-            )}
-          }}
-        /> */}
+        renderItem={this.renderItem}  
+        />
         </Block>
       </Block>
     )
@@ -132,65 +121,39 @@ savelist = (props) => {
 
 const styles = StyleSheet.create({
  
-  card: {
-    margin: 10,
-    paddingLeft: 10,
-    paddingRight: 10,
-    height:height*0.24
-  },
-  titlecard: {
-    fontSize: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: "#D3D3D3",
-  },
-  righticon: {},
-  cardsty: {
-    marginTop: -16,
-    marginBottom: -16,
-  },
-  linktitle: {
-    fontWeight: "bold",
- //  width:width
-  },
+
   top: {
     marginBottom: 20 ,
     marginTop: Constants.statusBarHeight,
+  }, 
+   card: {
+    margin: 10,
+
   },
-  linkcontainer: {
-    backgroundColor: "#fff",
-  //   flex: 1,
-  //  // flexDirection: "row",
-  //   flexWrap: "wrap",
+  titlecard: {
+    top:-130,
+    fontSize: 22,
+    color:'#fff',
+    position:'absolute',
+    fontWeight:"bold",
+   // textShadowOffset:{width: -1,height: -1},
+    lineHeight: 25,
+    letterSpacing:1,
+    // textShadowColor: "#808088",
+    // textShadowRadius: 2,
+    right:0,
+    textShadowColor:'black',
+    textShadowOffset:{width: 1, height: 1},
+    textShadowRadius:20,
+   
   },
-  linkimage: {
-    //alignItems: 'flex-end' ,
-   // flexDirection: 'row',
-   //  justifyContent: 'flex-start' ,
-   display:'none'
+  paracard: {
+    paddingTop:10,
+    lineHeight: 17,
+    letterSpacing:0.7,
   },
-  imagesty: {
-    width:80
-  },
-  discript: {
-//dont remove
-  },
-  styleurl: {
-    flex: 1,
-    flexDirection: "column",
-  },
-  loadcards: {
-    position:"absolute",
-    top: 0, 
-    left: 0, 
-    right: 0, 
-    bottom: 0, 
-    justifyContent: 'center', 
-    alignItems: 'center'
-  },
-  profileContainer: {
-    width: width,
-    height: height,
-    padding: 0,
-    zIndex: 1
+  righticon: {
+    right:10,
+    position:"absolute"
   },
 });
