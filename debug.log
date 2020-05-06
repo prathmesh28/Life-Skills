@@ -315,3 +315,24 @@
 [0413/021108.951:ERROR:process_memory_win.cc(73)] ReadMemory at 0x7ffa7b3653c0 of 64 bytes failed: Only part of a ReadProcessMemory or WriteProcessMemory request was completed. (0x12B)
 [0413/021108.951:ERROR:scoped_process_suspend.cc(40)] NtResumeProcess: An attempt was made to access an exiting process. (0xc000010a)
 [0421/185756.708:ERROR:settings.cc(320)] Settings magic is not 1129342067
+[0505/203747.886:ERROR:process_info.cc(329)] VirtualQueryEx: Access is denied. (0x5)
+[0505/203745.733:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0505/203745.733:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0505/203748.699:ERROR:process_info.cc(556)] ReadMemoryInfo failed
+[0505/203745.733:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0505/203745.733:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0505/203745.733:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0505/203745.733:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0505/203748.699:ERROR:exception_snapshot_win.cc(98)] thread ID 5068 not found in process
+[0505/203748.699:ERROR:exception_snapshot_win.cc(98)] thread ID 9836 not found in process
+[0505/203748.699:ERROR:exception_snapshot_win.cc(98)] thread ID 5744 not found in process
+[0505/203748.964:ERROR:exception_snapshot_win.cc(98)] thread ID 3960 not found in process
+[0505/203748.964:ERROR:exception_snapshot_win.cc(98)] thread ID 344 not found in process
+[0505/203748.964:ERROR:exception_snapshot_win.cc(98)] thread ID 7108 not found in process
+[0505/203748.964:ERROR:scoped_process_suspend.cc(40)] NtResumeProcess: An attempt was made to access an exiting process. (0xc000010a)
+[0505/203748.964:ERROR:scoped_process_suspend.cc(40)] NtResumeProcess: An attempt was made to access an exiting process. (0xc000010a)
+[0505/203748.964:ERROR:scoped_process_suspend.cc(40)] NtResumeProcess: An attempt was made to access an exiting process. (0xc000010a)
+[0505/203748.964:ERROR:scoped_process_suspend.cc(40)] NtResumeProcess: An attempt was made to access an exiting process. (0xc000010a)
+[0505/203748.699:ERROR:scoped_process_suspend.cc(40)] NtResumeProcess: An attempt was made to access an exiting process. (0xc000010a)
+[0505/203748.964:ERROR:scoped_process_suspend.cc(40)] NtResumeProcess: An attempt was made to access an exiting process. (0xc000010a)
+[0505/203748.964:ERROR:scoped_process_suspend.cc(40)] NtResumeProcess: An attempt was made to access an exiting process. (0xc000010a)

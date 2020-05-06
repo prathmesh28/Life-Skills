@@ -7,11 +7,12 @@ import {
   TouchableHighlight,
   ToastAndroid,
   View,
+
   ActivityIndicator,
 } from "react-native";
-import { Searchbar } from "react-native-paper";
+// import { Searchbar } from "react-native-paper";
 import Loader from "../../Loader";
-import { Card, Colors, Title, ToggleButton } from "react-native-paper";
+import { Card, Colors, Title, ToggleButton, Paragraph, Searchbar, Button } from "react-native-paper";
 import RNUrlPreview from "react-native-url-preview";
 const { width, height } = Dimensions.get("screen");
 import Firebase from "../../../firebase";
@@ -20,6 +21,7 @@ import { withNavigation } from "react-navigation";
 import _ from 'lodash'
 import { contains } from "react-native-redash";
 let userid;
+//let DataArray = []
 import LinkPreview from 'react-native-link-preview';
 
 export default withNavigation(
@@ -64,44 +66,20 @@ export default withNavigation(
                     return temp;
                 }
             });
-            this.setState({ hio });
+            this.setState({ hio }); 
 
           Firebase.database()
           .ref("/topiclist/")
           .once("value", (snapshot) => {
             snapshot.val().map( item => {
-             // const temp 
               LinkPreview.getPreview(item.link).then(data => {
-                this.state.InfoData.push(data);
-               // console.log(title)
-                //console.log(this.state.InfoData)
-                // Firebase.database().ref('InfoData/' ).set({
-                //    FullData:this.state.InfoData
-                // }).then((data)=>{  console.log("updated")  })
+                let DataArray = data
+                DataArray.contentType = item.topic
+                this.state.InfoData.push(DataArray)
               })
             })
-           // console.log(this.state.InfoData)
-            // Firebase.database().ref('InfoData/' ).set({
-            //   FullData
-            // }).then((data)=>{  console.log("updated")  })
-
-            const NewsData = snapshot.val().filter( item =>{
-              if(this.state.hio.includes(item.topic)){
-                return item
-              }
-            })
-          //  this.setState({ NewsData });
-
-            this.setState({
-              NewsData,
-              page: 0,
-            }, function() {
-              this.addRecords(0);
-            });
           });
-         
         });
-      //  console.log(this.state.NewsData)
         setTimeout(() => {
           this.setState({
             loading: false,
@@ -109,24 +87,24 @@ export default withNavigation(
         }, 2500);
     }
 
-    addRecords = (page) => {
-      const newRecords = []
-      for(var i = page * 12, il = i + 12; i < il && i < 
-        this.state.NewsData.length; i++){
-        newRecords.push(this.state.NewsData[i]);
-      }
-      this.setState({
-        posts: [...this.state.posts, ...newRecords]
-      });
-    }
+    // addRecords = (page) => {
+    //   const newRecords = []
+    //   for(var i = page * 12, il = i + 12; i < il && i < 
+    //     this.state.NewsData.length; i++){
+    //     newRecords.push(this.state.NewsData[i]);
+    //   }
+    //   this.setState({
+    //     posts: [...this.state.posts, ...newRecords]
+    //   });
+    // }
 
-    onScrollHandler = () => {
-      this.setState({
-        page: this.state.page + 1
-      }, () => {
-        this.addRecords(this.state.page);
-      });
-    }
+    // onScrollHandler = () => {
+    //   this.setState({
+    //     page: this.state.page + 1
+    //   }, () => {
+    //     this.addRecords(this.state.page);
+    //   });
+    // }
 
     savelist = (props) => {
       console.log("hi");
@@ -173,58 +151,32 @@ export default withNavigation(
 
 
     renderItem = ({item}) => {
+      if(this.state.hio.includes(item.contentType)){
         return( 
           <Card style={styles.card}>
-          <Card.Title
-            key={item.id}
-            title={item.title}
-            titleStyle={styles.titlecard}
-            right={(props) => (
-              <ToggleButton
+            <Card.Cover source={{ uri: item.images[0] }} />
+            <Card.Content >
+              <Title style={styles.titlecard}>{item.title}</Title>
+              <Paragraph style={styles.paracard}>{item.description}</Paragraph>
+    </Card.Content>
+    <Card.Actions>
+      <Button>#{item.contentType}</Button>
+      <ToggleButton
+                style={styles.righticon}
                 icon="heart"
                 color={Colors.pink300}
                 //  status={item.Saved}
-                onPress={() => this.savelist(item)}
+               // onPress={() => this.savelist(item)}
               ></ToggleButton>
-            )}
-            rightStyle={styles.righticon}
-            style={styles.cardsty}
-          />
-        
-          <TouchableOpacity style={{ flex: 1 }} onPress={() => { this.openWebView(item.link); console.log('clicked'); }}>
-          <Card.Content style={styles.styleurl} pointerEvents="none">
-            <ActivityIndicator
-              style={styles.loadcards}
-              size="large"
-              color="#741cc7"
-            />
-
-            <RNUrlPreview
-              text={item.link}
-              titleStyle={styles.linktitle}
-              containerStyle={styles.linkcontainer}
-              titleNumberOfLines={3}
-              imageStyle={styles.imagesty}
-              descriptionStyle={styles.linkimage}
-            />
-             {/* { LinkPreview.getPreview(item.link).then(data => console.log(data)) } */}
-            <RNUrlPreview
-              text={item.link}
-              title={false}
-              containerStyle={styles.linkcontainer}
-              imageStyle={styles.linkimage}
-              descriptionStyle={styles.discript}
-              descriptionNumberOfLines={4}
-            />
-          </Card.Content>
-          </TouchableOpacity>
+    </Card.Actions>
+         
         </Card>
-        )
+        )}
     }
     
     onRefresh() {
           this.setState({isRefreshing:true})
-          var currentIndex = this.state.NewsData.length, temporaryValue, randomIndex;
+          var currentIndex = this.state.InfoData.length, temporaryValue, randomIndex;
           console.log(currentIndex)
           let array = this.state.NewsData
           while (0 !== currentIndex) {
@@ -268,16 +220,16 @@ export default withNavigation(
             initialNumToRender={10}
             refreshing={this.state.isRefreshing}
             onRefresh={this.onRefresh.bind(this)}
-            getItemLayout={(data, index) => (
-              {length: height*0.24, offset: height*0.24 * index, index}
-            )}     
+            // getItemLayout={(data, index) => (
+            //   {length: height*0.14, offset: height*0.14 * index, index}
+            // )}     
       //      ListFooterComponent={this.renderFooter.bind(this)}
             renderItem={this.renderItem}  
-            onEndReached={this.onScrollHandler}
-            onEndThreshold={0}
+          //  onEndReached={this.onScrollHandler}
+          //  onEndThreshold={0}
          //    onEndReached={this.handleLoadMore.bind(this)}
            
-          />
+          /> 
         </View>
       );
     }
@@ -290,53 +242,74 @@ const styles = StyleSheet.create({
   },
   card: {
     margin: 10,
-    paddingLeft: 10,
-    paddingRight: 10,
-    height: height * 0.24,
+    // paddingLeft: 10,
+    // paddingRight: 10,
+    
   },
   titlecard: {
-    fontSize: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: "#D3D3D3",
+    top:-100,
+    fontSize: 22,
+    color:'#fff',
+    position:'absolute',
+    fontWeight:"bold",
+   // textShadowOffset:{width: -1,height: -1},
+    lineHeight: 25,
+    letterSpacing:1,
+    // textShadowColor: "#808088",
+    // textShadowRadius: 2,
+    
+    right:20,
+    textShadowColor:'black',
+    textShadowOffset:{width: 0, height: 0},
+    textShadowRadius:20,
+   
   },
-  righticon: {},
-  cardsty: {
-    marginTop: -16,
-    marginBottom: -16,
+  paracard: {
+    paddingTop:10,
+    lineHeight: 17,
+    letterSpacing:0.7,
   },
-  linktitle: {
-    fontWeight: "bold",
-    //  width:width
+  righticon: {
+    right:10,
+    position:"absolute"
   },
-  linkcontainer: {
-    backgroundColor: "#fff",
-    //   flex: 1,
-    //  // flexDirection: "row",
-    //   flexWrap: "wrap",
-  },
-  linkimage: {
-    //alignItems: 'flex-end' ,
-    // flexDirection: 'row',
-    //  justifyContent: 'flex-start' ,
-    display: "none",
-  },
-  imagesty: {
-    width: 80,
-  },
-  discript: {
-    //dont remove
-  },
-  styleurl: {
-    flex: 1,
-    flexDirection: "column",
-  },
-  loadcards: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    justifyContent: "center",
-    alignItems: "center",
-  },
+  // cardsty: {
+  //   marginTop: -16,
+  //   marginBottom: -16,
+  // },
+  // linktitle: {
+  //   fontWeight: "bold",
+  //   //  width:width
+  // },
+  // linkcontainer: {
+  //   backgroundColor: "#fff",
+  //   //   flex: 1,
+  //   //  // flexDirection: "row",
+  //   //   flexWrap: "wrap",
+  // },
+  // linkimage: {
+  //   //alignItems: 'flex-end' ,
+  //   // flexDirection: 'row',
+  //   //  justifyContent: 'flex-start' ,
+  //   display: "none",
+  // },
+  // imagesty: {
+  //   width: 80,
+  // },
+  // discript: {
+  //   //dont remove
+  // },
+  // styleurl: {
+  //   flex: 1,
+  //   flexDirection: "column",
+  // },
+  // loadcards: {
+  //   position: "absolute",
+  //   top: 0,
+  //   left: 0,
+  //   right: 0,
+  //   bottom: 0,
+  //   justifyContent: "center",
+  //   alignItems: "center",
+  // },
 });
