@@ -69,7 +69,8 @@ savelist = (props) => {
         <Block middle style={styles.top}>
                   {/* <Text bold size={20} color="#fff">Saved Articles</Text> */}
         </Block>
-        <FlatList
+        <Text>X</Text>
+        {/* <FlatList
           data={this.state.SavedItem}
         //  keyExtractor={item => item.id.toString()}
           showsVerticalScrollIndicator={false}
@@ -121,7 +122,7 @@ savelist = (props) => {
               </Card>
             )}
           }}
-        />
+        /> */}
         </Block>
       </Block>
     )
