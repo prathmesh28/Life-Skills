@@ -27,6 +27,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.prthmsh18.lifeskils"
-    }
+    },
+    "githubUrl": "https://github.com/prathmesh28/Life-Skills"
   }
 }

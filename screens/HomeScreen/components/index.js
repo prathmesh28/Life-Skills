@@ -68,7 +68,9 @@ export default withNavigation(
             });
             this.setState({ hio }); 
 
-          Firebase.database()
+          
+        });
+        Firebase.database()
           .ref("/topiclist/")
           .once("value", (snapshot) => {
             snapshot.val().map( item => {
@@ -82,7 +84,6 @@ export default withNavigation(
               })
             })
           });
-        });
         setTimeout(() => {
           this.setState({
             loading: false,
