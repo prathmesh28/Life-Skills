@@ -7,8 +7,12 @@ import Loader from './Loader'
 const { width, height } = Dimensions.get("screen");
 import Constants from 'expo-constants';
 import { withNavigation } from "react-navigation";
-import { ListItem, SearchBar } from 'react-native-elements';
+import { SearchBar } from 'react-native-elements';
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 let userid;
+
+
+
 export default withNavigation(
   class SavedScreen extends React.Component {
   constructor(props) {
@@ -17,49 +21,31 @@ export default withNavigation(
       SavedItem: [],
       loading: false,
       data: [],
-      error: null,
   };
   this.arrayholder = [];
 }
 
-// renderSeparator = () => {
-//   return (
-//     <View
-//       style={{
-//         height: 1,
-//         width: '86%',
-//         backgroundColor: '#CED0CE',
-//         marginLeft: '14%',
-//       }}
-//     />
-//   );
-// };
+
 
 searchFilterFunction = text => {
   this.setState({
     value: text,
   });
-//console.log(text)
   const newData = this.arrayholder.filter(item => {
-    //console.log(item.DataArray.title)
-    const itemData = `${item.DataArray.title.toUpperCase()}`;
-    // const itemData = `${item.DataArray.title.toUpperCase()} ${item.name.first.toUpperCase()} ${item.name.last.toUpperCase()}`;
-
-    const textData = text.toUpperCase();
-
+  const itemData = `${item.DataArray.title.toUpperCase()}`;
+  const textData = text.toUpperCase();
     return itemData.indexOf(textData) > -1;
   });
   this.setState({
     SavedItem: newData,
   });
-  console.log(this.state.data)
 };
 
 renderHeader = () => {
   return (
     <SearchBar
       placeholder="Type Here..."
-      lightTheme
+      
       round
       onChangeText={text => this.searchFilterFunction(text)}
       autoCorrect={false}
@@ -147,6 +133,7 @@ renderItem = ({item}) => {
 }
   render() {
     return (
+      
       <Block flex  style={{ backgroundColor: '#005957'}}>
         <StatusBar 
         translucent={true} 
