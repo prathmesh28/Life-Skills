@@ -2,10 +2,8 @@ import React from "react";
 import { StyleSheet, Dimensions, StatusBar, ImageBackground } from "react-native";
 import Home from "./components/index"
 import { Block } from "galio-framework";
-import AnimatedSplash from "react-native-animated-splash-screen";
 const { width, height } = Dimensions.get("screen");
 import Constants from 'expo-constants';
-import LinkPreview from 'react-native-link-preview';
 export default class HomeScreen extends React.Component {
   
 

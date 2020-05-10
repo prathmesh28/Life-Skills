@@ -1,14 +1,13 @@
 import React from "react";
 import { Text, StatusBar, StyleSheet, FlatList, Dimensions, ToastAndroid, ActivityIndicator, ImageBackground , TouchableOpacity , View } from "react-native";
-import RNUrlPreview from 'react-native-url-preview';
 import { Block } from "galio-framework";
-import { Card, Colors, Title, ToggleButton, Paragraph, Searchbar, Button } from "react-native-paper";
+import { Card, Colors, Title, ToggleButton, Paragraph, Button } from "react-native-paper";
 import Firebase from "../firebase";
 import Loader from './Loader'
 const { width, height } = Dimensions.get("screen");
 import Constants from 'expo-constants';
 import { withNavigation } from "react-navigation";
-
+import { ListItem, SearchBar } from 'react-native-elements';
 let userid;
 export default withNavigation(
   class SavedScreen extends React.Component {
@@ -17,8 +16,59 @@ export default withNavigation(
     this.state = {
       SavedItem: [],
       loading: false,
+      data: [],
+      error: null,
   };
+  this.arrayholder = [];
 }
+
+// renderSeparator = () => {
+//   return (
+//     <View
+//       style={{
+//         height: 1,
+//         width: '86%',
+//         backgroundColor: '#CED0CE',
+//         marginLeft: '14%',
+//       }}
+//     />
+//   );
+// };
+
+searchFilterFunction = text => {
+  this.setState({
+    value: text,
+  });
+//console.log(text)
+  const newData = this.arrayholder.filter(item => {
+    //console.log(item.DataArray.title)
+    const itemData = `${item.DataArray.title.toUpperCase()}`;
+    // const itemData = `${item.DataArray.title.toUpperCase()} ${item.name.first.toUpperCase()} ${item.name.last.toUpperCase()}`;
+
+    const textData = text.toUpperCase();
+
+    return itemData.indexOf(textData) > -1;
+  });
+  this.setState({
+    SavedItem: newData,
+  });
+  console.log(this.state.data)
+};
+
+renderHeader = () => {
+  return (
+    <SearchBar
+      placeholder="Type Here..."
+      lightTheme
+      round
+      onChangeText={text => this.searchFilterFunction(text)}
+      autoCorrect={false}
+      value={this.state.value}
+    />
+  );
+};
+
+
 
     openWebView = (uri) => {
     this.props.navigation.navigate('WebViewScreen', { uri: uri });
@@ -36,6 +86,7 @@ componentDidMount(){
     if(snapshot.val().savedlist === "new"){
       this.setState({ SavedItem: [] })
     }else{
+      this.arrayholder = snapshot.val().savedlist;
       this.setState({ SavedItem: snapshot.val().savedlist })
     }
   
@@ -48,7 +99,7 @@ componentDidMount(){
 }
 
 savelist = (props) => {
-  const arrayitem = this.state.SavedItem.filter(itm => itm.id!==props.id)
+  const arrayitem = this.state.SavedItem.filter(itm => itm.DataArray.id!==props.DataArray.id)
   Firebase.database().ref('UsersList/' + userid).update({
       savedlist: arrayitem,
   })
@@ -68,17 +119,20 @@ ListEmpty = () => {
     </View>
   );
 };
+
+
 renderItem = ({item}) => {
  
     return( 
+     
       <Card style={styles.card}>
-        <Card.Cover source={{ uri: item.images[0] }}  blurRadius={1}/>
+        <Card.Cover source={{ uri: item.DataArray.images[0] }}  blurRadius={1}/>
         <Card.Content >
-          <Title style={styles.titlecard}>{item.title}</Title>
-          <Paragraph style={styles.paracard}>{item.description}</Paragraph>
+          <Title style={styles.titlecard}>{item.DataArray.title}</Title>
+          <Paragraph style={styles.paracard}>{item.DataArray.description}</Paragraph>
         </Card.Content>
         <Card.Actions>
-          <Button>#{item.contentType}</Button>
+          <Button>#{item.DataArray.contentType}</Button>
           <ToggleButton
             style={styles.righticon}
             icon="heart"
@@ -86,8 +140,9 @@ renderItem = ({item}) => {
             onPress={() => this.savelist(item)}
           ></ToggleButton>
 </Card.Actions>
-     
+    
     </Card>
+      
     )
 }
   render() {
@@ -111,6 +166,7 @@ renderItem = ({item}) => {
           ListEmptyComponent={this.ListEmpty}
         // onRefresh={() => }      
         renderItem={this.renderItem}  
+        ListHeaderComponent={this.renderHeader}
         />
         </Block>
       </Block>
@@ -120,7 +176,9 @@ renderItem = ({item}) => {
 );
 
 const styles = StyleSheet.create({
- 
+ fl: {
+   
+ },
 
   top: {
     marginBottom: 20 ,

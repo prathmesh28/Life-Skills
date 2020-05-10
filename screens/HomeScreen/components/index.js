@@ -4,24 +4,19 @@ import {
   FlatList,
   Dimensions,
   TouchableOpacity,
-  TouchableHighlight,
   ToastAndroid,
   View,
-
-  ActivityIndicator,
 } from "react-native";
 // import { Searchbar } from "react-native-paper";
 import Loader from "../../Loader";
 import { Card, Colors, Title, ToggleButton, Paragraph, Searchbar, Button } from "react-native-paper";
-import RNUrlPreview from "react-native-url-preview";
 const { width, height } = Dimensions.get("screen");
 import Firebase from "../../../firebase";
-import { Block } from "galio-framework";
 import { withNavigation } from "react-navigation";
 import _ from 'lodash'
-import { contains } from "react-native-redash";
 let userid;
 //let DataArray = []
+
 import LinkPreview from 'react-native-link-preview';
 
 export default withNavigation(
@@ -29,34 +24,46 @@ export default withNavigation(
     constructor(props) {
       super(props);
       this.state = {
-        NewsData: [],
         SavedData: [],
-        searchQuery: "",
         hio: [],
         loading: false,
         listloading: false, // user list loading
         isRefreshing: false, 
-        page: 0,
-        posts: [],
         InfoData: []
       };
     }
-    onChangeSearch = (query) => {
-      this.setState({ searchQuery: query });
-    };
+   
 
     openWebView = (uri) => {
       this.props.navigation.navigate('WebViewScreen', { uri: uri });
-  //    console.log(uri)
     }
+
+    // componentDidMount() {
+    //   Firebase.database().ref("topiclist/").once("value", (snapshot) => {
+    //         snapshot.val().map(item => {
+    //           console.log(item.id)
+    //           LinkPreview.getPreview(item.link).then(data => {
+    //                                   let DataArray = data
+    //                                   DataArray.id = item.id
+    //                                   DataArray.contentType = item.topic
+    //                                    Firebase.database()
+    //                                     .ref("TopicsData/"+ DataArray.id)
+    //                                     .update({
+    //                                       DataArray
+    //                                     });
+    //                                  // this.state.InfoData.push(DataArray)
+    //           })
+    //         })
+    //       })
+    //       console.log('hi')
+    // }
     
-    componentDidMount() {
-        this.setState({
+componentDidMount(){
+            this.setState({
             loading: true,
         });
-        const { uid } = Firebase.auth().currentUser;
-        userid = uid;
-     
+  const { uid } = Firebase.auth().currentUser;
+  userid = uid;
         Firebase.database()
         .ref("UsersList/" + uid + "/topiclist/")
         .on("value", (snapshot) => {
@@ -66,31 +73,22 @@ export default withNavigation(
                     return temp;
                 }
             });
-            this.setState({ hio }); 
-
           
-        });
-        Firebase.database()
-          .ref("/topiclist/")
-          .once("value", (snapshot) => {
-            snapshot.val().map( item => {
-              LinkPreview.getPreview(item.link).then(data => {
-
-                let DataArray = data
-                DataArray.id = item.id
-                DataArray.contentType = item.topic
-         //       console.log(DataArray)
-                this.state.InfoData.push(DataArray)
-              })
-            })
+            this.setState({ hio }); 
+          })
+          Firebase.database()
+          .ref("TopicsData/")
+          .on("value", (snapshot) => {
+            this.setState({ InfoData : snapshot.val() })
+           // console.log(snapshot.val()[1].DataArray.id)
+          })
+          setTimeout(() => {
+            this.setState({
+              loading: false,
           });
-        setTimeout(() => {
-          this.setState({
-            loading: false,
-          });
-        }, 2500);
-    }
-
+          }, 2500);
+       
+}
 
     savelist = (props) => {
     
@@ -116,7 +114,7 @@ export default withNavigation(
             this.setState({ SavedData: snapshot.val() });
             const arrayitem = snapshot
               .val()
-              .filter((itm) => itm.id !== props.id);
+              .filter((itm) => itm.DataArray.id !== props.DataArray.id);
             arrayitem.push(props);
             Firebase.database()
               .ref("UsersList/" + userid)
@@ -137,16 +135,17 @@ export default withNavigation(
 
 
     renderItem = ({item}) => {
-      if(this.state.hio.includes(item.contentType)){
+    //  snapshot.val()[1].DataArray.id
+      if(this.state.hio.includes(item.DataArray.contentType)){
         return( 
           <Card style={styles.card}>
-            <Card.Cover source={{ uri: item.images[0] }} blurRadius={1}/>
+            <Card.Cover source={{ uri: item.DataArray.images[0] }} blurRadius={1}/>
             <Card.Content >
-              <Title style={styles.titlecard}>{item.title}</Title>
-              <Paragraph style={styles.paracard}>{item.description}</Paragraph>
+              <Title style={styles.titlecard}>{item.DataArray.title}</Title>
+              <Paragraph style={styles.paracard}>{item.DataArray.description}</Paragraph>
             </Card.Content>
             <Card.Actions>
-              <Button>#{item.contentType}</Button>
+              <Button>#{item.DataArray.contentType}</Button>
               <ToggleButton
                 style={styles.righticon}
                 icon="heart"
@@ -162,7 +161,7 @@ export default withNavigation(
     onRefresh() {
           this.setState({isRefreshing:true})
           var currentIndex = this.state.InfoData.length, temporaryValue, randomIndex;
-        //  console.log(currentIndex)
+      
           let array = this.state.InfoData
           while (0 !== currentIndex) {
             randomIndex = Math.floor(Math.random() * currentIndex);
@@ -180,19 +179,14 @@ export default withNavigation(
       return (
         <View style={styles.Container}>
           <Loader loading={this.state.loading} />
-          <Searchbar
-            style={styles.search}
-            placeholder="Search"
-            onChangeText={(text) => this.onChangeSearch(text)}
-            value={searchQuery}
-          />
+       
           <FlatList
             data={this.state.InfoData}
-        //    keyExtractor={(item) => item.id.toString()}
+            keyExtractor={(item) => item.DataArray.id.toString()}
             showsVerticalScrollIndicator={false}
-            initialNumToRender={10}
-            refreshing={this.state.isRefreshing}
-            onRefresh={this.onRefresh.bind(this)}
+       //     initialNumToRender={10}
+            // refreshing={this.state.isRefreshing}
+            // onRefresh={this.onRefresh.bind(this)}
             // getItemLayout={(data, index) => (
             //   {length: height*0.14, offset: height*0.14 * index, index}
             // )}     
@@ -215,9 +209,6 @@ const styles = StyleSheet.create({
   },
   card: {
     margin: 10,
-    // paddingLeft: 10,
-    // paddingRight: 10,
-    
   },
   titlecard: {
     top:-130,
