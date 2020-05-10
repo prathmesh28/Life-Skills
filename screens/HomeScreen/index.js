@@ -126,8 +126,5 @@ const styles = StyleSheet.create({
   txt: {
     fontSize: 11,
   //  position:"absolute",
-  
-
-   
   },
 });
