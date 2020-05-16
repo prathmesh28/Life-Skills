@@ -81,6 +81,7 @@ export default class StartScreen extends React.Component {
                 .set({
                   email: result.user.email,
                   name: result.additionalUserInfo.profile.given_name,
+                  displaypic: result.additionalUserInfo.profile.picture,
                  topiclist,
                  savedlist
                 })
