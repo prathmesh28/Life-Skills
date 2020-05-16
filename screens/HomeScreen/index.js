@@ -48,11 +48,10 @@ export default class HomeScreen extends React.Component {
           imageStyle={styles.profileBackground}
         >
          
-          <Block style={{ backgroundColor:'#1699e0', height:height*0.1, padding: Constants.statusBarHeight}}>
+            <Block style={{ backgroundColor:'#1699e0', height:height*0.05, padding: Constants.statusBarHeight}}>
             <Text style={{ 
-              fontSize: 30,
+              fontSize: 20,
               position:'relative',
-              fontWeight:"bold",
               color:'#fff',
               letterSpacing:1,
               textAlign:'center',
@@ -62,26 +61,7 @@ export default class HomeScreen extends React.Component {
               }}>Life Skills</Text>
           </Block>
           <Block middle>
-          <FlatList
-
-                data={this.state.renderData}
-                keyExtractor={item => item.id.toString()}
-              
-                horizontal={true}
-
-                renderItem={({ item }) => {
-                
-                   if(item.selected){
-                     return(
-                      <Card style={styles.cardy}>
-                        <Card.Content >
-                          <Title style={styles.txt} textBreakStrategy={'simple'}>{item.name} </Title>
-                        </Card.Content>
-                      </Card>
-                     )
-                   }
-                }}
-                />
+          
               <Block style={styles.cards}>
                 <Home />
               </Block>

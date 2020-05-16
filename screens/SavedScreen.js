@@ -112,6 +112,7 @@ renderItem = ({item}) => {
     return( 
      
       <Card style={styles.card}>
+        <TouchableOpacity onPress={() => { this.openWebView(item.DataArray.url) }}>
         <Card.Cover source={{ uri: item.DataArray.images[0] }}  blurRadius={1}/>
         <Card.Content >
           <Title style={styles.titlecard}>{item.DataArray.title}</Title>
@@ -126,7 +127,7 @@ renderItem = ({item}) => {
             onPress={() => this.savelist(item)}
           ></ToggleButton>
 </Card.Actions>
-    
+        </TouchableOpacity>
     </Card>
       
     )
