@@ -6,7 +6,6 @@ const { width, height } = Dimensions.get("screen");
 import Constants from 'expo-constants';
 import Firebase from '../../firebase'
 import Topics from '../Topics'
-import { Card, Title } from 'react-native-paper';
 
 export default class HomeScreen extends React.Component {
   
@@ -41,16 +40,17 @@ export default class HomeScreen extends React.Component {
         <StatusBar 
         translucent={true} 
         backgroundColor={'transparent'} />
- <Block  >
+        <Block>
         <ImageBackground
           source={require("../../assets/backbg.jpg")}
           style={styles.profileContainer}
           imageStyle={styles.profileBackground}
         >
          
-            <Block style={{ backgroundColor:'#1699e0', height:height*0.05, padding: Constants.statusBarHeight}}>
+            <Block style={{ backgroundColor:'#1699e0', height:height*0.09, paddingTop: Constants.statusBarHeight}}>
             <Text style={{ 
-              fontSize: 20,
+              fontWeight: 'bold',
+              fontSize: 24,
               position:'relative',
               color:'#fff',
               letterSpacing:1,

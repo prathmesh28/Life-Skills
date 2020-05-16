@@ -7,18 +7,13 @@ import {
   ToastAndroid,
   View,
 } from "react-native";
-// import { Searchbar } from "react-native-paper";
 import Loader from "../../Loader";
-import { Card, Colors, Title, ToggleButton, Paragraph, Searchbar, Button } from "react-native-paper";
+import { Text, Card, Colors, Title, ToggleButton, Paragraph, Button } from "react-native-paper";
 const { width, height } = Dimensions.get("screen");
 import Firebase from "../../../firebase";
 import { withNavigation } from "react-navigation";
 import _ from 'lodash'
 let userid;
-//let DataArray = []
-
-import LinkPreview from 'react-native-link-preview';
-
 export default withNavigation(
   class Home extends React.Component {
     constructor(props) {
@@ -38,32 +33,13 @@ export default withNavigation(
       this.props.navigation.navigate('WebViewScreen', { uri: uri });
     }
 
-    // componentDidMount() {
-    //   Firebase.database().ref("topiclist/").once("value", (snapshot) => {
-    //         snapshot.val().map(item => {
-    //           console.log(item.id)
-    //           LinkPreview.getPreview(item.link).then(data => {
-    //                                   let DataArray = data
-    //                                   DataArray.id = item.id
-    //                                   DataArray.contentType = item.topic
-    //                                    Firebase.database()
-    //                                     .ref("TopicsData/"+ DataArray.id)
-    //                                     .update({
-    //                                       DataArray
-    //                                     });
-    //                                  // this.state.InfoData.push(DataArray)
-    //           })
-    //         })
-    //       })
-    //       console.log('hi')
-    // }
-    
-componentDidMount(){
-            this.setState({
-            loading: true,
+ 
+    componentDidMount(){
+        this.setState({
+          loading: true,
         });
-  const { uid } = Firebase.auth().currentUser;
-  userid = uid;
+        const { uid } = Firebase.auth().currentUser;
+        userid = uid;
         Firebase.database()
         .ref("UsersList/" + uid + "/topiclist/")
         .on("value", (snapshot) => {
@@ -80,7 +56,6 @@ componentDidMount(){
           .ref("TopicsData/")
           .on("value", (snapshot) => {
             this.setState({ InfoData : snapshot.val() })
-           // console.log(snapshot.val()[1].DataArray.id)
           })
           setTimeout(() => {
             this.setState({
@@ -88,7 +63,9 @@ componentDidMount(){
           });
           }, 2500);
        
-}
+    }
+
+
 
     savelist = (props) => {
     
@@ -135,25 +112,24 @@ componentDidMount(){
 
 
     renderItem = ({item}) => {
-    //  snapshot.val()[1].DataArray.id
       if(this.state.hio.includes(item.DataArray.contentType)){
         return( 
           <Card style={styles.card}>
             <TouchableOpacity onPress={() => { this.openWebView(item.DataArray.url) }}>
-            <Card.Cover source={{ uri: item.DataArray.images[0] }} blurRadius={1}/>
-            <Card.Content >
-              <Title style={styles.titlecard}>{item.DataArray.title}</Title>
-              <Paragraph style={styles.paracard}>{item.DataArray.description}</Paragraph>
-            </Card.Content>
-            <Card.Actions>
-              <Button>#{item.DataArray.contentType}</Button>
-              <ToggleButton
-                style={styles.righticon}
-                icon="heart"
-                color={Colors.pink300}
-                onPress={() => this.savelist(item)}
-              ></ToggleButton>
-    </Card.Actions>
+              <Card.Cover source={{ uri: item.DataArray.images[0] }} blurRadius={1}/>
+              <Card.Content >
+                <Title style={styles.titlecard}>{item.DataArray.title}</Title>
+                <Paragraph style={styles.paracard}>{item.DataArray.description}</Paragraph>
+              </Card.Content>
+              <Card.Actions>
+                <Button>#{item.DataArray.contentType}</Button>
+                <ToggleButton
+                  style={styles.righticon}
+                  icon="heart"
+                  color={Colors.pink300}
+                  onPress={() => this.savelist(item)}
+                ></ToggleButton>
+              </Card.Actions>
             </TouchableOpacity>
          
         </Card>
@@ -186,18 +162,12 @@ componentDidMount(){
             data={this.state.InfoData}
             keyExtractor={(item) => item.DataArray.id.toString()}
             showsVerticalScrollIndicator={false}
-       //     initialNumToRender={10}
-            // refreshing={this.state.isRefreshing}
-            // onRefresh={this.onRefresh.bind(this)}
-            // getItemLayout={(data, index) => (
-            //   {length: height*0.14, offset: height*0.14 * index, index}
-            // )}     
-      //      ListFooterComponent={this.renderFooter.bind(this)}
+            
+            refreshing={this.state.isRefreshing}
+            onRefresh={this.onRefresh.bind(this)}
             renderItem={this.renderItem}  
-          //  onEndReached={this.onScrollHandler}
-          //  onEndThreshold={0}
-         //    onEndReached={this.handleLoadMore.bind(this)}
-           
+            onEndThreshold={0}
+            
           /> 
         </View>
       );
@@ -211,6 +181,7 @@ const styles = StyleSheet.create({
   },
   card: {
     margin: 10,
+    borderRadius:5
   },
   titlecard: {
     top:-130,

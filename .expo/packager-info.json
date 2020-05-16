@@ -1,20 +1,10 @@
 {
-<<<<<<< HEAD
   "expoServerPort": 19000,
-  "expoServerNgrokUrl": "https://32-fwj.prthmsh18.life-skills.exp.direct",
-  "packagerNgrokUrl": "https://packager.32-fwj.prthmsh18.life-skills.exp.direct",
-  "ngrokPid": 7188,
-  "devToolsPort": 19002,
-  "packagerPort": 19001,
-  "packagerPid": 6928,
-=======
-  "expoServerPort": null,
   "expoServerNgrokUrl": null,
   "packagerNgrokUrl": null,
   "ngrokPid": null,
-  "devToolsPort": 19005,
-  "packagerPort": null,
-  "packagerPid": null,
->>>>>>> 9abb42c3d2f03edc9845653e83a26f1b33ea1253
+  "devToolsPort": 19002,
+  "packagerPort": 19001,
+  "packagerPid": 11176,
   "webpackServerPort": null
 }

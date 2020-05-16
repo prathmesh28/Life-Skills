@@ -1,13 +1,13 @@
 import React from "react";
 import { Text, StatusBar, StyleSheet, FlatList, Dimensions, ToastAndroid, ActivityIndicator, ImageBackground , TouchableOpacity , View } from "react-native";
 import { Block } from "galio-framework";
-import { Card, Colors, Title, ToggleButton, Paragraph, Button } from "react-native-paper";
+import { Card, Colors, Title, ToggleButton, Paragraph, Button, Searchbar } from "react-native-paper";
 import Firebase from "../firebase";
 import Loader from './Loader'
 const { width, height } = Dimensions.get("screen");
 import Constants from 'expo-constants';
 import { withNavigation } from "react-navigation";
-import { SearchBar } from 'react-native-elements';
+//import { SearchBar } from 'react-native-elements';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 let userid;
 
@@ -31,29 +31,18 @@ searchFilterFunction = text => {
   this.setState({
     value: text,
   });
-  const newData = this.arrayholder.filter(item => {
-  const itemData = `${item.DataArray.title.toUpperCase()}`;
-  const textData = text.toUpperCase();
-    return itemData.indexOf(textData) > -1;
-  });
-  this.setState({
-    SavedItem: newData,
-  });
+  if(this.arrayholder !== undefined){
+    const newData = this.arrayholder.filter(item => {
+      const itemData = `${item.DataArray.title.toUpperCase()}`;
+      const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      this.setState({
+        SavedItem: newData,
+      });
+  }
+  
 };
-
-renderHeader = () => {
-  return (
-    <SearchBar
-      placeholder="Type Here..."
-      
-      round
-      onChangeText={text => this.searchFilterFunction(text)}
-      autoCorrect={false}
-      value={this.state.value}
-    />
-  );
-};
-
 
 
     openWebView = (uri) => {
@@ -100,8 +89,18 @@ savelist = (props) => {
 ListEmpty = () => {
   return (
     //View to show when list is empty
-    <View style={styles.MainContainer}>
-      <Text style={{ textAlign: 'center' }}>No Data Found</Text>
+    <View style={{ marginTop:20 }}>
+      <Text style={{ 
+        
+              fontSize: 22,
+              position:'relative',
+              color:'#fff',
+              letterSpacing:1,
+              textAlign:'center',
+              textShadowColor:'#fff',
+              textShadowOffset:{width: 0, height: 0},
+              textShadowRadius:20, 
+         }}>No Data Found</Text>
     </View>
   );
 };
@@ -126,7 +125,7 @@ renderItem = ({item}) => {
             color={Colors.pink300}
             onPress={() => this.savelist(item)}
           ></ToggleButton>
-</Card.Actions>
+        </Card.Actions>
         </TouchableOpacity>
     </Card>
       
@@ -143,9 +142,23 @@ renderItem = ({item}) => {
          <Block center>
         <Loader loading={this.state.loading} />
         <Block middle style={styles.top}>
+       
                   {/* <Text bold size={20} color="#fff">Saved Articles</Text> */}
         </Block>
        
+
+        <Searchbar
+      placeholder="Search Articles..."
+      lightTheme
+      round
+      onChangeText={text => this.searchFilterFunction(text)}
+      autoCorrect={false}
+      value={this.state.value}
+      style={{marginHorizontal:20}}
+    />
+
+
+
         <FlatList
           data={this.state.SavedItem}
         //  keyExtractor={item => item.id.toString()}
@@ -154,7 +167,7 @@ renderItem = ({item}) => {
           ListEmptyComponent={this.ListEmpty}
         // onRefresh={() => }      
         renderItem={this.renderItem}  
-        ListHeaderComponent={this.renderHeader}
+       // ListHeaderComponent={this.renderHeader}
         />
         </Block>
       </Block>

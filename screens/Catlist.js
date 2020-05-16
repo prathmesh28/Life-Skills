@@ -40,19 +40,24 @@ export default class Cattist extends React.Component {
       loading: true,
     });
     let renderData = [...this.state.renderData];
-    for (let data of renderData) {
-      if (data.id == id) {
-        data.selected = (data.selected == false) ? true : !data.selected;
-        break;
-      }
-    }
-
-    this.setState({ renderData });
-    Firebase.database()
-      .ref('UsersList/' + userid)
-      .update({
-        topiclist: this.state.renderData
-      })
+   
+  
+ 
+        for (let data of renderData) {
+          if (data.id == id) {
+            data.selected = (data.selected == false) ? true : !data.selected;
+            break;
+          }
+        }
+       
+         
+                  this.setState({ renderData });
+                  Firebase.database()
+                    .ref('UsersList/' + userid)
+                    .update({
+                      topiclist: this.state.renderData
+                    })
+    
     //.then(() => console.log('Data updated.'));
     setTimeout(() => {
       this.setState({

@@ -70,23 +70,22 @@ export default class IntroScreen extends React.Component {
             <Block flex space="around" style={{ zIndex: 2 }}>
 
               <Block center>
-                {/* <Button
+                <Button
                   style={styles.button}
-                 // color={argonTheme.COLORS.INTRO}
-                 color={'transparent'}
-               //   onPress={() => this.setState({ showRealApp: true })}
+                  color={argonTheme.COLORS.INTRO}
+                 // color={'transparent'}
+                  onPress={() => this.setState({ showRealApp: true })}
                   textStyle={{ color: argonTheme.COLORS.BLACK }}
-                > */}
-                  <TouchableOpacity
-                     color={'transparent'}
-                     style={styles.button}
-                     onPress={() => this.setState({ showRealApp: true })}
-                     >
-                    <Text color={argonTheme.COLORS.BLACK} >Get Started</Text>
-                  </TouchableOpacity>
-                 
-{/*                  
-                </Button> */}
+                >
+                  <Text style={{ 
+                    fontSize:20,  
+                    letterSpacing:1,
+                    textShadowColor:'white',
+                    textShadowOffset:{width: 0, height: 0},
+                    textShadowRadius:20,  
+                    fontWeight: '700' 
+                    }} >Welcome</Text>
+                </Button>
               </Block>
             </Block>
           </Block>
