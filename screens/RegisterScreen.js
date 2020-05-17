@@ -55,18 +55,15 @@ export default class RegisterScreen extends React.Component {
             this.setState({
               loading: false,
             });
-          }, 500);
-        
+          }, 2500);
   };
-  componentDidMount() {
-    this.Onboarding = require("../assets/backbg.jpg")
-  }
+
   render() {
     return (
       <Block flex middle>
         <StatusBar hidden />
         <ImageBackground
-          source={this.Onboarding}
+          source={require("../assets/backbg.jpg")}
           style={{ width, height, zIndex: 1 }}>
           <Block flex middle>
           <Loader loading={this.state.loading} />

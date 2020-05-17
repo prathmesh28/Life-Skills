@@ -51,28 +51,16 @@ export default class StartScreen extends React.Component {
 
 
   onSignIn = googleUser => {
-    console.log('Google Auth Response', googleUser);
-    // We need to register an Observer on Firebase Auth to make sure auth is initialized.
     var unsubscribe = firebase.auth().onAuthStateChanged(function (firebaseUser) {
-      unsubscribe();
-      // Check if we are already signed-in Firebase with the correct user.
+      unsubscribe()
       if (!this.isUserEqual(googleUser, firebaseUser)) {
-        // Build Firebase credential with the Google ID token.
-
         var credential = firebase.auth.GoogleAuthProvider.credential(
           googleUser.idToken,
           googleUser.accessToken
-        );
-
-        // Sign in with credential from the Google user.
-
+        )
         firebase.auth().signInWithCredential(credential)
           .then(function (result) {
-            console.log('user signed in');
-
             if (result.additionalUserInfo.isNewUser) {
-              console.log('new user');
-
               let topiclist = "new"
               let savedlist = "new"
               firebase
@@ -85,27 +73,18 @@ export default class StartScreen extends React.Component {
                  topiclist,
                  savedlist
                 })
-
-
             } else {
               firebase
                 .database()
                 .ref('/UsersList/' + result.user.uid).update({ last_logged_in: Date.now() })
             }
-
           }).catch(function (error) {
-            // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
-            // The email of the user's account used.
             var email = error.email;
-            // The firebase.auth.AuthCredential type that was used.
             var credential = error.credential;
-            // ...
           });
-      } else {
-        console.log('User already signed-in Firebase.');
-      }
+      } else {      }
     }.bind(this));
   }
 
@@ -119,15 +98,13 @@ export default class StartScreen extends React.Component {
         androidClientId: '1092057614213-1qf6oho4vdi2aiqm5b46vdce09sl6nje.apps.googleusercontent.com',
         iosClientId: '1092057614213-immhnu3nt79fvhmq1st8dl32qlk6o352.apps.googleusercontent.com',
         scopes: ['profile', 'email'],
-      });
-      console.log(result)
+      })
       setTimeout(() => {
         this.setState({
           loading: false,
         });
       }, 2500);
       if (result.type === 'success') {
-        console.log('google sucess')
         this.onSignIn(result);
         return result.accessToken;
       } else {
@@ -153,7 +130,7 @@ export default class StartScreen extends React.Component {
 
       const credential = await firebase.auth.FacebookAuthProvider.credential(token)
       firebase.auth().signInWithCredential(credential).then(function (result) {
-        console.log(result.additionalUserInfo, result.additionalUserInfo.profile)
+       // console.log(result.additionalUserInfo, result.additionalUserInfo.profile)
 
 
         if (result.additionalUserInfo.isNewUser) {
@@ -176,18 +153,10 @@ export default class StartScreen extends React.Component {
               .ref('/UsersList/' + result.user.uid).update({ last_logged_in: Date.now() })
           }
         }).catch(error => {
-          console.log(error);
+        //  console.log(error);
         })
       }
-
-        
-
   }
-
-
-
-
-
   render() {
     return (
       <Block flex middle>

@@ -7,12 +7,7 @@ import Loader from './Loader'
 const { width, height } = Dimensions.get("screen");
 import Constants from 'expo-constants';
 import { withNavigation } from "react-navigation";
-//import { SearchBar } from 'react-native-elements';
-import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 let userid;
-
-
-
 export default withNavigation(
   class SavedScreen extends React.Component {
   constructor(props) {
@@ -20,78 +15,73 @@ export default withNavigation(
     this.state = {
       SavedItem: [],
       loading: false,
-      data: [],
-  };
+    };
   this.arrayholder = [];
-}
+  }
 
+  componentDidMount(){
+    const { uid } = Firebase.auth().currentUser;
+    userid= uid
 
+    this.setState({
+      loading: true
+    })
 
-searchFilterFunction = text => {
-  this.setState({
-    value: text,
-  });
-  if(this.arrayholder !== undefined){
-    const newData = this.arrayholder.filter(item => {
-      const itemData = `${item.DataArray.title.toUpperCase()}`;
-      const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
+    Firebase.database().ref('UsersList/' + uid).on('value', snapshot => {
+      if(snapshot.val().savedlist === "new"){
+        this.setState({ SavedItem: [] })
+      }else{
+        this.arrayholder = snapshot.val().savedlist;
+        this.setState({ SavedItem: snapshot.val().savedlist })
+      }
+    })
+
+    setTimeout(() => {
+      this.setState({
+        loading: false,
       });
+    }, 0);
+  }
+
+
+  searchFilterFunction = text => {
+    this.setState({
+      value: text,
+    })
+    if(this.arrayholder !== undefined){
+      const newData = this.arrayholder.filter(item => {
+      const itemData = `${item.DataArray.title.toUpperCase()}`
+      const textData = text.toUpperCase()
+        return itemData.indexOf(textData) > -1
+      })
       this.setState({
         SavedItem: newData,
       });
-  }
-  
-};
-
-
-    openWebView = (uri) => {
-    this.props.navigation.navigate('WebViewScreen', { uri: uri });
-    console.log('uri working')
-    console.log(uri);
-  };
-
-componentDidMount(){
-  const { uid } = Firebase.auth().currentUser;
-  userid= uid
-  this.setState({
-    loading: true
-  });
-  Firebase.database().ref('UsersList/' + uid).on('value', snapshot => {
-    if(snapshot.val().savedlist === "new"){
-      this.setState({ SavedItem: [] })
-    }else{
-      this.arrayholder = snapshot.val().savedlist;
-      this.setState({ SavedItem: snapshot.val().savedlist })
     }
-  
-  })
-  setTimeout(() => {
-    this.setState({
-      loading: false,
-    });
-  }, 2500);
-}
+  }
 
-savelist = (props) => {
-  const arrayitem = this.state.SavedItem.filter(itm => itm.DataArray.id!==props.DataArray.id)
-  Firebase.database().ref('UsersList/' + userid).update({
+  openWebView = (uri) => {
+    this.props.navigation.navigate('WebViewScreen', { uri: uri })
+  }
+
+  savelist = (props) => {
+    const arrayitem = this.state.SavedItem.filter(itm => itm.DataArray.id!==props.DataArray.id)
+    Firebase.database().ref('UsersList/' + userid).update({
       savedlist: arrayitem,
-  })
-  ToastAndroid.showWithGravityAndOffset(
-    'Removed from Saved List',
-    ToastAndroid.SHORT,
-    ToastAndroid.BOTTOM,
-    25,
-    50,
-  )
-}
-ListEmpty = () => {
-  return (
-    //View to show when list is empty
-    <View style={{ marginTop:20 }}>
-      <Text style={{ 
-        
+    })
+    ToastAndroid.showWithGravityAndOffset(
+      'Removed from Saved List',
+      ToastAndroid.SHORT,
+      ToastAndroid.BOTTOM,
+      25,
+      50,
+    )
+  }
+
+  ListEmpty = () => {
+    return (
+      <View style={{ marginTop:20 }}>
+        <Text style={{ 
               fontSize: 22,
               position:'relative',
               color:'#fff',
@@ -100,94 +90,94 @@ ListEmpty = () => {
               textShadowColor:'#fff',
               textShadowOffset:{width: 0, height: 0},
               textShadowRadius:20, 
-         }}>No Data Found</Text>
-    </View>
-  );
-};
+         }}>Saved Articles will appear here.</Text>
+      </View>
+    )
+  }
 
 
-renderItem = ({item}) => {
- 
+  renderItem = ({item}) => {
     return( 
-     
       <Card style={styles.card}>
         <TouchableOpacity onPress={() => { this.openWebView(item.DataArray.url) }}>
-        <Card.Cover source={{ uri: item.DataArray.images[0] }}  blurRadius={1}/>
-        <Card.Content >
-          <Title style={styles.titlecard}>{item.DataArray.title}</Title>
-          <Paragraph style={styles.paracard}>{item.DataArray.description}</Paragraph>
-        </Card.Content>
-        <Card.Actions>
-          <Button>#{item.DataArray.contentType}</Button>
-          <ToggleButton
-            style={styles.righticon}
-            icon="heart"
-            color={Colors.pink300}
-            onPress={() => this.savelist(item)}
-          ></ToggleButton>
-        </Card.Actions>
+          <Card.Cover source={{ uri: item.DataArray.images[0] }}  blurRadius={1}/>
+          <Card.Content >
+            <Title style={styles.titlecard}>{item.DataArray.title}</Title>
+            <Paragraph style={styles.paracard}>{item.DataArray.description}</Paragraph>
+          </Card.Content>
+          <Card.Actions>
+            <Button>#{item.DataArray.contentType}</Button>
+            <ToggleButton
+              style={styles.righticon}
+              icon="heart"
+              color={Colors.pink300}
+              onPress={() => this.savelist(item)}
+            ></ToggleButton>
+          </Card.Actions>
         </TouchableOpacity>
-    </Card>
-      
+      </Card>
     )
-}
+  }
   render() {
     return (
-      
-      <Block flex  style={{ backgroundColor: '#005957'}}>
+      <Block flex  style={{ backgroundColor: '#fff'}}>
         <StatusBar 
         translucent={true} 
         backgroundColor={'transparent'} />
         
-         <Block center>
         <Loader loading={this.state.loading} />
-        <Block middle style={styles.top}>
-       
-                  {/* <Text bold size={20} color="#fff">Saved Articles</Text> */}
-        </Block>
-       
+        <ImageBackground
+          source={require("../assets/backbg.jpg")}
+          style={styles.profileContainer}
+          imageStyle={styles.profileBackground}>
+          <Block style={{ 
+                height: height*0.1, 
+                paddingTop: Constants.statusBarHeight,
+                justifyContent:'center'
+                }}>
+            
+            <Text style={{ 
+                fontWeight: 'bold',
+                fontSize: 24,
+                position:'relative',
+                color:'#fff',
+                letterSpacing:1,
+                textAlign:'center',
+                textShadowColor:'black',
+                textShadowOffset:{width: 0, height: 0},
+                textShadowRadius:20, 
+                }}>Saved Articles</Text>
+            </Block>
+            <Block center>
+            <Searchbar
+              placeholder="Search Articles..."
+              lightTheme
+              round
+              onChangeText={text => this.searchFilterFunction(text)}
+              autoCorrect={false}
+              value={this.state.value}
+              style={{marginHorizontal:20,marginBottom:10}}
+            />
 
-        <Searchbar
-      placeholder="Search Articles..."
-      lightTheme
-      round
-      onChangeText={text => this.searchFilterFunction(text)}
-      autoCorrect={false}
-      value={this.state.value}
-      style={{marginHorizontal:20}}
-    />
-
-
-
-        <FlatList
-          data={this.state.SavedItem}
-        //  keyExtractor={item => item.id.toString()}
-          showsVerticalScrollIndicator={false}
-          style={{ width: width * 0.9, height: height * 0.85}}
-          ListEmptyComponent={this.ListEmpty}
-        // onRefresh={() => }      
-        renderItem={this.renderItem}  
-       // ListHeaderComponent={this.renderHeader}
-        />
-        </Block>
+            <Block style={{ width: width * 0.9, height: height * 0.77}}>
+            <FlatList
+              data={this.state.SavedItem}
+              showsVerticalScrollIndicator={false}
+              keyExtractor={(item) => item.DataArray.id.toString()}
+              ListEmptyComponent={this.ListEmpty}
+              renderItem={this.renderItem}  
+            />
+            </Block>
+          </Block>
+        </ImageBackground>
       </Block>
     )
   }
-}
-);
+})
 
 const styles = StyleSheet.create({
- fl: {
-   
- },
-
-  top: {
-    marginBottom: 20 ,
-    marginTop: Constants.statusBarHeight,
-  }, 
-   card: {
+  card: {
     margin: 10,
-
   },
   titlecard: {
     top:-130,
@@ -195,16 +185,12 @@ const styles = StyleSheet.create({
     color:'#fff',
     position:'absolute',
     fontWeight:"bold",
-   // textShadowOffset:{width: -1,height: -1},
     lineHeight: 25,
     letterSpacing:1,
-    // textShadowColor: "#808088",
-    // textShadowRadius: 2,
     right:0,
     textShadowColor:'black',
     textShadowOffset:{width: 1, height: 1},
     textShadowRadius:20,
-   
   },
   paracard: {
     paddingTop:10,
@@ -214,5 +200,14 @@ const styles = StyleSheet.create({
   righticon: {
     right:10,
     position:"absolute"
+  },
+  profileContainer: {
+    padding: 0,
+    zIndex: 1
+  },
+  profileBackground: {
+    width: width,
+    height: height,
+    
   },
 });

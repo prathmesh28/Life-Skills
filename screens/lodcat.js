@@ -24,7 +24,7 @@ export default class SelectCat extends React.Component {
     } else {
       this.props.navigation.navigate("App");
     }
-    console
+   
   }
   render() {
     return (

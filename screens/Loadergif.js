@@ -18,11 +18,6 @@ const Loader = props => {
       animationType={'none'}
       visible={loading}
       onRequestClose={() => {console.log('close modal')}}>
-      {/* <View style={styles.modalBackground}> */}
-       {/* <View style={styles.activityIndicatorWrapper}>
-           <ActivityIndicator 
-            size="large" color="#1699e0"
-            animating={loading} /> */}
             <AnimatedLoader
                 visible={loading}
                 overlayColor="rgba(255,255,255,0.75)"
@@ -30,8 +25,6 @@ const Loader = props => {
                 animationStyle={styles.lottie}
                 speed={1}
             />
-        {/* </View> */}
-      {/* </View> */}
     </Modal>
   )
 }

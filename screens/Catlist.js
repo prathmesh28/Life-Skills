@@ -39,34 +39,25 @@ export default class Cattist extends React.Component {
     this.setState({
       loading: true,
     });
-    let renderData = [...this.state.renderData];
-   
-  
- 
-        for (let data of renderData) {
-          if (data.id == id) {
-            data.selected = (data.selected == false) ? true : !data.selected;
-            break;
-          }
-        }
-       
-         
-                  this.setState({ renderData });
-                  Firebase.database()
-                    .ref('UsersList/' + userid)
-                    .update({
-                      topiclist: this.state.renderData
-                    })
-    
-    //.then(() => console.log('Data updated.'));
-    setTimeout(() => {
+
+    let renderData = [...this.state.renderData]
+    for (let data of renderData) {
+      if (data.id == id) {
+        data.selected = (data.selected == false) ? true : !data.selected;
+        break;
+      }
+    }  
+    this.setState({ renderData });
+    Firebase.database()
+      .ref('UsersList/' + userid)
+      .update({
+        topiclist: this.state.renderData
+      })
       this.setState({
         loading: false,
-      });
-    }, 2500);
+      })
   }
-
-
+  
   render() {
     return (
       <View style={styles.Container} >
@@ -124,7 +115,7 @@ const styles = StyleSheet.create({
     width: width * 0.26,
     height: width * 0.33,
     // borderWidth:1,
-    elevation: 6,
+    elevation: 5,
   },
   img: {
     width: width * 0.2,

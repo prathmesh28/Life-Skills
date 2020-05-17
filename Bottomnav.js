@@ -21,7 +21,7 @@ export default class MyComponent extends React.Component {
         key: "heart",
         title: "Saved",
         icon: "heart",
-        color: "#009688",
+        color: "#1699e0",
       },
       {
         key: "profile",
