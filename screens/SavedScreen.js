@@ -80,7 +80,7 @@ export default withNavigation(
 
   ListEmpty = () => {
     return (
-      <View style={{ marginTop:20 }}>
+      <View style={{ marginTop: height*0.3 }}>
         <Text style={{ 
               fontSize: 22,
               position:'relative',

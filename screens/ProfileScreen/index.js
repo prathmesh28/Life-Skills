@@ -57,6 +57,7 @@ export default class ProfileScreen extends React.Component {
 
             <Block flex style={styles.profileCard}>
               <Block middle style={styles.avatarContainer}>
+              {this.state.loadpic &&<ActivityIndicator  size="large" color="#741cc7"/> }
                 <Image
                   source={{ 
                     uri: this.state.photoURL }}
@@ -64,7 +65,7 @@ export default class ProfileScreen extends React.Component {
                   onLoadEnd={ ()=>{ this.setState({ loadpic: false })}}
                   />
                     
-            {this.state.loadpic &&<ActivityIndicator  size="large" color="#741cc7"/> }
+           
               </Block>
 
               <Block flex>
