@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, StatusBar, StyleSheet, FlatList, Dimensions, ToastAndroid, ActivityIndicator, ImageBackground , TouchableOpacity , View } from "react-native";
+import { Image, Text, StatusBar, StyleSheet, FlatList, Dimensions, ToastAndroid, ImageBackground , TouchableOpacity , View } from "react-native";
 import { Block } from "galio-framework";
 import { Card, Colors, Title, ToggleButton, Paragraph, Button, Searchbar } from "react-native-paper";
 import Firebase from "../firebase";
@@ -15,6 +15,7 @@ export default withNavigation(
     this.state = {
       SavedItem: [],
       loading: false,
+      top: false
     };
   this.arrayholder = [];
   }
@@ -26,7 +27,7 @@ export default withNavigation(
     this.setState({
       loading: true
     })
-
+ 
     Firebase.database().ref('UsersList/' + uid).on('value', snapshot => {
       if(snapshot.val().savedlist === "new"){
         this.setState({ SavedItem: [] })
@@ -118,6 +119,11 @@ export default withNavigation(
       </Card>
     )
   }
+
+  upButtonHandler = () => {
+    this.ListView_Ref.scrollToOffset({ offset: 0,  animated: true });
+    this.setState({ top: false})
+  }
   render() {
     return (
       <Block flex  style={{ backgroundColor: '#fff'}}>
@@ -166,7 +172,26 @@ export default withNavigation(
               keyExtractor={(item) => item.DataArray.id.toString()}
               ListEmptyComponent={this.ListEmpty}
               renderItem={this.renderItem}  
+              onScrollToTop={() => this.setState({ top: false})}
+              onMomentumScrollBegin={() => this.setState({ top: true})}
+              ref={(ref) => {
+                this.ListView_Ref = ref;
+              }}
+              onEndThreshold={0}
             />
+             {this.state.top &&<TouchableOpacity
+            activeOpacity={0.8}
+            onPress={this.upButtonHandler}
+            style={styles.upButton}>
+              <Image
+                source={{
+                  uri:
+                    'https://upload-icon.s3.us-east-2.amazonaws.com/uploads/icons/png/13543369451543238868-512.png',
+                }}
+                style={styles.upButtonImage}
+              />
+              <Text>Top</Text>
+          </TouchableOpacity>}
             </Block>
           </Block>
         </ImageBackground>
@@ -209,5 +234,22 @@ const styles = StyleSheet.create({
     width: width,
     height: height,
     
+  },
+  upButtonImage: {
+    resizeMode: 'contain',
+    width: 30,
+    height: 30,
+  },
+  upButton: {
+    position: 'absolute',
+    backgroundColor: '#fff',
+    borderRadius:50,
+    opacity: 0.7,
+    width: 50,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    right: 30,
+    bottom: 70,
   },
 });

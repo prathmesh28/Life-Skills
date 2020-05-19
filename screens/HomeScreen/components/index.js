@@ -159,9 +159,6 @@ export default withNavigation(
             showsVerticalScrollIndicator={false}
             refreshing={this.state.isRefreshing}
             onRefresh={this.onRefresh.bind(this)}
-            //onScrollBeginDrag={() => this.setState({ top: true})}
-            //onScroll={() => this.setState({ top: true})}
-            
             onScrollToTop={() => this.setState({ top: false})}
             onMomentumScrollBegin={() => this.setState({ top: true})}
 

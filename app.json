@@ -22,7 +22,13 @@
       ]
     },
     "android": {
-      "package": "com.prthmsh18.lifeskills"
+      "package": "com.prthmsh18.lifeskils",
+      "config": {
+        "googleSignIn": {
+          "apiKey" : "AIzaSyBNQa0aymVX7PlxThXq_UBaMR95yuwjXvs",
+          "certificateHash": "d8:ae:25:09:85:fc:9b:5e:dc:07:24:58:1b:ea:81:08:e3:8c:da:e8"
+        }
+      }
     },
     "ios": {
       "supportsTablet": true,

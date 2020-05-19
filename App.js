@@ -11,6 +11,8 @@ import SelectCat from "./screens/SelectCat"
 import Loadcat from "./screens/lodcat"
 import * as Facebook from 'expo-facebook'
 
+import WebViewScreen from "./screens/HomeScreen/components/WebViewScreen";
+
 Facebook.initializeAsync('2926256467492608', 'Life Skill')
 const AuthStack = createStackNavigator({
   Start: StartScreen,
@@ -31,7 +33,17 @@ const Container = createAppContainer(
       Auth: AuthStack,
       Lcat: Loadcat,
       Cat: SelectCat,
-      App: Bottomnav,
+      App: createAppContainer(
+        createStackNavigator(
+          {
+            App: Bottomnav,
+            WebViewScreen: WebViewScreen,
+          },
+          {
+            headerMode: "none",
+          }
+        )
+      ),
     },
     {
       initialRouteName: "Loading"
@@ -40,25 +52,12 @@ const Container = createAppContainer(
 );
 
 class App extends React.Component {
-  // state = {
-  //   isLoaded: false,
-  // }
 
-  // setAppLoaded = () => {
-  //   this.setState({ isLoaded: true })
-  // }
 
   render() {
     return (
-      // <AnimatedSplash
-      //   isLoaded={this.state.isLoaded}
-      //   logoImage={require("./assets/logo.png")}
-      //   backgroundColor={"#262626"}
-      //   logoHeight={150}
-      //   logoWidht={150}
-      // >
       <Container screenProps={{ setAppLoaded: this.setAppLoaded }} />
-      // </AnimatedSplash>
+      
     )
   }
 }
