@@ -28,7 +28,7 @@ export default withNavigation(
       loading: true
     })
  
-    Firebase.database().ref('UsersList/' + uid).on('value', snapshot => {
+    Firebase.database().ref('UsersList/' + uid).orderByValue().on('value', snapshot => {
       if(snapshot.val().savedlist === "new"){
         this.setState({ SavedItem: [] })
       }else{
@@ -167,13 +167,12 @@ export default withNavigation(
 
             <Block style={{ width: width * 0.9, height: height * 0.77}}>
             <FlatList
+              
               data={this.state.SavedItem}
               showsVerticalScrollIndicator={false}
               keyExtractor={(item) => item.DataArray.id.toString()}
               ListEmptyComponent={this.ListEmpty}
-              renderItem={this.renderItem}  
-              onScrollToTop={() => this.setState({ top: false})}
-              onMomentumScrollBegin={() => this.setState({ top: true})}
+              renderItem={this.renderItem} 
               ref={(ref) => {
                 this.ListView_Ref = ref;
               }}

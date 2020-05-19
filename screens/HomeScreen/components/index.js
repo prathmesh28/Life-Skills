@@ -38,12 +38,20 @@ export default withNavigation(
               }
             })
             this.setState({ hio }); 
-      })
+
+           // if(this.state.hio.includes(item.DataArray.contentType)){
+            
+      
       Firebase.database()
         .ref("TopicsData/")
-        .on("value", (snapshot) => {
-          this.setState({ InfoData : snapshot.val() })
+        .once("value", (snapshot) => {
+          const result = snapshot.val().filter((itm) => this.state.hio.includes(itm.DataArray.contentType) )
+          console.log(this.state.hio)
+          this.setState({ InfoData : result })
         })
+
+      })
+
 
       setTimeout(() => {
         this.setState({
@@ -104,7 +112,6 @@ export default withNavigation(
 
 
     renderItem = ({item}) => {
-      if(this.state.hio.includes(item.DataArray.contentType)){
         return( 
           <Card style={styles.card}>
             <TouchableOpacity onPress={() => { this.openWebView(item.DataArray.url) }}>
@@ -124,7 +131,7 @@ export default withNavigation(
               </Card.Actions>
             </TouchableOpacity>
         </Card>
-      )}
+      )
     }
     
     onRefresh() {
@@ -148,7 +155,6 @@ export default withNavigation(
     }
 
     render() {
-      const { searchQuery } = this.state;
       return (
         <View style={styles.Container}>
           <Loader loading={this.state.loading} />

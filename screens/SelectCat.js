@@ -68,7 +68,7 @@ export default class SelectCat extends React.Component {
                   <Catlist />
                 </Block>
                 <Text italic size={12} style={styles.text}>
-                   *Please select atleat one topic
+                   *Please select atleat one topic.
                 </Text>
                 <Button
                   color="primary"
