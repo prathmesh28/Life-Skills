@@ -39,14 +39,11 @@ export default withNavigation(
             })
             this.setState({ hio }); 
 
-           // if(this.state.hio.includes(item.DataArray.contentType)){
-            
-      
+         
       Firebase.database()
         .ref("TopicsData/")
         .once("value", (snapshot) => {
           const result = snapshot.val().filter((itm) => this.state.hio.includes(itm.DataArray.contentType) )
-          console.log(this.state.hio)
           this.setState({ InfoData : result })
         })
 
