@@ -15,7 +15,7 @@
     },
     "splash": {
       "image": "./assets/logo.png",
-      "resizeMode": "200x200"
+      "resizeMode": "contain"
     },
     "packagerOpts": {
       "assetExts": [
