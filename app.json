@@ -13,6 +13,10 @@
       "icon": "./assets/icon.png",
       "hideExponentText": false
     },
+    "splash": {
+      "image": "./assets/logo.png",
+      "resizeMode": "200x200"
+    },
     "packagerOpts": {
       "assetExts": [
         "ttf",
@@ -21,18 +25,23 @@
         "xml"
       ]
     },
+    "ios": {
+      "bundleIdentifier": "com.prthmsh18.lifeskils",
+      "config": {
+        "googleSignIn": {
+            "reservedClientId": "1092057614213-immhnu3nt79fvhmq1st8dl32qlk6o352.apps.googleusercontent.com"       
+         }
+      },
+      "supportsTablet": true
+    },
     "android": {
       "package": "com.prthmsh18.lifeskils",
       "config": {
         "googleSignIn": {
-          "apiKey" : "AIzaSyBNQa0aymVX7PlxThXq_UBaMR95yuwjXvs",
-          "certificateHash": "d8:ae:25:09:85:fc:9b:5e:dc:07:24:58:1b:ea:81:08:e3:8c:da:e8"
+          "apiKey" : "AIzaSyC8NXFf3mDpbj7RUH30Uk7R_8_gcZKUSQg",
+          "certificateHash": "34:E5:18:BF:DE:0D:65:4A:A5:D1:54:59:5C:10:84:DE:1C:56:F1:E9"
         }
       }
-    },
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.prthmsh18.lifeskils"
     },
     "githubUrl": "https://github.com/prathmesh28/Life-Skills"
   }
