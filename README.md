@@ -1,8 +1,30 @@
+# Life Skills App
 
-## Available Scripts
+Life Skills app
 
-In the project directory, you can run:
+## Getting Started
 
-### `npm install`
+This project is made using [React Native Expo](https://docs.expo.io/).
 
-### `npm start`
+### Apk
+
+[Android]
+
+### Available Scripts
+Install the dependencies
+
+```
+npm install
+```
+
+Start Metro
+
+``` 
+npm start 
+``` 
+
+
+## Built With
+
+* [React Native Expo](https://docs.expo.io/) - Web framework 
+* [Google Firebase](https://firebase.google.com/) - Backend Database
