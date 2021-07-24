@@ -37,7 +37,7 @@
     "react-native-password-strength-meter": "0.0.3",
     "react-native-safe-area-context": "^1.0.0",
     "react-native-screens": "^2.7.0",
-    "react-native-webview": "7.4.3",
+    "react-native-webview": "11.0.0",
     "react-navigation": "^4.0.7",
     "react-navigation-stack": "2.0.13",
     "react-navigation-tabs": "2.7.0",
